@@ -3,3 +3,8 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    # config/routes.yaml
+read_database:
+    path: /read-database
+    controller: App\Controller\DatabaseController::readDatabase
+
