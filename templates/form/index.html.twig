@@ -8,7 +8,15 @@
 		<div class="myform">
 			<button class="accordion">Section 1</button>
 			<div class="panel">
-				<p>Lorem ipsum...</p>
+				<div class="form-group-panel">
+					{% for i in range(1, 5) %}
+						<checkbox><input type="checkbox" class="my-check-box" id="" name="" value="">
+							<label for="">I have a bike</label>
+						</checkbox>
+					{% endfor %}
+				</div>
+
+
 			</div>
 
 			<button class="accordion">Section 2</button>
