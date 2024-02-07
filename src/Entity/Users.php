@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,14 @@ class Users
 
     #[ORM\Column]
     private ?bool $isAdmin = null;
+
+    #[ORM\OneToMany(targetEntity: Characteres::class, mappedBy: 'idUsers')]
+    private Collection $characteres;
+
+    public function __construct()
+    {
+        $this->characteres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +130,36 @@ class Users
     public function setIsAdmin(bool $isAdmin): static
     {
         $this->isAdmin = $isAdmin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Characteres>
+     */
+    public function getCharacteres(): Collection
+    {
+        return $this->characteres;
+    }
+
+    public function addCharactere(Characteres $charactere): static
+    {
+        if (!$this->characteres->contains($charactere)) {
+            $this->characteres->add($charactere);
+            $charactere->setIdUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharactere(Characteres $charactere): static
+    {
+        if ($this->characteres->removeElement($charactere)) {
+            // set the owning side to null (unless already changed)
+            if ($charactere->getIdUsers() === $this) {
+                $charactere->setIdUsers(null);
+            }
+        }
 
         return $this;
     }

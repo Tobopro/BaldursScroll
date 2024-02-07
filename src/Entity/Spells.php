@@ -28,6 +28,12 @@ class Spells
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $icon = null;
 
+    #[ORM\OneToOne(mappedBy: 'idSpell', cascade: ['persist', 'remove'])]
+    private ?ClassesSpells $classesSpells = null;
+
+    #[ORM\OneToOne(mappedBy: 'idSpell', cascade: ['persist', 'remove'])]
+    private ?SpellsLevel $spellsLevel = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +95,40 @@ class Spells
     public function setIcon(?string $icon): static
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getClassesSpells(): ?ClassesSpells
+    {
+        return $this->classesSpells;
+    }
+
+    public function setClassesSpells(ClassesSpells $classesSpells): static
+    {
+        // set the owning side of the relation if necessary
+        if ($classesSpells->getIdSpell() !== $this) {
+            $classesSpells->setIdSpell($this);
+        }
+
+        $this->classesSpells = $classesSpells;
+
+        return $this;
+    }
+
+    public function getSpellsLevel(): ?SpellsLevel
+    {
+        return $this->spellsLevel;
+    }
+
+    public function setSpellsLevel(SpellsLevel $spellsLevel): static
+    {
+        // set the owning side of the relation if necessary
+        if ($spellsLevel->getIdSpell() !== $this) {
+            $spellsLevel->setIdSpell($this);
+        }
+
+        $this->spellsLevel = $spellsLevel;
 
         return $this;
     }

@@ -16,6 +16,12 @@ class Levels
     #[ORM\Column]
     private ?int $level = null;
 
+    #[ORM\OneToOne(mappedBy: 'idLevel', cascade: ['persist', 'remove'])]
+    private ?RacesSpells $racesSpells = null;
+
+    #[ORM\OneToOne(mappedBy: 'idLevel', cascade: ['persist', 'remove'])]
+    private ?SpellsLevel $spellsLevel = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +35,40 @@ class Levels
     public function setLevel(int $level): static
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    public function getRacesSpells(): ?RacesSpells
+    {
+        return $this->racesSpells;
+    }
+
+    public function setRacesSpells(RacesSpells $racesSpells): static
+    {
+        // set the owning side of the relation if necessary
+        if ($racesSpells->getIdLevel() !== $this) {
+            $racesSpells->setIdLevel($this);
+        }
+
+        $this->racesSpells = $racesSpells;
+
+        return $this;
+    }
+
+    public function getSpellsLevel(): ?SpellsLevel
+    {
+        return $this->spellsLevel;
+    }
+
+    public function setSpellsLevel(SpellsLevel $spellsLevel): static
+    {
+        // set the owning side of the relation if necessary
+        if ($spellsLevel->getIdLevel() !== $this) {
+            $spellsLevel->setIdLevel($this);
+        }
+
+        $this->spellsLevel = $spellsLevel;
 
         return $this;
     }
