@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharactersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharactersRepository::class)]
@@ -40,17 +42,21 @@ class Characters
     #[ORM\Column(length: 20)]
     private ?string $abilityScoreBonus2 = null;
 
-    #[ORM\ManyToOne(inversedBy: 'characteres')]
+    #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
     private ?SubRaces $idSubRace = null;
 
-    #[ORM\ManyToOne(inversedBy: 'characteres')]
+    #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
     private ?SubClasses $idSubClasses = null;
 
-    #[ORM\ManyToOne(inversedBy: 'characteres')]
+    #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $idUsers = null;
+
+
+
+    
 
     public function getId(): ?int
     {
@@ -141,26 +147,26 @@ class Characters
         return $this;
     }
 
-    public function getAbilityScoreBonnus1(): ?string
+    public function getAbilityScoreBonus1(): ?string
     {
         return $this->abilityScoreBonus1;
     }
 
-    public function setAbilityScoreBonnus1(string $abilityScoreBonnus1): static
+    public function setAbilityScoreBonus1(string $abilityScoreBonus1): static
     {
-        $this->abilityScoreBonus1 = $abilityScoreBonnus1;
+        $this->abilityScoreBonus1 = $abilityScoreBonus1;
 
         return $this;
     }
 
-    public function getAbilityScoreBonnus2(): ?string
+    public function getAbilityScoreBonus2(): ?string
     {
         return $this->abilityScoreBonus2;
     }
 
-    public function setAbilityScoreBonnus2(string $abilityScoreBonnus2): static
+    public function setAbilityScoreBonus2(string $abilityScoreBonus2): static
     {
-        $this->abilityScoreBonus2 = $abilityScoreBonnus2;
+        $this->abilityScoreBonus2 = $abilityScoreBonus2;
 
         return $this;
     }
@@ -200,4 +206,8 @@ class Characters
 
         return $this;
     }
+
+   
+
+    
 }

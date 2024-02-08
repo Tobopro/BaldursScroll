@@ -398,3 +398,16 @@ body {
     height: 15vw;
 
 }
+/* pagination */
+.pagination{
+    background-color: #fff;
+}
+
+.pagination a {
+    /*background-color: #2980b9;  Fond de chaque élément de pagination */
+    color: #010101; /* Couleur du texte de chaque élément de pagination */
+}
+.pagination .current {
+    /*background-color: #2980b9;  Fond de chaque élément de pagination */
+    color: #5c5d2a; /* Couleur du texte de chaque élément de pagination */
+}

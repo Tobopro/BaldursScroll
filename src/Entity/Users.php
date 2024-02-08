@@ -37,12 +37,12 @@ class Users
     #[ORM\Column]
     private ?bool $isAdmin = null;
 
-    #[ORM\OneToMany(targetEntity: Characteres::class, mappedBy: 'idUsers')]
-    private Collection $characteres;
+    #[ORM\OneToMany(targetEntity: characters::class, mappedBy: 'idUsers')]
+    private Collection $characters;
 
     public function __construct()
     {
-        $this->characteres = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,29 +135,29 @@ class Users
     }
 
     /**
-     * @return Collection<int, Characteres>
+     * @return Collection<int, characters>
      */
-    public function getCharacteres(): Collection
+    public function getcharacters(): Collection
     {
-        return $this->characteres;
+        return $this->characters;
     }
 
-    public function addCharactere(Characteres $charactere): static
+    public function addcharacter(characters $character): static
     {
-        if (!$this->characteres->contains($charactere)) {
-            $this->characteres->add($charactere);
-            $charactere->setIdUsers($this);
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+            $character->setIdUsers($this);
         }
 
         return $this;
     }
 
-    public function removeCharactere(Characteres $charactere): static
+    public function removecharacter(characters $character): static
     {
-        if ($this->characteres->removeElement($charactere)) {
+        if ($this->characters->removeElement($character)) {
             // set the owning side to null (unless already changed)
-            if ($charactere->getIdUsers() === $this) {
-                $charactere->setIdUsers(null);
+            if ($character->getIdUsers() === $this) {
+                $character->setIdUsers(null);
             }
         }
 
