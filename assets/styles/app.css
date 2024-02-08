@@ -363,6 +363,12 @@ body {
     overflow: hidden;
 }
 
+.form-group-panel {
+    display: flex;
+    margin: 5vh;
+}
+
+
 /*PROFILE*/
 
 .profile-pic-container {
