@@ -9,7 +9,14 @@
 		<div class="dashboard-filter">
 			<form-check></form-check>
 		</div>
-		{{dump(pagination.items)}}
+		<div class="pagination-container">
+			<div class="pagination">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+
+		</div>
+
+
 		<div class="dashboard-cards">
 			{% for character in pagination.items %}
 				<a
@@ -27,9 +34,7 @@
 				</a>
 			{% endfor %}
 		</div>
-		<div class="pagination">
-			{{ knp_pagination_render(pagination) }}
-		</div>
+
 	</div>
 
 

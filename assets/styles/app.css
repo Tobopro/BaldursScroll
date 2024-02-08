@@ -613,16 +613,54 @@ h6 {
     height: 15vw;
 
 }
+
 /* pagination */
-.pagination{
-    background-color: #fff;
+.pagination-container {
+    margin-top: 1vh;
+    display: flex;
+    justify-content: end;
+    width: 80%;
+}
+
+.pagination {
+
+    justify-content: end;
+
 }
 
 .pagination a {
-    /*background-color: #2980b9;  Fond de chaque élément de pagination */
-    color: #010101; /* Couleur du texte de chaque élément de pagination */
+
+
+    /* margin: 15px;
+    color: #010101;*/
+
+
+    background-color: #e7e7e7;
+    /* Green */
+    border: none;
+    color: #1D1D1D;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+
+
 }
+
 .pagination .current {
     /*background-color: #2980b9;  Fond de chaque élément de pagination */
-    color: #5c5d2a; /* Couleur du texte de chaque élément de pagination */
+
+    background-color: #CC8828;
+    /* Green */
+    border: none;
+    color: #1D1D1D;
+    padding: 15px 32px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /* Couleur du texte de chaque élément de pagination */
 }
