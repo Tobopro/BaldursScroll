@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FormController extends AbstractController
+class BuilderController extends AbstractController
 {
-    #[Route('/form', name: 'app_form')]
+    #[Route('/builder', name: 'app_Builder')]
     public function index(): Response
     {
-        return $this->render('form/index.html.twig', [
-            'controller_name' => 'FormController',
+        return $this->render('builder/index.html.twig', [
+            'controller_name' => 'BuilderController',
         ]);
     }
 }
