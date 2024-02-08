@@ -530,6 +530,8 @@ h6 {
     overflow: hidden;
 }
 
+
+
 .form-group-panel {
     display: flex;
     margin: 5vh;
@@ -564,6 +566,15 @@ h6 {
     height: 100%;
     border-radius: 15px;
 
+}
+
+
+/*BUILD*/
+
+.panel-open {}
+
+.info-panel {
+    margin-left: 2vw;
 }
 
 
