@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="myform-container">
 		<div class="myform">
-			<button class="accordion">Section 1</button>
+			<button class="accordion">Classes</button>
 			<div class="panel">
 				<div class="form-group-panel">
 					{% for i in range(1, 5) %}
@@ -19,7 +19,8 @@
 
 			</div>
 
-			<button class="accordion">Section 2</button>
+			<button class="accordion">Races
+			</button>
 			<div class="panel">
 				<p>Lorem ipsum...</p>
 			</div>
@@ -32,6 +33,8 @@
 		</div>
 
 	</div>
+
+	<script src='{{ asset('js/builder.js') }}'></script>
 
 
 {% endblock %}

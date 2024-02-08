@@ -2,7 +2,17 @@ body {
     background-color: #2F2F2F;
     background-image: url("../img/background_scroll2.png");
     background-size: 50%;
+    font-family: 'Rationale', sans-serif;
 
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Aldrich', sans-serif;
 }
 
 .mycontainer {
@@ -347,6 +357,7 @@ body {
     border: none;
     outline: none;
     transition: 0.4s;
+    font-family: 'Aldrich', sans-serif;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
