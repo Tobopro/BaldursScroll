@@ -1,6 +1,6 @@
 body {
     background-color: #2F2F2F;
-    background-image: url("../img/background_scroll2.png");
+    background-image: url("../img/background_scroll.png");
     background-size: 50%;
     font-family: 'Rationale', sans-serif;
     color: #CC8828;
@@ -253,8 +253,9 @@ h6 {
 
 .myfooter-container {
     background-color: #5D2A42;
-    background-image: url("../img/background_scroll2.png");
-    background-size: 90%;
+    background-image: url("../img/background_scroll.png");
+    background-size: 60%;
+    background-position: 50%;
     color: white;
     padding: 0;
     text-align: center;
