@@ -1,36 +1,73 @@
 var acc = document.getElementsByClassName("accordion");
 
-var submitButtonWrapper = document.createElement("div"); // Créer une div parent
-submitButtonWrapper.classList.add('submit-button-container');
-var submitButton = document.createElement("button");
-submitButton.innerText = "Submit";
-submitButton.style.display = "none";
-submitButton.classList.add("submit-button"); // Ajouter la classe au bouton
+// var submitButton = document.createElement("button");
+// submitButton.innerText = "Submit";
+// submitButton.style.display = "none";
 
-submitButtonWrapper.appendChild(submitButton); // Ajouter le bouton à la div parent
+document.addEventListener("DOMContentLoaded", function () {
+    var sections = document.querySelectorAll('.panel');
+    var submitButton = document.createElement('button');
+    var submitButtonWrapper = document.createElement("div");
+    var submitButtonInfo = document.createElement("div");
+    submitButton.classList.add("submit-button");
+    submitButton.innerText = 'Submit';
+    submitButton.style.display = 'none';
+    submitButtonWrapper.classList.add('submit-button-container');
+    submitButtonInfo.classList.add('submit-button-info')
 
-document.querySelector('.last-section').appendChild(submitButtonWrapper); // Ajouter la div parent à la dernière section
 
-function checkIfChecked() {
-    var checkboxes = document.querySelectorAll('.last-section input[type="checkbox"]');
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            submitButton.style.display = "block";
-            return;
+
+
+
+    // Cacher le bouton initialement
+
+    var allSectionsChecked = false;
+
+    // Vérifier si toutes les cases de chaque section sont cochées
+    function checkAllSectionsChecked() {
+        allSectionsChecked = true;
+        sections.forEach(function (section) {
+            var checkboxes = section.querySelectorAll('input[type="checkbox"]');
+            var sectionChecked = false;
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    sectionChecked = true;
+                }
+            });
+            if (!sectionChecked) {
+                allSectionsChecked = false;
+            }
+        });
+
+        // Afficher le bouton de soumission si toutes les sections sont cochées
+        if (allSectionsChecked) {
+            submitButton.style.display = 'block';
+            submitButtonInfo.innerHTML = '';
+        } else {
+            submitButton.style.display = 'none';
+            submitButtonInfo.innerHTML = 'Il faut cocher un choix par catégorie pour valider le formulaire.';
+
         }
     }
-    submitButton.style.display = "none";
-}
 
-var lastSectionCheckboxes = document.querySelectorAll('.last-section input[type="checkbox"]');
-for (var i = 0; i < lastSectionCheckboxes.length; i++) {
-    lastSectionCheckboxes[i].addEventListener("click", checkIfChecked);
-}
+    // Ajouter un écouteur d'événements à chaque case
+    sections.forEach(function (section) {
+        var checkboxes = section.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', checkAllSectionsChecked);
+        });
+    });
 
-submitButton.addEventListener("click", function () {
-    alert("Form submitted!");
+    document.querySelector('.last-section').appendChild(submitButtonWrapper); // Ajouter la div parent à la dernière section
+    document.querySelector('.last-section').appendChild(submitButtonInfo); // Ajouter la div parent à la dernière section
+    submitButtonWrapper.appendChild(submitButton); // Ajouter le bouton à la div parent
+
+    // Ajouter un gestionnaire d'événements pour le clic sur le bouton de soumission
+    submitButton.addEventListener('click', function () {
+        alert('Form submitted!');
+    });
 });
-var i;
+
 
 for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
