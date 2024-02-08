@@ -6,14 +6,15 @@
 {% block body %}
 	<div class="myform-container">
 		<div class="myform">
-			<button class="accordion">Classes</button>
+			<button class="accordion first-section-builder">Classes</button>
 			<div class="panel">
 				<div class="form-group-panel">
 					{% for i in range(1, 5) %}
-						<checkbox><input type="checkbox" class="my-check-box" id="" name="" value="">
-							<label for="">Choice</label>
+						<label class="container-checkbox">One
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
 
-						</checkbox>
 					{% endfor %}
 				</div>
 
@@ -25,12 +26,14 @@
 			<div class="panel">
 				<div class="form-group-panel">
 					{% for i in range(1, 5) %}
-						<checkbox><input type="checkbox" class="my-check-box" id="" name="" value="">
-							<label for="">Choice</label>
+						<label class="container-checkbox">One
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
 
-						</checkbox>
 					{% endfor %}
 				</div>
+
 
 			</div>
 
@@ -38,24 +41,29 @@
 			<div class="panel">
 				<div class="form-group-panel">
 					{% for i in range(1, 5) %}
-						<checkbox><input type="checkbox" class="my-check-box" id="" name="" value="">
-							<label for="">Choice</label>
+						<label class="container-checkbox">One
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
 
-						</checkbox>
 					{% endfor %}
 				</div>
+
 
 			</div>
 
 			<button class="accordion">Sous-races</button>
-			<div class="panel">
+			<div class="panel last-section">
 				<div class="form-group-panel">
 					{% for i in range(1, 5) %}
-						<checkbox><input type="checkbox" class="my-check-box" id="" name="" value="">
-							<label for="">Choice</label>
-						</checkbox>
+						<label class="container-checkbox">One
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
+
 					{% endfor %}
 				</div>
+
 
 			</div>
 
