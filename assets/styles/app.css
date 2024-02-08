@@ -39,7 +39,8 @@ h6 {
     top: 0;
     min-height: 50px;
     width: 95vw;
-    background-color: #5D2A42;
+    /* background-color: #5D2A42; */
+    background-color: #004266;
     color: black;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -202,7 +203,7 @@ h6 {
     right: 0;
     min-height: 50px;
     width: auto;
-    background-color: #5D2A42;
+    background-color: #004266;
     color: black;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -252,7 +253,7 @@ h6 {
 
 
 .myfooter-container {
-    background-color: #5D2A42;
+    background-color: #004266;
     background-image: url("../img/background_scroll.png");
     background-size: 60%;
     background-position: 50%;
@@ -311,7 +312,7 @@ h6 {
 
 .dashboard-filter {
     width: 85vw;
-    background-color: #5D2A42;
+    background-color: #004266;
     min-height: 25px;
     border-radius: 30px;
 
@@ -571,7 +572,6 @@ h6 {
 
 /*BUILD*/
 
-.panel-open {}
 
 .info-panel {
     margin-left: 2vw;
