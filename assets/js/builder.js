@@ -1,4 +1,35 @@
 var acc = document.getElementsByClassName("accordion");
+
+var submitButtonWrapper = document.createElement("div"); // Créer une div parent
+submitButtonWrapper.classList.add('submit-button-container');
+var submitButton = document.createElement("button");
+submitButton.innerText = "Submit";
+submitButton.style.display = "none";
+submitButton.classList.add("submit-button"); // Ajouter la classe au bouton
+
+submitButtonWrapper.appendChild(submitButton); // Ajouter le bouton à la div parent
+
+document.querySelector('.last-section').appendChild(submitButtonWrapper); // Ajouter la div parent à la dernière section
+
+function checkIfChecked() {
+    var checkboxes = document.querySelectorAll('.last-section input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            submitButton.style.display = "block";
+            return;
+        }
+    }
+    submitButton.style.display = "none";
+}
+
+var lastSectionCheckboxes = document.querySelectorAll('.last-section input[type="checkbox"]');
+for (var i = 0; i < lastSectionCheckboxes.length; i++) {
+    lastSectionCheckboxes[i].addEventListener("click", checkIfChecked);
+}
+
+submitButton.addEventListener("click", function () {
+    alert("Form submitted!");
+});
 var i;
 
 for (i = 0; i < acc.length; i++) {

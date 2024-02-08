@@ -88,7 +88,7 @@ h6 {
 
 .mynav-research i {
     margin-right: 1vw;
-    color: #CC8828;
+    color: whitesmoke;
 
 }
 
@@ -101,7 +101,7 @@ h6 {
 }
 
 .mynav-list i {
-    color: #CC8828;
+    color: whitesmoke;
 }
 
 @media only screen and (max-width: 992px) {
@@ -119,7 +119,7 @@ h6 {
 }
 
 .mynav-pencil i {
-    color: #CC8828;
+    color: whitesmoke;
 }
 
 @media only screen and (max-width: 992px) {
@@ -137,12 +137,12 @@ h6 {
 }
 
 .mynav-login i {
-    color: #CC8828;
+    color: whitesmoke;
 
 }
 
 .mynav-login a {
-    color: #CC8828;
+    color: whitesmoke;
     text-decoration: none;
 
 }
@@ -532,6 +532,24 @@ h6 {
 .form-group-panel {
     display: flex;
     margin: 5vh;
+}
+
+.submit-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.submit-button {
+
+
+
+    background-color: #CC8828;
+    border-radius: 15px;
+    width: 10rem;
+    height: 3rem;
+    text-decoration: none;
+    border-color: none;
 }
 
 
