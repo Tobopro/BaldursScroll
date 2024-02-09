@@ -12,7 +12,7 @@
 		{# {{dump(pagination.items)}} #}
 		<div class="dashboard-cards">
 			{% for character in pagination.items %}
-				{# {{dump(character)}} #}
+				{{dump(character)}}
 				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
 					<div class="card">
 						 <img src="{{asset(character.idSubClasses.icon)}}" alt="{{ character.name }}"> 
