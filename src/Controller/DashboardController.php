@@ -13,9 +13,11 @@ use App\Entity\Characters;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'app_dashboard')]
-    public function index(PaginatorInterface $paginator, Request $request,CharactersRepository $charactersRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, CharactersRepository $charactersRepository): Response
     {
-        $characters = $charactersRepository->findAll();
+
+
+
 
         //  $characters = [
         //     [
@@ -60,18 +62,29 @@ class DashboardController extends AbstractController
         //         'picture' => 'https://i.pinimg.com/564x/a1/b2/bd/a1b2bda799030a5a1c849de90ad13c0c.jpg',
         //         'spells' => ['Sword Mastery', 'Shield Defense', 'Horn of Gondor'],
         //     ],
-            
+
         // ];
+        // Récupérer tous les personnages
+        $characters = $charactersRepository->findAll();
+
+        foreach ($characters as $character) {
+            $subRaceName = $character->getIdSubRace()->getName();
+            $subClassName = $character->getIdSubClasses()->getName();
+
+            $character->subRaceName = $subRaceName;
+            $character->subClassName = $subClassName;
+        }
 
         $pagination = $paginator->paginate(
             $characters,
             $request->query->getInt('page', 1), // Le numéro de la page actuelle
             3 // Nombre d'éléments par page
         );
+
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
             'pagination' => $pagination,
-            // 'characters' => $characters
+            // 'characters' => $characters 
         ]);
     }
 }

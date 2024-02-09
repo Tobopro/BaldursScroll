@@ -54,6 +54,14 @@ class Characters
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $idUsers = null;
 
+    #[ORM\OneToMany(targetEntity: Levels::class, mappedBy: 'characters')]
+    private Collection $idLevel;
+
+    public function __construct()
+    {
+        $this->idLevel = new ArrayCollection();
+    }
+
 
 
     
@@ -203,6 +211,36 @@ class Characters
     public function setIdUsers(?Users $idUsers): static
     {
         $this->idUsers = $idUsers;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Levels>
+     */
+    public function getIdLevel(): Collection
+    {
+        return $this->idLevel;
+    }
+
+    public function addIdLevel(Levels $idLevel): static
+    {
+        if (!$this->idLevel->contains($idLevel)) {
+            $this->idLevel->add($idLevel);
+            $idLevel->setCharacters($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdLevel(Levels $idLevel): static
+    {
+        if ($this->idLevel->removeElement($idLevel)) {
+            // set the owning side to null (unless already changed)
+            if ($idLevel->getCharacters() === $this) {
+                $idLevel->setCharacters(null);
+            }
+        }
 
         return $this;
     }

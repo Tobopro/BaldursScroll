@@ -9,21 +9,21 @@
 		<div class="dashboard-filter">
 			<form-check></form-check>
 		</div>
-		{{dump(pagination.items)}}
+		{# {{dump(pagination.items)}} #}
 		<div class="dashboard-cards">
 			{% for character in pagination.items %}
-				<a
-					href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
-					{# <div class="card"> #}
-					<img src="{{ character.picture }}" alt="{{ character.name }}">
-					<div class="card-content">
-						<h2>{{ character.name }}</h2>
-						<p>Niveau:
-							{{ character.level }}</p>
-						<p>Sorts:
-							{{ character.spells|join(', ') }}</p>
+				{# {{dump(character)}} #}
+				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+					<div class="card">
+						 <img src="{{asset(character.idSubClasses.icon)}}" alt="{{ character.name }}"> 
+						<div class="card-content">
+							<h2>{{ character.name }}</h2>
+							<p>Classe :
+								{{ character.idSubClasses.name }}</p>
+							<p>Race :
+								{{ character.idSubRace.name }}</p>
+						</div>
 					</div>
-					{# </div> #}
 				</a>
 			{% endfor %}
 		</div>

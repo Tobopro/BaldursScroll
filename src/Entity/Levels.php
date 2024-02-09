@@ -24,6 +24,14 @@ class Levels
     #[ORM\OneToOne(mappedBy: 'idLevel', cascade: ['persist', 'remove'])]
     private ?SpellsLevel $spellsLevel = null;
 
+    #[ORM\ManyToOne(inversedBy: 'idLevel')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Characters $characters = null;
+
+    #[ORM\ManyToOne(inversedBy: 'idLevel')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ClassesSpells $classesSpells = null;
+
     
 
     
@@ -75,6 +83,30 @@ class Levels
         }
 
         $this->spellsLevel = $spellsLevel;
+
+        return $this;
+    }
+
+    public function getCharacters(): ?Characters
+    {
+        return $this->characters;
+    }
+
+    public function setCharacters(?Characters $characters): static
+    {
+        $this->characters = $characters;
+
+        return $this;
+    }
+
+    public function getClassesSpells(): ?ClassesSpells
+    {
+        return $this->classesSpells;
+    }
+
+    public function setClassesSpells(?ClassesSpells $classesSpells): static
+    {
+        $this->classesSpells = $classesSpells;
 
         return $this;
     }
