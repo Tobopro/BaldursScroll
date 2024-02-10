@@ -664,3 +664,34 @@ h6 {
     font-size: 16px;
     /* Couleur du texte de chaque élément de pagination */
 }
+
+/*section ability*/
+
+.row_ability h2 {
+    width: 100%; 
+    text-align: left; 
+    margin: 0; 
+    padding: 0; 
+  }
+  .row_ability {
+    display: grid;
+    grid-template-columns: 3fr 2fr; 
+    /* gap: 3px;  */
+    text-align: center; 
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  .ability_bonus  {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    justify-content: space-between;
+    /* gap: 1px;  */
+  }
+  .ability_choice{
+    display: grid;
+    grid-template-columns: 3fr 1fr; 
+    /* gap: 3px;  */
+  }
+  
+  
