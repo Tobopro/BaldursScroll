@@ -55,8 +55,8 @@ class SubClasses
 
     public function getIcon(): ?string
     {
-        $path ="/img/img_classes/".$this->icon;
-        return $path;
+       
+        return $this->icon;
     }
 
     public function setIcon(?string $icon): static

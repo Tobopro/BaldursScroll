@@ -1,3 +1,5 @@
+{% import 'macros/navbar.html.twig' as navbar %}
+{% import 'macros/footer.html.twig' as footer %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,23 +14,17 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Rationale&display=swap" rel="stylesheet">
-
-
 		{% block javascripts %}
-
 			{% block importmap %}
 				{{ importmap('app') }}
 			{% endblock %}
 		{% endblock %}
 	</head>
 	<body>
-		{% block nav %}
-			{% include 'components/navbar.html.twig' %}
-		{% endblock %}
-
+		{{ navbar.navbar() }}
 		{% block body %}{% endblock %}
 		{% block footer %}
-			{% include 'components/footer.html.twig' %}
+			{{ footer.footer() }}
 		{% endblock %}
 	</body>
 </html>
