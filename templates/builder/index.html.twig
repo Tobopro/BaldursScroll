@@ -89,7 +89,7 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Strength">Strength:</label>
-								<input type="number" id="Strength" name="Strength" min="8" max="15"/>
+								<input type="number" id="Strength" name="Strength" min="8" max="15" value="8"/>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
@@ -100,7 +100,7 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Dexterity">Dexterity:</label>
-								<input type="number" id="Dexterity" name="Dexterity" min="8" max="15"/>
+								<input type="number" id="Dexterity" name="Dexterity" min="8" max="15" value="8"/>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Dexterity"/>
@@ -111,7 +111,7 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Constitution">Constitution:</label>
-								<input type="number" id="Constitution" name="Constitution" min="8" max="15"/>
+								<input type="number" id="Constitution" name="Constitution" min="8" max="15" value="8"/>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Constitution"/>
@@ -122,7 +122,7 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Inteligence">Inteligence:</label>
-								<input type="number" id="Inteligence" name="Inteligence" min="8" max="15"/>
+								<input type="number" id="Inteligence" name="Inteligence" min="8" max="15" value="8"/>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Inteligence"/>
@@ -133,7 +133,7 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Wisdom">Wisdom:</label>
-								<input type="number" id="Wisdom" name="Wisdom" min="8" max="15"/>
+								<input type="number" id="Wisdom" name="Wisdom" min="8" max="15" value="8"/>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Wisdom"/>
@@ -144,7 +144,7 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Charisma">Charisma:</label>
-								<input type="number" id="Charisma" name="Charisma" min="8" max="15"/>
+								<input type="number" id="Charisma" name="Charisma" min="8" max="15" value="8"/>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Charisma"/>
@@ -152,12 +152,12 @@
 							</div>
 
 						</div>
-
-
+						<div><input type="button" value="Clear" id="Clear"></div>
 					</section>
 				</div>
 			</div>
-			<div class="panel last-section">
+			<button class="accordion">Spells</button>
+			<div class="panel">
 				<div class="form-group-panel">
 					{% for i in range(1, 5) %}
 						<label class="container-checkbox">One
@@ -168,12 +168,19 @@
 					{% endfor %}
 				</div>
 
-			</div>
 
+			</div>
 
 		</div>
 
-		<script src='{{ asset('js/builder.js') }}'></script>
+	</section>
+</div></div><div class="panel last-section">
+<div class="form-group-panel">
+	{% for i in range(1, 5) %}
+		<label class="container-checkbox">One
+			<input type="checkbox">
+			<span class="checkmark"></span>
+		</label>
 
-
-	{% endblock %}
+	{% endfor %}
+</div></div></div><script src='{{ asset('js/builder.js') }}'></script>{% endblock %}
