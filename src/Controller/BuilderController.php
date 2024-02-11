@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Classes;
 use App\Entity\Races;
+use App\Entity\SubClasses;
 use App\Entity\SubRaces;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +30,10 @@ class BuilderController extends AbstractController
         $ClassesResult          =       $ClassesRepository->findAll();
 
         //  get all subClasses from DataBase
-        $subClassesRepository   =       $entityManager->getRepository(SubRaces::class);
+        $subClassesRepository   =       $entityManager->getRepository(SubClasses::class);
         $subClassesResult          =    $subClassesRepository->findAll();
 
-        if (!$raceResult && !$subRaceResult) {
+        if (!$raceResult || !$subRaceResult || !$ClassesResult || !$subClassesResult) {
             throw $this->createNotFoundException('not found');
         }
         return $this->render('builder/index.html.twig', [
