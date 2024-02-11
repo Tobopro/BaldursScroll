@@ -79,7 +79,7 @@
 							<h3>Bonus</h3>
 						</div>
 						<div class='row_ability'>
-							<h4>27</h4>
+							<h4 class='ability_point'></h4>
 							<div class='ability_bonus'>
 								<h4>+2</h4>
 								<h4>+1</h4>
@@ -89,7 +89,12 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Strength">Strength:</label>
-								<input type="number" id="Strength" name="Strength" min="8" max="15" value="8"/>
+					
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Strength" min="8" max="15" name="Strength" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
@@ -100,7 +105,12 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Dexterity">Dexterity:</label>
-								<input type="number" id="Dexterity" name="Dexterity" min="8" max="15" value="8"/>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Dexterity" min="8" max="15" name="Dexterity" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Dexterity"/>
@@ -111,7 +121,12 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Constitution">Constitution:</label>
-								<input type="number" id="Constitution" name="Constitution" min="8" max="15" value="8"/>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Constitution" min="8" max="15" name="Constitution" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Constitution"/>
@@ -122,7 +137,12 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Inteligence">Inteligence:</label>
-								<input type="number" id="Inteligence" name="Inteligence" min="8" max="15" value="8"/>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class="" id="Inteligence" min="8" max="15" name="Inteligence" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Inteligence"/>
@@ -133,7 +153,12 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Wisdom">Wisdom:</label>
-								<input type="number" id="Wisdom" name="Wisdom" min="8" max="15" value="8"/>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Wisdom" min="8" max="15" name="Wisdom" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Wisdom"/>
@@ -144,7 +169,12 @@
 						<div class='row_ability'>
 							<div class='ability_choice'>
 								<label for="Charisma">Charisma:</label>
-								<input type="number" id="Charisma" name="Charisma" min="8" max="15" value="8"/>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Charisma" min="8" max="15" name="Charisma" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
 							</div>
 							<div class='ability_bonus'>
 								<input type="radio" id="Ability1" name="Ability1" value="Charisma"/>
