@@ -15,7 +15,8 @@
 				{# {{dump(character)}} #}
 				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
 					<div class="card">
-						<img src="{{asset('img/' ~ character.idSubClasses.icon)}}" alt="">
+					{# {{dump(asset('img/' ~ character.idSubClasses.icon))}} #}
+						<img src={{asset('img/' ~ character.idSubClasses.icon)}} alt="">
 						<div class="card-content">
 							<h2>{{ character.name }}</h2>
 							<p>Classe :

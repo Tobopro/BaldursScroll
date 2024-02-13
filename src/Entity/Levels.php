@@ -25,7 +25,7 @@ class Levels
     private ?SpellsLevel $spellsLevel = null;
 
     #[ORM\ManyToOne(inversedBy: 'idLevel')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Characters $characters = null;
 
     #[ORM\ManyToOne(inversedBy: 'idLevel')]

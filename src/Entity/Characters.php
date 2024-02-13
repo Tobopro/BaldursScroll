@@ -43,11 +43,11 @@ class Characters
     private ?string $abilityScoreBonus2 = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?SubRaces $idSubRace = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?SubClasses $idSubClasses = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
@@ -55,11 +55,17 @@ class Characters
     private ?Users $idUsers = null;
 
     #[ORM\OneToMany(targetEntity: Levels::class, mappedBy: 'characters')]
-    private Collection $idLevel;
+    private ?Collection $idLevel = null;
 
     public function __construct()
     {
         $this->idLevel = new ArrayCollection();
+        $this->strength = 8;
+        $this->dexterity = 8;
+        $this->constitution = 8;
+        $this->intelligence = 8;
+        $this->wisdom = 8;
+        $this->charisma = 8;
     }
 
 

@@ -133,45 +133,52 @@ document.addEventListener('DOMContentLoaded', function () {
     const abilityPointElement = document.querySelector('.ability_point');
     let currentValue = 8;
     abilityPointElement.innerText = abilityPoints;
+    let newValue = currentValue;
+    let input = this.parentElement.querySelector('input[type=number]');
+                 newValue = parseInt(input.value);
+
 
     function handleButtonClick(btnClass, increment) {
         const buttons = document.querySelectorAll(btnClass);
         buttons.forEach(function (button) {
             button.addEventListener('click', function (event) {
                 const clickedButton = event.target;
+                
 
-                let input = this.parentElement.querySelector('input[type=number]');
-                const newValue = parseInt(input.value);
-
-
-                 console.log(newValue);
-
-                if (abilityPointElement.innerText != 0) {
-                    //Désactiver le bouton "moins" si la valeur est égale à 8
-                    if (newValue == currentValue) {
-                        clickedButton.disabled = false;
-                    } else {
-                        clickedButton.disabled = true;
+                if (abilityPointElement.innerText !== '0') {
+                    if (btnClass === '.moins' ) {
+                        if (newValue === 8) {
+                            clickedButton.disabled = true;
+                        }
+                        else{
+                            clickedButton.disabled = false;
+                        }
+                        if (newValue <= 13) {
+                            abilityPoints +=  increment ;
+                        }else{
+                            abilityPoints += 2 * increment;
+                        }
+                       
+                    } else if (btnClass === '.plus' ) {
+                        if (newValue === 15) {
+                            clickedButton.disabled = true;
+                        }else{
+                            clickedButton.disabled = false;
+                        }
+                        
+                        if (newValue >= 13) {
+                            abilityPoints += 2*increment;
+                        }
+                        else{
+                            abilityPoints += increment;
+                        }
+                        
+                        // abilityPoints += (newValue >= 12) ? increment : 2 * increment;
                     }
-
-                    // Désactiver le bouton "plus" si la valeur est égale à 15
-                    if (newValue != 15) {
-                        clickedButton.disabled = false;
-                    } else {
-                        clickedButton.disabled = true;
-                    }
-
                     
-                    
-                    if (newValue <= 12) {
-                        abilityPoints += increment;
-                    } else if (newValue >= 13) {
-                        abilityPoints += 2 * increment;
-                    }
-                    // currentValue = newValue;
                     abilityPointElement.innerText = abilityPoints;
                 }
-
+                
             });
         });
     }
@@ -179,6 +186,9 @@ document.addEventListener('DOMContentLoaded', function () {
     handleButtonClick('.moins', 1);
     handleButtonClick('.plus', -1);
 });
+
+
+
 
 
 
