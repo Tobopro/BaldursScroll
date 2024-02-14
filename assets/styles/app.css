@@ -254,13 +254,14 @@ h6 {
 
 .myfooter-container {
     background-color: #004266;
+    position: absolute;
     background-image: url("../img/background_scroll.png");
     background-size: 60%;
     background-position: 50%;
     color: white;
     padding: 0;
     text-align: center;
-    margin-top: 10vh;
+    margin-top: 25vh;
     position: relative;
     bottom: 0;
     left: 0;
@@ -569,6 +570,103 @@ h6 {
 
 }
 
+/*section ability*/
+
+.row_ability h2 {
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.row_ability {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    /* gap: 3px;  */
+    /* text-align: center; */
+    margin: 3px 0;
+    padding: 0;
+}
+
+.ability_bonus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    /* gap: 1px;  */
+}
+
+.ability_choice {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    /* gap: 3px;  */
+}
+
+/* input type number */
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    pointer-events: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.number-input {
+    border: 0;
+    display: inline-flex;
+}
+
+.number-input,
+.number-input * {
+    box-sizing: border-box;
+}
+
+.number-input button {
+    outline: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    margin: 0px;
+    position: relative;
+    box-shadow: 0px 0px 1px #474747;
+    border-radius: 50%;
+}
+
+.number-input button:before,
+.number-input button:after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    width: 1rem;
+    height: 2px;
+    background-color: #ffffff;
+    transform: translate(-50%, -50%);
+}
+
+.number-input button.plus:after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+    font-family: sans-serif;
+    max-width: 2.5rem;
+    padding: .5rem;
+    border: none;
+    border-width: 0 1px;
+    font-size: 1rem;
+    height: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #f04646;
+}
 
 /*BUILD*/
 
@@ -664,99 +762,3 @@ h6 {
     font-size: 16px;
     /* Couleur du texte de chaque élément de pagination */
 }
-
-/*section ability*/
-
-.row_ability h2 {
-    width: 100%; 
-    text-align: left; 
-    margin: 0; 
-    padding: 0; 
-  }
-  .row_ability {
-    display: grid;
-    grid-template-columns: 3fr 2fr; 
-    /* gap: 3px;  */
-    text-align: center; 
-    margin: 3px 0; 
-    padding: 0; 
-  }
-  
-  .ability_bonus  {
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    justify-content: space-between;
-    /* gap: 1px;  */
-  }
-  .ability_choice{
-    display: grid;
-    grid-template-columns: 3fr 1fr; 
-    /* gap: 3px;  */
-  }
-
-  /* input type number */
-  input[type="number"] {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    pointer-events: none;
-  }
-  
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
-  
-  .number-input {
-    border: 0;
-    display: inline-flex;
-  }
-  
-  .number-input,
-  .number-input * {
-    box-sizing: border-box;
-  }
-  
-  .number-input button {
-    outline:none;
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
-    margin:  0px;
-    position: relative;
-    box-shadow: 0px 0px 1px #474747;
-      border-radius: 50%;
-  }
-  
-  .number-input button:before,
-  .number-input button:after {
-    display: inline-block;
-    position: absolute;
-    content: '';
-    width: 1rem;
-    height: 2px;
-    background-color: #ffffff;
-    transform: translate(-50%, -50%);
-  }
-  .number-input button.plus:after {
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-  
-  .number-input input[type=number] {
-    font-family: sans-serif;
-    max-width: 2.5rem;
-    padding: .5rem;
-    border: none;
-    border-width: 0 1px;
-    font-size: 1rem;
-    height: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    color:#f04646;
-  }
-  
