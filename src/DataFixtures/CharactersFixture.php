@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Characters;
 use App\Entity\SubRaces;
 use App\Entity\SubClasses;
-use App\Entity\Users;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -25,7 +25,7 @@ class CharactersFixture extends Fixture
         // Récupérez toutes les entités associées
         $subRaces = $manager->getRepository(SubRaces::class)->findAll();
         $subClasses = $manager->getRepository(SubClasses::class)->findAll();
-        $users = $manager->getRepository(Users::class)->findAll();
+        $users = $manager->getRepository(User::class)->findAll();
 
         $bonus1 = ['Str', 'Dex', 'Con', 'Int', 'Wis', 'Cha'];
         $bonus2 = ['Str', 'Dex', 'Con', 'Int', 'Wis', 'Cha'];

@@ -52,7 +52,7 @@ class Characters
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $idUsers = null;
+    private ?User $idUsers = null;
 
     #[ORM\OneToMany(targetEntity: Levels::class, mappedBy: 'characters')]
     private ?Collection $idLevel = null;
@@ -70,7 +70,7 @@ class Characters
 
 
 
-    
+
 
     public function getId(): ?int
     {
@@ -209,12 +209,12 @@ class Characters
         return $this;
     }
 
-    public function getIdUsers(): ?Users
+    public function getIdUsers(): ?User
     {
         return $this->idUsers;
     }
 
-    public function setIdUsers(?Users $idUsers): static
+    public function setIdUsers(?User $idUsers): static
     {
         $this->idUsers = $idUsers;
 
@@ -250,8 +250,4 @@ class Characters
 
         return $this;
     }
-
-   
-
-    
 }
