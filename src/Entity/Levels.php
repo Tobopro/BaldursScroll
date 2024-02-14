@@ -25,12 +25,16 @@ class Levels
     private ?SpellsLevel $spellsLevel = null;
 
     #[ORM\ManyToOne(inversedBy: 'idLevel')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Characters $characters = null;
-
-    #[ORM\ManyToOne(inversedBy: 'idLevel')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ClassesSpells $classesSpells = null;
+
+    #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idLevel')]
+    private Collection $characters;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+    }
 
     
 
@@ -87,18 +91,6 @@ class Levels
         return $this;
     }
 
-    public function getCharacters(): ?Characters
-    {
-        return $this->characters;
-    }
-
-    public function setCharacters(?Characters $characters): static
-    {
-        $this->characters = $characters;
-
-        return $this;
-    }
-
     public function getClassesSpells(): ?ClassesSpells
     {
         return $this->classesSpells;
@@ -107,6 +99,36 @@ class Levels
     public function setClassesSpells(?ClassesSpells $classesSpells): static
     {
         $this->classesSpells = $classesSpells;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Characters>
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Characters $character): static
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+            $character->setIdLevel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Characters $character): static
+    {
+        if ($this->characters->removeElement($character)) {
+            // set the owning side to null (unless already changed)
+            if ($character->getIdLevel() === $this) {
+                $character->setIdLevel(null);
+            }
+        }
 
         return $this;
     }
