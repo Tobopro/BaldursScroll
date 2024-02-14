@@ -21,6 +21,10 @@ class RacesSpells
     #[ORM\JoinColumn(nullable: false)]
     private ?SubRaces $idSubRace = null;
 
+    #[ORM\ManyToOne(inversedBy: 'racesSpells')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Spells $idSpell = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +50,18 @@ class RacesSpells
     public function setIdSubRace(SubRaces $idSubRace): static
     {
         $this->idSubRace = $idSubRace;
+
+        return $this;
+    }
+
+    public function getIdSpell(): ?Spells
+    {
+        return $this->idSpell;
+    }
+
+    public function setIdSpell(?Spells $idSpell): static
+    {
+        $this->idSpell = $idSpell;
 
         return $this;
     }

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ClassesSpellsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClassesSpellsRepository::class)]
@@ -19,17 +17,13 @@ class ClassesSpells
     #[ORM\JoinColumn(nullable: false)]
     private ?SubClasses $idSubClasses = null;
 
-    #[ORM\OneToOne(inversedBy: 'classesSpells', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'classesSpells')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Spells $idSpell = null;
 
-    #[ORM\OneToMany(targetEntity: Levels::class, mappedBy: 'classesSpells')]
-    private Collection $idLevel;
-
-    public function __construct()
-    {
-        $this->idLevel = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'classesSpells')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Levels $idLevel = null;
 
     public function getId(): ?int
     {
@@ -60,32 +54,14 @@ class ClassesSpells
         return $this;
     }
 
-    /**
-     * @return Collection<int, Levels>
-     */
-    public function getIdLevel(): Collection
+    public function getIdLevel(): ?Levels
     {
         return $this->idLevel;
     }
 
-    public function addIdLevel(Levels $idLevel): static
+    public function setIdLevel(?Levels $idLevel): static
     {
-        if (!$this->idLevel->contains($idLevel)) {
-            $this->idLevel->add($idLevel);
-            $idLevel->setClassesSpells($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdLevel(Levels $idLevel): static
-    {
-        if ($this->idLevel->removeElement($idLevel)) {
-            // set the owning side to null (unless already changed)
-            if ($idLevel->getClassesSpells() === $this) {
-                $idLevel->setClassesSpells(null);
-            }
-        }
+        $this->idLevel = $idLevel;
 
         return $this;
     }
