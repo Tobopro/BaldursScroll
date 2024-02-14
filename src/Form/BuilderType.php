@@ -28,11 +28,11 @@ class BuilderType extends AbstractType
             ->add('abilityScoreBonus2')
             ->add('idSubRace', EntityType::class, [
                 'class' => SubRaces::class,
-'choice_label' => 'id',
+'choice_label' => 'name',
             ])
             ->add('idSubClasses', EntityType::class, [
                 'class' => SubClasses::class,
-'choice_label' => 'id',
+'choice_label' => 'name',
             ])
             ->add('idUsers', EntityType::class, [
                 'class' => User::class,

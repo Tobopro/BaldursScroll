@@ -4,238 +4,243 @@
 {% endblock %}
 
 {% block body %}
-	<div class="myform-container">
-		<div class="myform">
-			<button class="accordion first-section-builder">Classes</button>
-			<div class="panel">
-				<div class="form-group-panel">
-					{% for class in classes %}
-						<label class="container-checkbox">{{ class.name }}
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-					{% endfor %}
-				</div>
-			</div>
 
-			<button class="accordion">Sous-classes</button>
-			<div class="panel">
-				<div class="form-group-panel">
-					{% for subClass in subClasses %}
-						<label class="container-checkbox">{{ subClass.name }}
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-					{% endfor %}
-				</div>
-			</div>
-
-			<button class="accordion">Races</button>
-			<div class="panel">
-				<div class="form-group-panel">
-					{% for r in races %}
-						<label class="container-checkbox">{{ r.name }}
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-
-					{% endfor %}
+	{{form(form)}}
+		<div class="myform-container">
+			<div class="myform">
+				<button class="accordion first-section-builder">Classes</button>
+				<div class="panel">
+					<div class="form-group-panel">
+						{% for class in classes %}
+							<label class="container-checkbox">{{ class.name }}
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+						{% endfor %}
+					</div>
 				</div>
 
-
-			</div>
-
-			<button class="accordion">Sous-races</button>
-			<div class="panel">
-				<div class="form-group-panel">
-					{% for subRace in subRaces %}
-						<label class="container-checkbox">{{ subRace.name }}
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-
-					{% endfor %}
-				</div>
-			</div>
-
-			<button class="accordion">Abilities</button>
-			<div class="panel">
-				<div class="form-group-panel">
-					<section class="ability-container ">
-						<div class='row_ability'>
-							<h2>Choose your characters Ability Points.</h2>
-						</div>
-						<div class='row_ability'>
-							<h3>Ability Point</h3>
-							<h3>Bonus</h3>
-						</div>
-						<div class='row_ability'>
-							<h4 class='ability_point'></h4>
-							<div class='ability_bonus'>
-								<h4>+2</h4>
-								<h4>+1</h4>
-							</div>
-						</div>
-
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Strength">Strength:</label>
-
-								<div class="number-input">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Strength"></button>
-									<input type="number" class="" id="Strength" min="8" max="15" name="Strength" value="8">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Strength"></button>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Dexterity">Dexterity:</label>
-
-								<div class="number-input">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Dexterity"></button>
-									<input type="number" class="" id="Dexterity" min="8" max="15" name="Dexterity" value="8">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Dexterity"></button>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Constitution">Constitution:</label>
-
-								<div class="number-input">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Constitution"></button>
-									<input type="number" class="" id="Constitution" min="8" max="15" name="Constitution" value="8">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Constitution"></button>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Inteligence">Inteligence:</label>
-
-								<div class="number-input">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Inteligence"></button>
-									<input type="number" class="" id="Inteligence" min="8" max="15" name="Inteligence" value="8">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Inteligence"></button>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Wisdom">Wisdom:</label>
-
-								<div class="number-input">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Wisdom"></button>
-									<input type="number" class="" id="Wisdom" min="8" max="15" name="Wisdom" value="8">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Wisdom"></button>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Charisma">Charisma:</label>
-
-								<div class="number-input">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Charisma"></button>
-									<input type="number" class="" id="Charisma" min="8" max="15" name="Charisma" value="8">
-									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Charisma"></button>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div><input type="button" class="clear-button" value="Clear" id="Clear"></div>
-					</section>
-				</div>
-			</div>
-			<button class="accordion">Spells</button>
-			<div class="panel">
-				<div class="form-group-panel">
-					{% for i in range(1, 5) %}
-						<label class="container-checkbox">One
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-
-					{% endfor %}
+				<button class="accordion">Sous-classes</button>
+				<div class="panel">
+					<div class="form-group-panel">
+						{% for subClass in subClasses %}
+							<label class="container-checkbox">{{ subClass.name }}
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+						{% endfor %}
+					</div>
 				</div>
 
+				<button class="accordion">Races</button>
+				<div class="panel">
+					<div class="form-group-panel">
+						{% for r in races %}
+							<label class="container-checkbox">{{ r.name }}
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+
+						{% endfor %}
+					</div>
+
+
+				</div>
+
+				<button class="accordion">Sous-races</button>
+				<div class="panel">
+					<div class="form-group-panel">
+						{% for subRace in subRaces %}
+							<label class="container-checkbox">{{ subRace.name }}
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+
+						{% endfor %}
+					</div>
+				</div>
+
+				<button class="accordion">Abilities</button>
+				<div class="panel">
+					<div class="form-group-panel">
+						<section class="ability-container ">
+							<div class='row_ability'>
+								<h2>Choose your characters Ability Points.</h2>
+							</div>
+							<div class='row_ability'>
+								<h3>Ability Point</h3>
+								<h3>Bonus</h3>
+							</div>
+							<div class='row_ability'>
+								<h4 class='ability_point'></h4>
+								<div class='ability_bonus'>
+									<h4>+2</h4>
+									<h4>+1</h4>
+								</div>
+							</div>
+
+							<div class='row_ability'>
+								<div class='ability_choice'>
+									<label for="Strength">Strength:</label>
+
+									<div class="number-input">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Strength"></button>
+										<input type="number" class="" id="Strength" min="8" max="15" name="Strength" value="8">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Strength"></button>
+									</div>
+								</div>
+								<div class='ability_bonus'>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+
+							</div>
+							<div class='row_ability'>
+								<div class='ability_choice'>
+									<label for="Dexterity">Dexterity:</label>
+
+									<div class="number-input">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Dexterity"></button>
+										<input type="number" class="" id="Dexterity" min="8" max="15" name="Dexterity" value="8">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Dexterity"></button>
+									</div>
+								</div>
+								<div class='ability_bonus'>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+
+							</div>
+							<div class='row_ability'>
+								<div class='ability_choice'>
+									<label for="Constitution">Constitution:</label>
+
+									<div class="number-input">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Constitution"></button>
+										<input type="number" class="" id="Constitution" min="8" max="15" name="Constitution" value="8">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Constitution"></button>
+									</div>
+								</div>
+								<div class='ability_bonus'>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+
+							</div>
+							<div class='row_ability'>
+								<div class='ability_choice'>
+									<label for="Inteligence">Inteligence:</label>
+
+									<div class="number-input">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Inteligence"></button>
+										<input type="number" class="" id="Inteligence" min="8" max="15" name="Inteligence" value="8">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Inteligence"></button>
+									</div>
+								</div>
+								<div class='ability_bonus'>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+
+							</div>
+							<div class='row_ability'>
+								<div class='ability_choice'>
+									<label for="Wisdom">Wisdom:</label>
+
+									<div class="number-input">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Wisdom"></button>
+										<input type="number" class="" id="Wisdom" min="8" max="15" name="Wisdom" value="8">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Wisdom"></button>
+									</div>
+								</div>
+								<div class='ability_bonus'>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+
+							</div>
+							<div class='row_ability'>
+								<div class='ability_choice'>
+									<label for="Charisma">Charisma:</label>
+
+									<div class="number-input">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins" name="Charisma"></button>
+										<input type="number" class="" id="Charisma" min="8" max="15" name="Charisma" value="8">
+										<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" name="Charisma"></button>
+									</div>
+								</div>
+								<div class='ability_bonus'>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+									<label class="container-checkbox">
+										<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+
+							</div>
+							<div><input type="button" class="clear-button" value="Clear" id="Clear"></div>
+						</section>
+					</div>
+				</div>
+				<button class="accordion">Spells</button>
+				<div class="panel">
+					<div class="form-group-panel">
+						{% for i in range(1, 5) %}
+							<label class="container-checkbox">One
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>
+
+						{% endfor %}
+					</div>
+
+
+				</div>
 
 			</div>
+
 
 		</div>
 
 
 	</div>
-
-
-</div></section></div></div><div class="panel last-section"><div class="form-group-panel">{% for i in range(1, 5) %}
-<label class="container-checkbox">One
-	<input type="checkbox">
-	<span class="checkmark"></span>
-</label>{% endfor %}</div></div></div><script src='{{ asset('js/builder.js') }}'></script>{% endblock %}
+</section></div></div><div class="panel last-section"><div class="form-group-panel">
+{% for i in range(1, 5) %}
+	<label class="container-checkbox">One
+		<input type="checkbox">
+		<span class="checkmark"></span>
+	</label>
+{% endfor %}</div></div></div><script src='{{ asset('js/builder.js') }}'></script>{% endblock %}
