@@ -27,29 +27,32 @@ class CharactersFixture extends Fixture
         $subClasses = $manager->getRepository(SubClasses::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
 
-        $bonus1 = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
-        $bonus2 = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+        $bonus1 = ['Str', 'Dex', 'Con', 'Int', 'Wis', 'Cha'];
+        $bonus2 = ['Str', 'Dex', 'Con', 'Int', 'Wis', 'Cha'];
 
-        $character = new Characters();
-        $character->setName($this->faker->lastName());
-        $character->setStrength(rand(8, 15));
-        $character->setDexterity(rand(8, 15));
-        $character->setConstitution(rand(8, 15));
-        $character->setIntelligence(rand(8, 15));
-        $character->setWisdom(rand(8, 15));
-        $character->setCharisma(rand(8, 15));
-        $character->setAbilityScoreBonus1($bonus1[rand(0, 5)]);
-        $character->setAbilityScoreBonus2($bonus2[rand(0, 5)]);
+        for ($i = 0; $i < 10; $i++) {
 
-        $randomSubRace = $this->faker->rand($subRaces);
-        $randomSubClasses = $this->faker->randomElement($subClasses);
-        $randomUser = $this->faker->randomElement($users);
+            $character = new Characters();
+            $character->setName($this->faker->lastName());
+            $character->setStrength(rand(8, 15));
+            $character->setDexterity(rand(8, 15));
+            $character->setConstitution(rand(8, 15));
+            $character->setIntelligence(rand(8, 15));
+            $character->setWisdom(rand(8, 15));
+            $character->setCharisma(rand(8, 15));
+            $character->setAbilityScoreBonus1($bonus1[rand(0, 5)]);
+            $character->setAbilityScoreBonus2($bonus2[rand(0, 5)]);
 
-        $character->setIdSubRace($randomSubRace);
-        $character->setIdSubClasses($randomSubClasses);
-        $character->setIdUsers($randomUser);
+            $randomSubRace = $this->faker->randomElement($subRaces);
+            $randomSubClasses = $this->faker->randomElement($subClasses);
+            $randomUser = $this->faker->randomElement($users);
 
-        $manager->persist($character);
+            $character->setIdSubRace($randomSubRace);
+            $character->setIdSubClasses($randomSubClasses);
+            $character->setIdUsers($randomUser);
+
+            $manager->persist($character);
+        }
         $manager->flush();
     }
 }

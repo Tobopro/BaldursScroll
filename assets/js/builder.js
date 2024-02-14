@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButton.innerText = 'Submit';
     submitButton.style.display = 'none';
     submitButtonWrapper.classList.add('submit-button-container');
-    submitButtonInfo.classList.add('submit-button-info')
+    submitButtonInfo.classList.add('submit-button-info');
+
 
 
 
@@ -92,3 +93,111 @@ for (i = 0; i < acc.length; i++) {
         }
     });
 }
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     let abilityPoints = 27;
+//     document.querySelector('.ability_point').innerText = abilityPoints;
+//     let currentValue = 8;
+
+//     function updateAbilityPoints(input) {
+//         const newValue = parseInt(input.value);
+
+//         if (abilityPoints > 0) {
+//             if (newValue > currentValue) {
+//                 // Augmentation
+//                 abilityPoints -= (newValue <= 12) ? 1 : 2;
+//             } else if (newValue < currentValue) {
+//                 // Diminution
+//                 abilityPoints += (newValue < 12) ? 1 : 2;
+//             }
+
+//             currentValue = newValue;
+//             document.querySelector('.ability_point').innerText = abilityPoints;
+//         }
+//     }
+
+//     const abilityInputs = document.querySelectorAll('input[type="number"]');
+//     abilityInputs.forEach(function (input) {
+//         // Initialiser input.dataset.previousvalue avec la valeur par défaut
+//         input.dataset.previousvalue = currentValue;
+
+//         input.addEventListener('change', function () {
+//             updateAbilityPoints(input);
+//         });
+//     });
+// }); 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    let abilityPoints = 27;
+    const abilityPointElement = document.querySelector('.ability_point');
+    let currentValue = 8;
+    abilityPointElement.innerText = abilityPoints;
+    let newValue = currentValue;
+    let input = this.parentElement.querySelector('input[type=number]');
+                 newValue = parseInt(input.value);
+
+
+    function handleButtonClick(btnClass, increment) {
+        const buttons = document.querySelectorAll(btnClass);
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                const clickedButton = event.target;
+                
+
+                if (abilityPointElement.innerText !== '0') {
+                    if (btnClass === '.moins' ) {
+                        if (newValue === 8) {
+                            clickedButton.disabled = true;
+                        }
+                        else{
+                            clickedButton.disabled = false;
+                        }
+                        if (newValue <= 13) {
+                            abilityPoints +=  increment ;
+                        }else{
+                            abilityPoints += 2 * increment;
+                        }
+                       
+                    } else if (btnClass === '.plus' ) {
+                        if (newValue === 15) {
+                            clickedButton.disabled = true;
+                        }else{
+                            clickedButton.disabled = false;
+                        }
+                        
+                        if (newValue >= 13) {
+                            abilityPoints += 2*increment;
+                        }
+                        else{
+                            abilityPoints += increment;
+                        }
+                        
+                        // abilityPoints += (newValue >= 12) ? increment : 2 * increment;
+                    }
+                    
+                    abilityPointElement.innerText = abilityPoints;
+                }
+                
+            });
+        });
+    }
+
+    handleButtonClick('.moins', 1);
+    handleButtonClick('.plus', -1);
+});
+
+
+
+
+
+
+
+
+
+// if (value == 15) {
+//     plus.disabled = true;
+// }
+
+
+

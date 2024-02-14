@@ -55,6 +55,7 @@ class SubClasses
 
     public function getIcon(): ?string
     {
+       
         return $this->icon;
     }
 
