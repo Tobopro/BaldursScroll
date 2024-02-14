@@ -15,11 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButtonWrapper.classList.add('submit-button-container');
     submitButtonInfo.classList.add('submit-button-info');
 
-
-
-
-
-
     // Cacher le bouton initialement
 
     var allSectionsChecked = false;
@@ -128,71 +123,184 @@ for (i = 0; i < acc.length; i++) {
 // }); 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    let abilityPoints = 27;
-    const abilityPointElement = document.querySelector('.ability_point');
-    let currentValue = 8;
-    abilityPointElement.innerText = abilityPoints;
-    let newValue = currentValue;
-    let input = this.parentElement.querySelector('input[type=number]');
-                 newValue = parseInt(input.value);
+// document.addEventListener('DOMContentLoaded', function () {
+//     let abilityPoints = 27;
+//     const abilityPointElement = document.querySelector('.ability_point');
+//     abilityPointElement.innerText = abilityPoints;
+//     let newValue = document.querySelector('input[type=number]').value;
 
 
-    function handleButtonClick(btnClass, increment) {
-        const buttons = document.querySelectorAll(btnClass);
-        buttons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                const clickedButton = event.target;
-                
 
-                if (abilityPointElement.innerText !== '0') {
-                    if (btnClass === '.moins' ) {
-                        if (newValue === 8) {
-                            clickedButton.disabled = true;
-                        }
-                        else{
-                            clickedButton.disabled = false;
-                        }
-                        if (newValue <= 13) {
-                            abilityPoints +=  increment ;
-                        }else{
-                            abilityPoints += 2 * increment;
-                        }
-                       
-                    } else if (btnClass === '.plus' ) {
-                        if (newValue === 15) {
-                            clickedButton.disabled = true;
-                        }else{
-                            clickedButton.disabled = false;
-                        }
-                        
-                        if (newValue >= 13) {
-                            abilityPoints += 2*increment;
-                        }
-                        else{
-                            abilityPoints += increment;
-                        }
-                        
-                        // abilityPoints += (newValue >= 12) ? increment : 2 * increment;
-                    }
-                    
-                    abilityPointElement.innerText = abilityPoints;
-                }
-                
-            });
-        });
+
+//     function handleButtonClick(btnClass, increment) {
+//         const buttons = document.querySelectorAll(btnClass);
+//         buttons.forEach(function (button) {
+//             button.addEventListener('click', function (event) {
+//                 const clickedButton = event.target;
+
+
+//                 let input = this.parentElement.querySelector('input[type=number]');
+//                  newValue = parseInt(input.value);
+//                  console.log(clickedButton.nextSibling);
+//                 if (abilityPointElement.innerText !== '0') {
+//                     if (btnClass === '.moins' ) {
+//                         if (newValue === 8) {
+//                             clickedButton.disabled = true;
+//                         }
+//                         else{
+//                             clickedButton.disabled = false;
+//                         }
+//                         if (newValue <= 13) {
+//                             abilityPoints +=  increment ;
+//                         }else{
+//                             abilityPoints += 2 * increment;
+//                         }
+
+//                     } else if (btnClass === '.plus' ) {
+//                         if (newValue === 15) {
+//                             clickedButton.disabled = true;
+//                         }else{
+//                             clickedButton.disabled = false;
+//                         }
+
+//                         if (newValue >= 13) {
+//                             abilityPoints += 2*increment;
+//                         }
+//                         else{
+//                             abilityPoints += increment;
+//                         }
+
+//                         // abilityPoints += (newValue >= 12) ? increment : 2 * increment;
+//                     }
+
+//                     abilityPointElement.innerText = abilityPoints;
+//                 }
+
+//             });
+//         });
+//     }
+
+//     handleButtonClick('.moins', 1);
+//     handleButtonClick('.plus', -1);
+// });
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     // Get all the number-input elements
+//     var numberInputs = document.querySelectorAll(".number-input input");
+//     let abilityPoints = 27;
+//     const abilityPointElement = document.querySelector('.ability_point');
+//     abilityPointElement.innerText = abilityPoints;
+
+//     // Add event listeners to each number-input element
+//     numberInputs.forEach(function (input) {
+//         input.addEventListener("input", function () {
+//             // Get the corresponding moins and plus buttons
+//             var moinsButton = input.parentNode.querySelector(".moins");
+//             var plusButton = input.parentNode.querySelector(".plus");
+
+//             // Check if the input value is strictly equal to 8 and disable moinsButton
+//             moinsButton.disabled = input.value == 8;
+
+//             // Check if the input value is strictly equal to 15 and disable plusButton
+//             plusButton.disabled = input.value == 15;
+//         });
+//     });
+//     // Clear button functionality
+//     var clearButton = document.getElementById("Clear");
+//     clearButton.addEventListener("click", function () {
+//         // Reset all inputs to their initial value (8)
+//         numberInputs.forEach(function (input) {
+//             input.value = 8;
+//         });
+
+//         // Enable all moins and plus buttons
+//         var moinsButtons = document.querySelectorAll(".moins");
+//         var plusButtons = document.querySelectorAll(".plus");
+
+//         moinsButtons.forEach(function (button) {
+//             button.disabled = false;
+//         });
+
+//         plusButtons.forEach(function (button) {
+//             button.disabled = false;
+//         });
+//     });
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize .ability_point to 27
+    var abilityPointElement = document.querySelector(".ability_point");
+    var abilityPoints = 27;
+    updateAbilityPointDisplay();
+
+    // Get all the number-input elements
+    var numberInputs = document.querySelectorAll(".number-input input");
+
+    // Add event listeners to each number-input element
+    numberInputs.forEach(function (input) {
+      input.addEventListener("input", function () {
+        // Get the corresponding moins and plus buttons
+        var moinsButton = input.parentNode.querySelector(".moins");
+        var plusButton = input.parentNode.querySelector(".plus");
+
+        // Check if the input value is strictly equal to 8 and disable moinsButton
+        moinsButton.disabled = input.value == 8;
+
+        // Check if the input value is strictly equal to 15 and disable plusButton
+        plusButton.disabled = input.value == 15;
+      });
+    });
+
+    // Add event listeners to moins and plus buttons
+    var moinsButtons = document.querySelectorAll(".moins");
+    var plusButtons = document.querySelectorAll(".plus");
+
+    moinsButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        // Decrement abilityPoints by 1 and update the display
+        abilityPoints--;
+        updateAbilityPointDisplay();
+      });
+    });
+
+    plusButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        // Increment abilityPoints by 1 and update the display
+        abilityPoints++;
+        updateAbilityPointDisplay();
+      });
+    });
+
+    // Clear button functionality
+    var clearButton = document.getElementById("Clear");
+    clearButton.addEventListener("click", function () {
+      // Reset all inputs to their initial value (8)
+      numberInputs.forEach(function (input) {
+        input.value = 8;
+      });
+
+      // Enable all moins and plus buttons
+      moinsButtons.forEach(function (button) {
+        button.disabled = false;
+      });
+
+      plusButtons.forEach(function (button) {
+        button.disabled = false;
+      });
+
+      // Reset abilityPoints to 27 and update the display
+      abilityPoints = 27;
+      updateAbilityPointDisplay();
+    });
+
+    // Function to update the display of .ability_point
+    function updateAbilityPointDisplay() {
+      abilityPointElement.textContent = abilityPoints;
     }
-
-    handleButtonClick('.moins', 1);
-    handleButtonClick('.plus', -1);
-});
-
-
-
-
-
-
-
+  });
 
 
 // if (value == 15) {
