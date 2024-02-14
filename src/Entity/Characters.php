@@ -52,7 +52,7 @@ class Characters
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $idUsers = null;
+    private ?User $idUsers = null;
 
     #[ORM\OneToMany(targetEntity: Levels::class, mappedBy: 'characters')]
     private ?Collection $idLevel = null;
