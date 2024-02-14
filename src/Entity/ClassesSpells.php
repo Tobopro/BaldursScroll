@@ -17,7 +17,7 @@ class ClassesSpells
     #[ORM\JoinColumn(nullable: false)]
     private ?SubClasses $idSubClasses = null;
 
-    #[ORM\OneToOne(inversedBy: 'classesSpells', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'classesSpells')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Spells $idSpell = null;
 

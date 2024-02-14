@@ -360,19 +360,19 @@ INSERT INTO spells (`id`, `name`, `description`, damage_type, damage_roll) VALUE
 
 
 -- Insert data into Users table
-INSERT INTO users (`id`, username, email, `password`, sign_in_date, profile_picture, is_banned, is_admin) VALUES
-(1, 'adventurer1', 'adventurer1@example.com', 'password123', NOW(), '', 0, 0),
-(2, 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0, 1);
+INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, profile_picture, is_banned, is_admin) VALUES
+(1, "[]", 'adventurer1', 'adventurer1@example.com', 'password123', NOW(), '', 0, 0),
+(2, "[]", 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0, 1);
 
 -- Insert data into Characters table
-INSERT INTO `characters` (`name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id) VALUES
-("Astarion", 8, 15, 14, 12, 13, 10, "AGI", "INT", 2, 30, 1, 1),
-("Gale", 8, 13, 14, 10, 12, 8, "INT", "CON", 1, 39, 1, 1),
-("Karlach", 15, 13, 14, 8, 12, 10, "STR", "CON", 20, 1, 1, 1),
-("Lae'zel", 15, 13, 14, 10, 12, 8, "STR", "CON", 21, 17, 1, 1),
-("Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "AGI", 6, 12, 1, 1),
-("Wyll", 8, 13, 14, 12, 10, 15, "CHA", "INT", 1, 37, 1, 1),
-("Dark Urge", 8, 13, 14, 12, 10, 15, "CHA", "CON", 31, 33, 1, 1);
+INSERT INTO `characters` (`id`, `name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id) VALUES
+(1, "Astarion", 8, 15, 14, 12, 13, 10, "AGI", "INT", 2, 30, 1, 1),
+(2, "Gale", 8, 13, 14, 10, 12, 8, "INT", "CON", 1, 39, 1, 1),
+(3, "Karlach", 15, 13, 14, 8, 12, 10, "STR", "CON", 20, 1, 1, 1),
+(4, "Lae'zel", 15, 13, 14, 10, 12, 8, "STR", "CON", 21, 17, 1, 1),
+(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "AGI", 6, 12, 1, 1),
+(6, "Wyll", 8, 13, 14, 12, 10, 15, "CHA", "INT", 1, 37, 1, 1),
+(7, "Dark Urge", 8, 13, 14, 12, 10, 15, "CHA", "CON", 31, 33, 1, 1);
 
 
 -- Insert data into ClassesSpells table
@@ -1556,48 +1556,48 @@ INSERT INTO races_spells (`id`, id_spell_id, id_sub_race_id, id_level_id) VALUES
 -- Cantrips ###########################
 -- Acid Splash ###########################
 (1, 1, 2, 1),
-(1, 1, 6, 1),
+(2, 1, 6, 1),
 -- Blade Ward ###########################
-(2, 2, 2, 1),
-(2, 2, 6, 1),
+(3, 2, 2, 1),
+(4, 2, 6, 1),
 -- Bone Chill ###########################
-(3, 3, 2, 1),
-(3, 3, 6, 1),
+(5, 3, 2, 1),
+(6, 3, 6, 1),
 -- Dancing Lights ###########################
-(4, 4, 2, 1),
-(4, 4, 4, 1),
-(4, 4, 5, 1),
-(4, 4, 6, 1),
-(4, 4, 8, 1),
+(7, 4, 2, 1),
+(8, 4, 4, 1),
+(9, 4, 5, 1),
+(10, 4, 6, 1),
+(11, 4, 8, 1),
 -- Eldritch Blast ###########################
 -- None
 -- Fire Bolt ###########################
-(6, 6, 2, 1),
-(6, 6, 6, 1),
+(12, 6, 2, 1),
+(13, 6, 6, 1),
 -- Friends ###########################
-(7, 7, 2, 1),
-(7, 7, 6, 1),
+(14, 7, 2, 1),
+(15, 7, 6, 1),
 -- Guidance ###########################
 -- None
 -- Light ###########################
-(9, 9, 2, 1),
-(9, 9, 6, 1),
+(16, 9, 2, 1),
+(17, 9, 6, 1),
 -- Mage Hand ###########################
-(10, 10, 2, 1),
-(10, 10, 6, 1),
-(10, 10, 19, 1),
-(10, 10, 21, 1),
+(18, 10, 2, 1),
+(19, 10, 6, 1),
+(20, 10, 19, 1),
+(21, 10, 21, 1),
 -- Mage Illusion ###########################
-(11, 11, 2, 1),
-(11, 11, 6, 1),
+(22, 11, 2, 1),
+(23, 11, 6, 1),
 -- Poison Spray ###########################
-(12, 12, 2, 1),
-(12, 12, 6, 1),
+(24, 12, 2, 1),
+(25, 12, 6, 1),
 -- Produce Flame ###########################
-(13, 13, 18, 1)
+(26, 13, 18, 1),
 -- Ray of Frost ###########################
-(14, 14, 2, 1),
-(14, 14, 6, 1),
+(27, 14, 2, 1),
+(28, 14, 6, 1),
 -- Resistance ###########################
 -- None
 -- Sacred Flame ###########################
@@ -1605,33 +1605,33 @@ INSERT INTO races_spells (`id`, id_spell_id, id_sub_race_id, id_level_id) VALUES
 -- Shillelagh ###########################
 -- None
 -- Shocking Grasp ###########################
-(18, 18, 2, 1),
-(18, 18, 6, 1),
+(29, 18, 2, 1),
+(30, 18, 6, 1),
 -- Thaumaturgy ###########################
-(19, 19, 20, 1),
+(31, 19, 20, 1),
 -- Thorn Whip ###########################
 -- None
 -- True Strike ###########################
-(21, 21, 2, 1),
-(21, 21, 6, 1),
+(32, 21, 2, 1),
+(33, 21, 6, 1),
 -- Vicious Mockery ###########################
 -- None
 --  ########################### ###########################
 -- Spells lvl 1 ###########################
 -- Burning Hands ###########################
-(28, 28, 19, 3),
+(34, 28, 19, 3),
 -- Enhance Leap ###########################
-(39, 39, 21, 3),
+(35, 39, 21, 3),
 -- Faerie Fire ###########################
-(43, 43, 4, 1),
-(43, 43, 5, 1),
-(43, 43, 8, 1),
+(36, 43, 4, 1),
+(37, 43, 5, 1),
+(38, 43, 8, 1),
 -- Hellish Rebuke ###########################
-(53, 53, 18, 3),
+(39, 53, 18, 3),
 -- Searing Smite ###########################
-(65, 65, 20, 3),
+(40, 65, 20, 3),
 -- Speak with Animals ###########################
-(69, 69, 15, 1);
+(41, 69, 15, 1);
 
 
 CREATE USER IF NOT EXISTS "baldursscroll"@"localhost"
