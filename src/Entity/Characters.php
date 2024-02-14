@@ -43,20 +43,34 @@ class Characters
     private ?string $abilityScoreBonus2 = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?SubRaces $idSubRace = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?SubClasses $idSubClasses = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $idUsers = null;
+    private ?User $idUsers = null;
+
+    #[ORM\OneToMany(targetEntity: Levels::class, mappedBy: 'characters')]
+    private ?Collection $idLevel = null;
+
+    public function __construct()
+    {
+        $this->idLevel = new ArrayCollection();
+        $this->strength = 8;
+        $this->dexterity = 8;
+        $this->constitution = 8;
+        $this->intelligence = 8;
+        $this->wisdom = 8;
+        $this->charisma = 8;
+    }
 
 
 
-    
+
 
     public function getId(): ?int
     {
@@ -195,19 +209,45 @@ class Characters
         return $this;
     }
 
-    public function getIdUsers(): ?Users
+    public function getIdUsers(): ?User
     {
         return $this->idUsers;
     }
 
-    public function setIdUsers(?Users $idUsers): static
+    public function setIdUsers(?User $idUsers): static
     {
         $this->idUsers = $idUsers;
 
         return $this;
     }
 
-   
+    /**
+     * @return Collection<int, Levels>
+     */
+    public function getIdLevel(): Collection
+    {
+        return $this->idLevel;
+    }
 
-    
+    public function addIdLevel(Levels $idLevel): static
+    {
+        if (!$this->idLevel->contains($idLevel)) {
+            $this->idLevel->add($idLevel);
+            $idLevel->setCharacters($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdLevel(Levels $idLevel): static
+    {
+        if ($this->idLevel->removeElement($idLevel)) {
+            // set the owning side to null (unless already changed)
+            if ($idLevel->getCharacters() === $this) {
+                $idLevel->setCharacters(null);
+            }
+        }
+
+        return $this;
+    }
 }

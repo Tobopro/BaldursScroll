@@ -46,7 +46,7 @@
 			</div>
 
 			<button class="accordion">Sous-races</button>
-			<div class="panel last-section">
+			<div class="panel">
 				<div class="form-group-panel">
 					{% for subRace in subRaces %}
 						<label class="container-checkbox">{{ subRace.name }}
@@ -62,3 +62,151 @@
 	<script src='{{ asset('js/builder.js') }}'></script>
 
 {% endblock %}
+
+			<button class="accordion">Abilities</button>
+			<div class="panel">
+				<div class="form-group-panel">
+					<section class="ability-container ">
+						<div class='row_ability'>
+							<h2>Choose your characters Ability Points.</h2>
+						</div>
+						<div class='row_ability'>
+							<h3>Ability Point</h3>
+							<h3>Bonus</h3>
+						</div>
+						<div class='row_ability'>
+							<h4 class='ability_point'></h4>
+							<div class='ability_bonus'>
+								<h4>+2</h4>
+								<h4>+1</h4>
+							</div>
+						</div>
+
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Strength">Strength:</label>
+					
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Strength" min="8" max="15" name="Strength" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<input type="radio" id="Ability1" name="Ability1" value="Strength"/>
+								<input type="radio" id="Ability2" name="Ability2" value="Strength"/>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Dexterity">Dexterity:</label>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Dexterity" min="8" max="15" name="Dexterity" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<input type="radio" id="Ability1" name="Ability1" value="Dexterity"/>
+								<input type="radio" id="Ability2" name="Ability2" value="Dexterity"/>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Constitution">Constitution:</label>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Constitution" min="8" max="15" name="Constitution" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<input type="radio" id="Ability1" name="Ability1" value="Constitution"/>
+								<input type="radio" id="Ability2" name="Ability2" value="Constitution"/>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Inteligence">Inteligence:</label>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class="" id="Inteligence" min="8" max="15" name="Inteligence" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<input type="radio" id="Ability1" name="Ability1" value="Inteligence"/>
+								<input type="radio" id="Ability2" name="Ability2" value="Inteligence"/>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Wisdom">Wisdom:</label>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Wisdom" min="8" max="15" name="Wisdom" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<input type="radio" id="Ability1" name="Ability1" value="Wisdom"/>
+								<input type="radio" id="Ability2" name="Ability2" value="Wisdom"/>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Charisma">Charisma:</label>
+								
+								<div class="number-input" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="moins"></button>
+									<input type="number" class=""  id="Charisma" min="8" max="15" name="Charisma" value="8" >
+									<button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<input type="radio" id="Ability1" name="Ability1" value="Charisma"/>
+								<input type="radio" id="Ability2" name="Ability2" value="Charisma"/>
+							</div>
+
+						</div>
+						<div><input type="button" value="Clear" id="Clear"></div>
+					</section>
+				</div>
+			</div>
+			<button class="accordion">Spells</button>
+			<div class="panel">
+				<div class="form-group-panel">
+					{% for i in range(1, 5) %}
+						<label class="container-checkbox">One
+							<input type="checkbox">
+							<span class="checkmark"></span>
+						</label>
+
+					{% endfor %}
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</section>
+</div></div><div class="panel last-section">
+<div class="form-group-panel">
+	{% for i in range(1, 5) %}
+		<label class="container-checkbox">One
+			<input type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+
+	{% endfor %}
+</div></div></div><script src='{{ asset('js/builder.js') }}'></script>{% endblock %}
