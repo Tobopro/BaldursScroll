@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BuilderController!
+{% block title %}Builder
 {% endblock %}
 
 {% block body %}
@@ -9,39 +9,32 @@
 			<button class="accordion first-section-builder">Classes</button>
 			<div class="panel">
 				<div class="form-group-panel">
-					{% for i in range(1, 5) %}
-						<label class="container-checkbox">One
+					{% for class in classes %}
+						<label class="container-checkbox">{{ class.name }}
 							<input type="checkbox">
 							<span class="checkmark"></span>
 						</label>
-
 					{% endfor %}
 				</div>
-
-
 			</div>
 
-			<button class="accordion">Sous-classes
-			</button>
+			<button class="accordion">Sous-classes</button>
 			<div class="panel">
 				<div class="form-group-panel">
-					{% for i in range(1, 5) %}
-						<label class="container-checkbox">One
+					{% for subClass in subClasses %}
+						<label class="container-checkbox">{{ subClass.name }}
 							<input type="checkbox">
 							<span class="checkmark"></span>
 						</label>
-
 					{% endfor %}
 				</div>
-
-
 			</div>
 
 			<button class="accordion">Races</button>
 			<div class="panel">
 				<div class="form-group-panel">
-					{% for i in range(1, 5) %}
-						<label class="container-checkbox">One
+					{% for r in races %}
+						<label class="container-checkbox">{{ r.name }}
 							<input type="checkbox">
 							<span class="checkmark"></span>
 						</label>
@@ -55,17 +48,20 @@
 			<button class="accordion">Sous-races</button>
 			<div class="panel">
 				<div class="form-group-panel">
-					{% for i in range(1, 5) %}
-						<label class="container-checkbox">One
+					{% for subRace in subRaces %}
+						<label class="container-checkbox">{{ subRace.name }}
 							<input type="checkbox">
 							<span class="checkmark"></span>
 						</label>
 
 					{% endfor %}
 				</div>
-
-
 			</div>
+		</div>
+	</div>
+	<script src='{{ asset('js/builder.js') }}'></script>
+
+{% endblock %}
 
 			<button class="accordion">Abilities</button>
 			<div class="panel">
