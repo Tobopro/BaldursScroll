@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-dashboard">
+		<div class="dashboard-filter">
+			<form-check></form-check>
+		</div>
+		{# {{dump(pagination.items)}} #}
+		<div class="dashboard-cards">
+			{% for character in pagination.items %}
+				{# {{dump(character)}} #}
+				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+					<div class="card">
+					{# {{dump(asset('img/' ~ character.idSubClasses.icon))}} #}
+						<img src={{asset('img/' ~ character.idSubClasses.icon)}} alt="">
+						<div class="card-content">
+							<h2>{{ character.name }}</h2>
+							<p>Classe :
+								{{ character.idSubClasses.name }}</p>
+							<p>Race :
+								{{ character.idSubRace.name }}</p>
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+		<div class="pagination">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	</div>
+
+{% endblock %}

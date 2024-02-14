@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BuilderController!
+{% endblock %}
+
+{% block body %}
+	<div class="myform-container">
+		<div class="myform">
+			<button class="accordion first-section-builder">Classes</button>
+			<div class="panel-open">
+				<div class="info-panel">
+					<h3>Clerc</h3>
+					<p>Les clercs sont des dinguos</p>
+				</div>
+			</div>
+
+			<button class="accordion">Sous-classes
+			</button>
+			<div class="panel-open ">
+				<div class="info-panel">
+					<h3>Barde</h3>
+					<p>Les bardes sont des oufs</p>
+				</div>
+			</div>
+
+			<button class="accordion">Races</button>
+			<div class="panel-open ">
+				<div class="info-panel">
+					<h3>Drakéide</h3>
+					<p>Big lizard!</p>
+				</div>
+			</div>
+
+			<button class="accordion">Sous-races</button>
+			<div class="panel-open ">
+				<div class="info-panel">
+					<h3>Drakéide blanc</h3>
+					<p>Big lizard and white!</p>
+				</div>
+			</div>
+
+			<button class="accordion">Sorts disponibles</button>
+			<div class="panel-open ">
+				<div class="info-panel">
+
+					<ul>
+						<li>Sort 1</li>
+						<li>Sort 2</li>
+						<li>Sort 3</li>
+
+					</ul>
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+{% endblock %}
