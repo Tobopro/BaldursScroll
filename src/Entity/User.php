@@ -20,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
     #[ORM\Column]
-    private array $roles = [];
+    private ?array $roles = null;
 
     #[ORM\Column(length: 50)]
     private ?string $username = null;
@@ -142,7 +142,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
+        // Vérifiez que $roles n'est pas null avant l'assignation
+        $this->roles = $roles ?? [];
 
         return $this;
     }
