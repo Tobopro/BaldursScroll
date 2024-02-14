@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SpellsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SpellsRepository::class)]
@@ -30,9 +32,14 @@ class Spells
 
     #[ORM\OneToOne(mappedBy: 'idSpell', cascade: ['persist', 'remove'])]
     private ?ClassesSpells $classesSpells = null;
+    
+    #[ORM\OneToMany(targetEntity: RacesSpells::class, mappedBy: 'idSpell', orphanRemoval: true)]
+    private Collection $racesSpells;
 
-    #[ORM\OneToOne(mappedBy: 'idSpell', cascade: ['persist', 'remove'])]
-    private ?SpellsLevel $spellsLevel = null;
+    public function __construct()
+    {
+        $this->racesSpells = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,19 +123,32 @@ class Spells
         return $this;
     }
 
-    public function getSpellsLevel(): ?SpellsLevel
+    /**
+     * @return Collection<int, RacesSpells>
+     */
+    public function getRacesSpells(): Collection
     {
-        return $this->spellsLevel;
+        return $this->racesSpells;
     }
 
-    public function setSpellsLevel(SpellsLevel $spellsLevel): static
+    public function addRacesSpell(RacesSpells $racesSpell): static
     {
-        // set the owning side of the relation if necessary
-        if ($spellsLevel->getIdSpell() !== $this) {
-            $spellsLevel->setIdSpell($this);
+        if (!$this->racesSpells->contains($racesSpell)) {
+            $this->racesSpells->add($racesSpell);
+            $racesSpell->setIdSpell($this);
         }
 
-        $this->spellsLevel = $spellsLevel;
+        return $this;
+    }
+
+    public function removeRacesSpell(RacesSpells $racesSpell): static
+    {
+        if ($this->racesSpells->removeElement($racesSpell)) {
+            // set the owning side to null (unless already changed)
+            if ($racesSpell->getIdSpell() === $this) {
+                $racesSpell->setIdSpell(null);
+            }
+        }
 
         return $this;
     }
