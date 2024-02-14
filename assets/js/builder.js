@@ -89,38 +89,7 @@ for (i = 0; i < acc.length; i++) {
     });
 }
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     let abilityPoints = 27;
-//     document.querySelector('.ability_point').innerText = abilityPoints;
-//     let currentValue = 8;
 
-//     function updateAbilityPoints(input) {
-//         const newValue = parseInt(input.value);
-
-//         if (abilityPoints > 0) {
-//             if (newValue > currentValue) {
-//                 // Augmentation
-//                 abilityPoints -= (newValue <= 12) ? 1 : 2;
-//             } else if (newValue < currentValue) {
-//                 // Diminution
-//                 abilityPoints += (newValue < 12) ? 1 : 2;
-//             }
-
-//             currentValue = newValue;
-//             document.querySelector('.ability_point').innerText = abilityPoints;
-//         }
-//     }
-
-//     const abilityInputs = document.querySelectorAll('input[type="number"]');
-//     abilityInputs.forEach(function (input) {
-//         // Initialiser input.dataset.previousvalue avec la valeur par défaut
-//         input.dataset.previousvalue = currentValue;
-
-//         input.addEventListener('change', function () {
-//             updateAbilityPoints(input);
-//         });
-//     });
-// }); 
 
 
 // document.addEventListener('DOMContentLoaded', function () {
@@ -190,7 +159,7 @@ for (i = 0; i < acc.length; i++) {
  function disableMinusButtons() {
   const minusButtons = document.querySelectorAll('.moins');
   minusButtons.forEach(function (button) {
-    button.disabled = true;
+    // button.disabled = true;
   });
 }
 
@@ -201,19 +170,20 @@ function enableMinusButtons() {
     button.disabled = false;
   });
 }
-
 // Fonction pour gérer l'événement du bouton "moins"
 function handleMinusButtonClick(nodeName) {
   const inputElement = document.getElementById(nodeName);
   inputElement.stepDown();
   const minusButton = document.querySelector(`.moins[name="${nodeName}"]`);
   
-  if (inputElement.value != 8) {  
+  if (parseInt(inputElement.value, 10) !== 8) {  
+    console.log('false minus');
     minusButton.disabled = false; 
   }else{
+    console.log('true minus');
     minusButton.disabled = true;
   }
-  console.log(`Clicked on minus for ${nodeName}, Node number: ${inputElement.getAttribute('data-node')}`);
+  console.log(`Clicked on minus for ${nodeName}, Node number: ${inputElement.value}`);
 }
 
 // Fonction pour gérer l'événement du bouton "plus"
@@ -221,12 +191,14 @@ function handlePlusButtonClick(nodeName) {
   const inputElement = document.getElementById(nodeName);
   inputElement.stepUp();
   const plusButton = document.querySelector(`.plus[name="${nodeName}"]`);
-  if (inputElement.value != 15) {
+  if (parseInt(inputElement.value, 10) !== 15) {
+     console.log('false plus');
     plusButton.disabled = false; 
   }else{
+     console.log('true plus');
     plusButton.disabled = true;
   }
-  console.log(`Clicked on plus for ${nodeName}, Node number: ${inputElement.getAttribute('data-node')}`);
+  console.log(`Clicked on plus for ${nodeName}, Node number: ${inputElement.value}`);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -234,9 +206,9 @@ document.addEventListener('DOMContentLoaded', function () {
   disableMinusButtons();
 
   // Activer les boutons "moins" lorsque le Clear button est cliqué
-  document.getElementById('Clear').addEventListener('click', function () {
-    enableMinusButtons();
-  });
+  // document.getElementById('Clear').addEventListener('click', function () {
+  //   enableMinusButtons();
+  // });
 
   // Sélectionnez tous les boutons "moins" et ajoutez un écouteur d'événements
   const minusButtons = document.querySelectorAll('.moins');
