@@ -36,6 +36,8 @@ class BuilderController extends AbstractController
         if (!$raceResult || !$subRaceResult || !$ClassesResult || !$subClassesResult) {
             throw $this->createNotFoundException('not found');
         }
+        
+        
         return $this->render('builder/index.html.twig', [
             'races'       => $raceResult,
             'subRaces'    => $subRaceResult,
