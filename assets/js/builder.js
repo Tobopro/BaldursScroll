@@ -15,11 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButtonWrapper.classList.add('submit-button-container');
     submitButtonInfo.classList.add('submit-button-info');
 
-
-
-
-
-
     // Cacher le bouton initialement
 
     var allSectionsChecked = false;
