@@ -10,13 +10,19 @@
 			<form-check></form-check>
 		</div>
 		{# {{dump(pagination.items)}} #}
+
 		<div class="dashboard-cards">
 			{% for character in pagination.items %}
+				{# {{ dump('img/' ~ asset(character.idSubClasses.icon)) }} #}
+
+
 				{# {{dump(character)}} #}
-				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
-					<div class="card">
-					{# {{dump(asset('img/' ~ character.idSubClasses.icon))}} #}
-						<img src={{asset('img/' ~ character.idSubClasses.icon)}} alt="">
+					<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card"> <div
+						class="card">
+
+						{# <img src={{asset('img/' ~ asset(character.idSubClasses.icon))}} alt=""> #}
+						<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
+
 						<div class="card-content">
 							<h2>{{ character.name }}</h2>
 							<p>Classe :
