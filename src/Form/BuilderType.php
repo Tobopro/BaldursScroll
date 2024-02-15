@@ -2,22 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Characters;
-use App\Entity\Levels;
-use App\Entity\SubClasses;
-use App\Entity\SubRaces;
 use App\Entity\User;
-use App\Repository\SubClassesRepository;
-use App\Repository\SubRacesRepository;
-use App\Repository\ClassesRepository;
+use App\Entity\Levels;
+use App\Entity\SubRaces;
+use App\Entity\Characters;
+use App\Entity\SubClasses;
 use App\Repository\RacesRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\ClassesRepository;
+use App\Repository\SubRacesRepository;
+use App\Repository\SubClassesRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class BuilderType extends AbstractType
 {
@@ -87,6 +88,9 @@ class BuilderType extends AbstractType
             ->add('idLevel', EntityType::class, [
                 'class' => Levels::class,
                 'choice_label' => 'id',
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Create Character'
             ])
         ;
     }
