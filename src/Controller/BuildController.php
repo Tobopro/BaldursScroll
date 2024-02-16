@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CharactersRepository;
+use App\Repository\ClassesSpellsRepository;
 use App\Repository\RacesSpellsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,22 +35,26 @@ class BuildController extends AbstractController
     #[Route('/build/{characterId}', name: 'app_build')]
     public function index(int $characterId, 
     CharactersRepository $charactersRepository,
-    RacesSpellsRepository $racesSpellsRepository): Response
+    RacesSpellsRepository $racesSpellsRepository,
+    ClassesSpellsRepository $classesSpellsRepository): Response
     {
         $character = $charactersRepository->find($characterId);
 
         if (!$character) {
             throw $this->createNotFoundException('Character not found');
         }
-        // // Récupérer les sorts associés à la race du personnage
+        // Récupérer les sorts associés à la race du personnage
         // $raceId = $character->getIdSubRace()->getId();
         // $spellsForRace = $racesSpellsRepository->findSpellsByRace($raceId);
+
+        $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
+        $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
         return $this->render('build/index.html.twig', [
             'controller_name' => 'BuildController',
             'character' => $character,
-            // 'spellsForRace' => $spellsForRace,
-          
+            'raceSpells' => $raceSpells,
+            'classSpells' => $classSpells,
 
         ]);
     }
