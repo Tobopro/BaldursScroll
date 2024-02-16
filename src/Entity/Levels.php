@@ -21,19 +21,16 @@ class Levels
     #[ORM\OneToOne(mappedBy: 'idLevel', cascade: ['persist', 'remove'])]
     private ?RacesSpells $racesSpells = null;
 
-    #[ORM\OneToOne(mappedBy: 'idLevel', cascade: ['persist', 'remove'])]
-    private ?SpellsLevel $spellsLevel = null;
-
-    #[ORM\ManyToOne(inversedBy: 'idLevel')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ClassesSpells $classesSpells = null;
-
     #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idLevel')]
     private Collection $characters;
+
+    #[ORM\OneToMany(targetEntity: ClassesSpells::class, mappedBy: 'idLevel', orphanRemoval: true)]
+    private Collection $classesSpells;
 
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->classesSpells = new ArrayCollection();
     }
 
     
@@ -74,35 +71,6 @@ class Levels
         return $this;
     }
 
-    public function getSpellsLevel(): ?SpellsLevel
-    {
-        return $this->spellsLevel;
-    }
-
-    public function setSpellsLevel(SpellsLevel $spellsLevel): static
-    {
-        // set the owning side of the relation if necessary
-        if ($spellsLevel->getIdLevel() !== $this) {
-            $spellsLevel->setIdLevel($this);
-        }
-
-        $this->spellsLevel = $spellsLevel;
-
-        return $this;
-    }
-
-    public function getClassesSpells(): ?ClassesSpells
-    {
-        return $this->classesSpells;
-    }
-
-    public function setClassesSpells(?ClassesSpells $classesSpells): static
-    {
-        $this->classesSpells = $classesSpells;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Characters>
      */
@@ -127,6 +95,36 @@ class Levels
             // set the owning side to null (unless already changed)
             if ($character->getIdLevel() === $this) {
                 $character->setIdLevel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClassesSpells>
+     */
+    public function getClassesSpells(): Collection
+    {
+        return $this->classesSpells;
+    }
+
+    public function addClassesSpell(ClassesSpells $classesSpell): static
+    {
+        if (!$this->classesSpells->contains($classesSpell)) {
+            $this->classesSpells->add($classesSpell);
+            $classesSpell->setIdLevel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassesSpell(ClassesSpells $classesSpell): static
+    {
+        if ($this->classesSpells->removeElement($classesSpell)) {
+            // set the owning side to null (unless already changed)
+            if ($classesSpell->getIdLevel() === $this) {
+                $classesSpell->setIdLevel(null);
             }
         }
 
