@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class BuilderType extends AbstractType
 {
@@ -45,15 +46,40 @@ class BuilderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('strength')
-            ->add('dexterity')
-            ->add('constitution')
-            ->add('intelligence')
-            ->add('wisdom')
-            ->add('charisma')
-            ->add('abilityScoreBonus1')
-            ->add('abilityScoreBonus2')
+            ->add('name', null, [
+                'label' => 'Nom de votre personnage'
+            ])
+            ->add('strength', IntegerType::class, [
+                'label' => ' ',
+                'attr' => ['min' => 8, 'max' => 15]
+            ])
+            ->add('dexterity', IntegerType::class, [
+                'label' => ' ',
+                'attr' => ['min' => 8, 'max' => 15]
+            ])
+            ->add('constitution', IntegerType::class, [
+                'label' => ' ',
+                'attr' => ['min' => 8, 'max' => 15]
+            ])
+            ->add('intelligence', IntegerType::class, [
+                'label' => ' ',
+                'attr' => ['min' => 8, 'max' => 15]
+            ])
+            ->add('wisdom', IntegerType::class, [
+                'label' => ' ',
+                'attr' => ['min' => 8, 'max' => 15]
+            ])
+            ->add('charisma', IntegerType::class, [
+                'label' => ' ',
+                'attr' => ['min' => 8, 'max' => 15]
+            ])
+            ->add('abilityScoreBonus1', RadioType::class, [
+                'label'=> ' ',
+            ])
+             ->add('abilityScoreBonus2', RadioType::class, [
+                'label'=> ' ',
+                
+            ])
             ->add('idSubRace', ChoiceType::class, [
                 'choices' => $this->subRacesRepository->findAll(),
                 'choice_label' => 'name',

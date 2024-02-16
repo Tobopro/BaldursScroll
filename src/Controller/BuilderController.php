@@ -40,10 +40,16 @@ class BuilderController extends AbstractController
 
         $form = $this->createForm(BuilderType::class, $character);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()==false){
+            dd($form->getErrors());
+        }
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($character);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_Builder_show', ['id' => $character->getId()]);
+             $entityManager->persist($character);
+             $entityManager->flush();
+            
+            
+             return $this->redirectToRoute('app_dashboard');
+        //  dd($form->getErrors());
         }
 
         if (!$raceResult || !$subRaceResult || !$ClassesResult || !$subClassesResult) {
