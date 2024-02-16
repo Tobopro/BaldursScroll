@@ -73,11 +73,30 @@ class BuilderType extends AbstractType
                 'label' => ' ',
                 'attr' => ['min' => 8, 'max' => 15]
             ])
-            ->add('abilityScoreBonus1', RadioType::class, [
-                'label'=> ' ',
+            ->add('abilityScoreBonus1', ChoiceType::class, [
+               'label'=> 'Bonus +2',
+               
+                   'choices' => [
+        'STR' => 'STR',
+        'DEX' => 'DEX',
+        'CON' => 'CON',
+        'INT' => 'INT',
+        'WIS' => 'WIS',
+        'CHA' => 'CHA'
+    ]
+                     
             ])
-             ->add('abilityScoreBonus2', RadioType::class, [
-                'label'=> ' ',
+             ->add('abilityScoreBonus2', ChoiceType::class, [
+                'label'=> 'Bonus +1',
+                
+                'choices' => [
+        'STR' => 'STR',
+        'DEX' => 'DEX',
+        'CON' => 'CON',
+        'INT' => 'INT',
+        'WIS' => 'WIS',
+        'CHA' => 'CHA'
+    ]
                 
             ])
             ->add('idSubRace', ChoiceType::class, [

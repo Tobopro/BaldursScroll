@@ -5,88 +5,88 @@ var acc = document.getElementsByClassName("accordion");
 // submitButton.style.display = "none";
 
 document.addEventListener("DOMContentLoaded", function () {
-    var sections = document.querySelectorAll('.panel');
-    var submitButton = document.createElement('button');
-    var submitButtonWrapper = document.createElement("div");
-    var submitButtonInfo = document.createElement("div");
-    submitButton.classList.add("submit-button");
-    submitButton.innerText = 'Submit';
-    submitButton.style.display = 'none';
-    submitButtonWrapper.classList.add('submit-button-container');
-    submitButtonInfo.classList.add('submit-button-info');
+  var sections = document.querySelectorAll('.panel');
+  var submitButton = document.createElement('button');
+  var submitButtonWrapper = document.createElement("div");
+  var submitButtonInfo = document.createElement("div");
+  submitButton.classList.add("submit-button");
+  submitButton.innerText = 'Submit';
+  submitButton.style.display = 'none';
+  submitButtonWrapper.classList.add('submit-button-container');
+  submitButtonInfo.classList.add('submit-button-info');
 
-    // Cacher le bouton initialement
+  // Cacher le bouton initialement
 
-    var allSectionsChecked = false;
+  var allSectionsChecked = false;
 
-    // Vérifier si toutes les cases de chaque section sont cochées
-    function checkAllSectionsChecked() {
-        allSectionsChecked = true;
-        sections.forEach(function (section) {
-            var checkboxes = section.querySelectorAll('input[type="checkbox"]');
-            var sectionChecked = false;
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    sectionChecked = true;
-                }
-            });
-            if (!sectionChecked) {
-                allSectionsChecked = false;
-            }
-        });
+  // Vérifier si toutes les cases de chaque section sont cochées
+  // function checkAllSectionsChecked() {
+  //   allSectionsChecked = true;
+  //   sections.forEach(function (section) {
+  //     var checkboxes = section.querySelectorAll('input[type="checkbox"]');
+  //     var sectionChecked = false;
+  //     checkboxes.forEach(function (checkbox) {
+  //       if (checkbox.checked) {
+  //         sectionChecked = true;
+  //       }
+  //     });
+  //     if (!sectionChecked) {
+  //       allSectionsChecked = false;
+  //     }
+  //   });
 
-        // Afficher le bouton de soumission si toutes les sections sont cochées
-        if (allSectionsChecked) {
-            submitButton.style.display = 'block';
-            submitButtonInfo.innerHTML = '';
-        } else {
-            submitButton.style.display = 'none';
-            submitButtonInfo.innerHTML = 'Il faut cocher un choix par catégorie pour valider le formulaire.';
+  //   // Afficher le bouton de soumission si toutes les sections sont cochées
+  //   if (allSectionsChecked) {
+  //     submitButton.style.display = 'block';
+  //     submitButtonInfo.innerHTML = '';
+  //   } else {
+  //     submitButton.style.display = 'none';
+  //     submitButtonInfo.innerHTML = 'Il faut cocher un choix par catégorie pour valider le formulaire.';
 
-        }
-    }
+  //   }
+  // }
 
-    // Ajouter un écouteur d'événements à chaque case
-    sections.forEach(function (section) {
-        var checkboxes = section.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', checkAllSectionsChecked);
-        });
-    });
+  // Ajouter un écouteur d'événements à chaque case
+  // sections.forEach(function (section) {
+  //   var checkboxes = section.querySelectorAll('input[type="checkbox"]');
+  //   checkboxes.forEach(function (checkbox) {
+  //     checkbox.addEventListener('change', checkAllSectionsChecked);
+  //   });
+  // });
 
-    document.querySelector('.last-section').appendChild(submitButtonWrapper); // Ajouter la div parent à la dernière section
-    document.querySelector('.last-section').appendChild(submitButtonInfo); // Ajouter la div parent à la dernière section
-    submitButtonWrapper.appendChild(submitButton); // Ajouter le bouton à la div parent
+  // document.querySelector('.last-section').appendChild(submitButtonWrapper); // Ajouter la div parent à la dernière section
+  // document.querySelector('.last-section').appendChild(submitButtonInfo); // Ajouter la div parent à la dernière section
+  // submitButtonWrapper.appendChild(submitButton); // Ajouter le bouton à la div parent
 
-    // Ajouter un gestionnaire d'événements pour le clic sur le bouton de soumission
-    submitButton.addEventListener('click', function () {
-        alert('Form submitted!');
-    });
+  // Ajouter un gestionnaire d'événements pour le clic sur le bouton de soumission
+  // submitButton.addEventListener('click', function () {
+  //   alert('Form submitted!');
+  // });
 });
 
 
 for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-        // Fermer toutes les sections qui ne sont pas cliquées
-        for (var j = 0; j < acc.length; j++) {
-            if (j !== i) {
-                acc[j].classList.remove("active");
-                acc[j].nextElementSibling.style.display = "none";
-            }
-        }
+  acc[i].addEventListener("click", function () {
+    // Fermer toutes les sections qui ne sont pas cliquées
+    for (var j = 0; j < acc.length; j++) {
+      if (j !== i) {
+        acc[j].classList.remove("active");
+        acc[j].nextElementSibling.style.display = "none";
+      }
+    }
 
-        /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
-        this.classList.toggle("active");
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
 
-        /* Toggle between hiding and showing the active panel */
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    });
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
 }
 
 
@@ -155,8 +155,8 @@ for (i = 0; i < acc.length; i++) {
 
 
 
- // Fonction pour désactiver tous les boutons "moins"
- function disableMinusButtons() {
+// Fonction pour désactiver tous les boutons "moins"
+function disableMinusButtons() {
   const minusButtons = document.querySelectorAll('.moins');
   minusButtons.forEach(function (button) {
     // button.disabled = true;
@@ -175,11 +175,11 @@ function handleMinusButtonClick(nodeName) {
   const inputElement = document.getElementById(nodeName);
   inputElement.stepDown();
   const minusButton = document.querySelector(`.moins[name="${nodeName}"]`);
-  
-  if (parseInt(inputElement.value, 10) !== 8) {  
+
+  if (parseInt(inputElement.value, 10) !== 8) {
     console.log('false minus');
-    minusButton.disabled = false; 
-  }else{
+    minusButton.disabled = false;
+  } else {
     console.log('true minus');
     minusButton.disabled = true;
   }
@@ -192,10 +192,10 @@ function handlePlusButtonClick(nodeName) {
   inputElement.stepUp();
   const plusButton = document.querySelector(`.plus[name="${nodeName}"]`);
   if (parseInt(inputElement.value, 10) !== 15) {
-     console.log('false plus');
-    plusButton.disabled = false; 
-  }else{
-     console.log('true plus');
+    console.log('false plus');
+    plusButton.disabled = false;
+  } else {
+    console.log('true plus');
     plusButton.disabled = true;
   }
   console.log(`Clicked on plus for ${nodeName}, Node number: ${inputElement.value}`);
