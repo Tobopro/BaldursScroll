@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b1f2ee43767aaa3d3901886cf6e65e0",
+    "content-hash": "a9eb2a23f9617ca9af3d0a0c04a15f03",
     "packages": [
         {
             "name": "composer/semver",
@@ -359,16 +359,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "c9ea252cdce4da324ede3d6c5913dd89f769afd2"
+                "reference": "a19a1d05ca211f41089dffcc387733a6875196cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c9ea252cdce4da324ede3d6c5913dd89f769afd2",
-                "reference": "c9ea252cdce4da324ede3d6c5913dd89f769afd2",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a19a1d05ca211f41089dffcc387733a6875196cb",
+                "reference": "a19a1d05ca211f41089dffcc387733a6875196cb",
                 "shasum": ""
             },
             "require": {
@@ -452,7 +452,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.8.1"
+                "source": "https://github.com/doctrine/dbal/tree/3.8.2"
             },
             "funding": [
                 {
@@ -468,7 +468,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-03T17:33:49+00:00"
+            "time": "2024-02-12T18:36:36+00:00"
         },
         {
             "name": "doctrine/deprecations",

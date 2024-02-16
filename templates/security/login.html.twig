@@ -21,7 +21,7 @@
 			<div class="login-section" id="login-section">
 				<header id="login" onclick="openlogin()">Se Connecter</header>
 
-				<form action="#" class='form-login'>
+				<form method="POST" class='form-login'>
 					{% if error %}
 						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
@@ -34,7 +34,7 @@
 						</div>
 					{% endif %}
 
-					<input type="email" value="{{ last_username }}" placeholder="addrese mail" name="lemail" id="inputEmail" required>
+					<input type="email" value="{{ last_username }}" placeholder="addrese mail" name="email" id="inputEmail" required>
 					<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 					<a href="#">Mot de passe oublié ?</a>
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
