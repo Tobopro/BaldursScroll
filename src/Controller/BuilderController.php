@@ -2,20 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Classes;
 use App\Entity\Races;
-use App\Entity\SubClasses;
+use App\Entity\Classes;
 use App\Entity\SubRaces;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\BuilderType;
+use App\Entity\Characters;
+use App\Entity\SubClasses;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class BuilderController extends AbstractController
 {
     #[Route('/builder', name: 'app_Builder')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         // get all Races from DataBase
         $raceRepository         =       $entityManager->getRepository(Races::class);
@@ -33,6 +36,22 @@ class BuilderController extends AbstractController
         $subClassesRepository   =       $entityManager->getRepository(SubClasses::class);
         $subClassesResult          =    $subClassesRepository->findAll();
 
+        $character = new Characters();
+
+        $form = $this->createForm(BuilderType::class, $character);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()==false){
+            dd($form->getErrors());
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+             $entityManager->persist($character);
+             $entityManager->flush();
+            
+            
+             return $this->redirectToRoute('app_dashboard');
+        //  dd($form->getErrors());
+        }
+
         if (!$raceResult || !$subRaceResult || !$ClassesResult || !$subClassesResult) {
             throw $this->createNotFoundException('not found');
         }
@@ -42,7 +61,8 @@ class BuilderController extends AbstractController
             'races'       => $raceResult,
             'subRaces'    => $subRaceResult,
             'classes'     => $ClassesResult,
-            'subClasses'  => $subClassesResult
+            'subClasses'  => $subClassesResult,
+            'form'        => $form->createView(),
         ]);
     }
 
