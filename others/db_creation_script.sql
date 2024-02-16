@@ -366,11 +366,11 @@ INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, prof
 
 -- Insert data into Characters table
 INSERT INTO `characters` (`id`, `name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id) VALUES
-(1, "Astarion", 8, 15, 14, 12, 13, 10, "AGI", "INT", 2, 30, 1, 1),
+(1, "Astarion", 8, 15, 14, 12, 13, 10, "DEX", "INT", 2, 30, 1, 1),
 (2, "Gale", 8, 13, 14, 10, 12, 8, "INT", "CON", 1, 39, 1, 1),
 (3, "Karlach", 15, 13, 14, 8, 12, 10, "STR", "CON", 20, 1, 1, 1),
 (4, "Lae'zel", 15, 13, 14, 10, 12, 8, "STR", "CON", 21, 17, 1, 1),
-(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "AGI", 6, 12, 1, 1),
+(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "DEX", 6, 12, 1, 1),
 (6, "Wyll", 8, 13, 14, 12, 10, 15, "CHA", "INT", 1, 37, 1, 1),
 (7, "Dark Urge", 8, 13, 14, 12, 10, 15, "CHA", "CON", 31, 33, 1, 1);
 
