@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\RacesSpells;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<RacesSpells>
@@ -20,6 +21,21 @@ class RacesSpellsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RacesSpells::class);
     }
+    
+    public function findSpellsByRace(int $characterId): array
+{
+    return $this->createQueryBuilder('rs')
+        ->select('s')
+        ->join('rs.idSpell', 's')
+        ->join('rs.idSubRace', 'subRace')
+        ->join('subRace.idRace', 'race') // Assurez-vous que 'idRace' est correct
+        ->join('rs.idLevel', 'level') // Assurez-vous que 'idLevel' est correct
+        ->join('rs.idSubRace', 'characterSubRace') // Assurez-vous que 'idSubRace' est correct
+        ->join('characterSubRace.characters', 'character', Join::WITH, 'character.id = :characterId')
+        ->setParameter('characterId', $characterId)
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return RacesSpells[] Returns an array of RacesSpells objects

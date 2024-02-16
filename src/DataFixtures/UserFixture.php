@@ -25,6 +25,7 @@ class UserFixture extends Fixture implements FixtureGroupInterface
         $user->setUsername('John');
         $user->setIsBanned(0);
         $user->setIsAdmin(1);
+        $user->setRoles([]);
         $user->setSignInDate($this->faker->dateTime());
         $user->setPassword($this->passwordHasher->hashPassword($user, 'password'));
 
