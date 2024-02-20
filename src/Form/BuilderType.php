@@ -117,14 +117,16 @@ class BuilderType extends AbstractType
                 'choice_label' => 'name',
                 'expanded' => true,
                 'label'=> ' ',
-                'mapped'=>false
+                'mapped'=>false,
+                'required'=>false,
             ])
              ->add('idRaces', ChoiceType::class, [
                 'choices' => $this->racesRepository->findAll(),
                 'choice_label' => 'name',
                 'expanded' => true,
                 'label'=> ' ',
-                'mapped'=>false
+                'mapped'=>false,
+                'required'=>false,
             ])
             ->add('idUsers', EntityType::class, [
                 'class' => User::class,

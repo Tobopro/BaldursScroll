@@ -85,18 +85,20 @@ class BuilderController extends AbstractController
             throw $this->createNotFoundException("La fiche avec l'ID $id n'existe pas.");
         }
  
-        $form = $this->createForm(BuilderType::class, $characterResult);
+        $form = $this->createForm(BuilderType::class, $characterResult, [
+            'action' => $this->generateUrl('app_builder_update', ['id' => $id])]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             
-            
+             
                 $entityManager->flush();
-                return $this->redirectToRoute('app_Builder_show', ['id' => $characterResult->getId()]);
+                return $this->redirectToRoute('app_dashboard');
+            
         }
 
  
        
-            return $this->render('builder/index.html.twig', [
+            return $this->render('builder/update.html.twig', [
                 'form' => $form->createView(),
                 'character' => $characterResult,
             ]);
