@@ -200,22 +200,34 @@
 					</section>
 				</div>
 			</div>
-			{# <button class="accordion">Sorts disponibles</button>
-																																							<div class="panel-open ">
-																																								<div class="info-panel">
-																																				
-																																									<ul>
-																																										<li>Sort 1</li>
-																																										<li>Sort 2</li>
-																																										<li>Sort 3</li>
-																																				
-																																									</ul>
-																																								</div>
-																																							</div> #}
+
+			<button class="accordion">Sorts disponibles</button>
+			<div class="panel-open ">
+				<div class="info-panel">
+
+					<h3>Sort de Race</h3>
+					<ul>
+						{% for spell in raceSpells %}
+							<li>{{ spell.idSpell.name }}</li>
+						{% else %}
+							<li>Aucun sort pour cette race.</li>
+						{% endfor %}
+					</ul>
+
+
+					<h3>Sort de Classe</h3>
+					<ul>
+						{% for spell in classSpells %}
+							<li>{{ spell.idSpell.name }}</li>
+						{% else %}
+							<li>Aucun sort pour cette classe.</li>
+						{% endfor %}
+					</ul>
+
 
 
 			<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Mettre à jour</a>
-			{# <a href="{{ path('app_builder_delete', {'id': character.id}) }}" class="mybtn-delete">Supprimer</a> #}
+
 			<!-- Bouton pour ouvrir la modale -->
 			<a href="#" class="mybtn-delete" id="deleteBtn">Supprimer</a>
 
@@ -227,6 +239,7 @@
 					<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
 						<button id="confirmDeleteBtn" class="mybtn-modal">Supprimer</button>
 					</a>
+
 				</div>
 			</div>
 
