@@ -5,12 +5,15 @@
 
 {% block body %}
 	<div class="myform-container">
+		<h1>{{ character.name }}</h1>
+
 		<div class="myform">
+
 			<button class="accordion first-section-builder">Classes</button>
 			<div class="panel-open">
 				<div class="info-panel">
 					<h3>{{ character.idSubClasses.idClass.name }}</h3>
-					{# <p>{{ dump(character.idSubClasses.idClass) }}</p> #}
+
 					<p>startingHp:
 						{{ character.idSubClasses.idClass.startingHp }}</p>
 					<p>onLevelUpHp:
@@ -20,7 +23,7 @@
 					<p>savingThrowProficency2:
 						{{ character.idSubClasses.idClass.savingThrowProficency2 }}</p>
 
-					<p>Les clercs sont des dinguos</p>
+
 				</div>
 			</div>
 
@@ -29,7 +32,7 @@
 			<div class="panel-open ">
 				<div class="info-panel">
 					<h3>{{character.idSubClasses.name }}</h3>
-					<p>Les bardes sont des oufs</p>
+
 				</div>
 			</div>
 
@@ -37,7 +40,7 @@
 			<div class="panel-open ">
 				<div class="info-panel">
 					<h3>{{  character.idSubRace.idRace.name }}</h3>
-					<p>Big lizard!</p>
+
 				</div>
 			</div>
 
@@ -48,7 +51,7 @@
 
 					<p>Speed :
 						{{character.idSubRace.speed }}</p>
-					<p>Big lizard and white!</p>
+
 				</div>
 			</div>
 
@@ -59,7 +62,7 @@
 						<div class='row_ability'>
 							<h2>Characters Ability Points.</h2>
 						</div>
-						<p >{{ dump(character) }}</p>
+
 						<div class='row_ability'>
 							<h3>Ability Point</h3>
 							<h3>Bonus</h3>
@@ -82,12 +85,12 @@
 							</div>
 							<div class='ability_bonus'>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength" {% if character.abilityScoreBonus1 == 'STR' %}checked{% endif %} disabled/>
-									
+									<input type="radio" id="Ability1" name="Ability1" value="Strength" {% if character.abilityScoreBonus1 == 'STR' %} checked {% endif %} disabled/>
+
 									<span class="checkmark"></span>
 								</label>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength" {% if character.abilityScoreBonus2 == 'STR' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability2" name="Ability2" value="Strength" {% if character.abilityScoreBonus2 == 'STR' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -103,11 +106,11 @@
 							</div>
 							<div class='ability_bonus'>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Dexterity" {% if character.abilityScoreBonus1 == 'DEX' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability1" name="Ability1" value="Dexterity" {% if character.abilityScoreBonus1 == 'DEX' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Dexterity" {% if character.abilityScoreBonus2 == 'DEX' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability2" name="Ability2" value="Dexterity" {% if character.abilityScoreBonus2 == 'DEX' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -123,11 +126,11 @@
 							</div>
 							<div class='ability_bonus'>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Constitution" {% if character.abilityScoreBonus1 == 'CON' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability1" name="Ability1" value="Constitution" {% if character.abilityScoreBonus1 == 'CON' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Constitution" {% if character.abilityScoreBonus2 == 'CON' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability2" name="Ability2" value="Constitution" {% if character.abilityScoreBonus2 == 'CON' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -143,11 +146,11 @@
 							</div>
 							<div class='ability_bonus'>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Intelligence" {% if character.abilityScoreBonus1 == 'INT' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability1" name="Ability1" value="Intelligence" {% if character.abilityScoreBonus1 == 'INT' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Intelligence" {% if character.abilityScoreBonus2 == 'INT' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability2" name="Ability2" value="Intelligence" {% if character.abilityScoreBonus2 == 'INT' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -163,11 +166,11 @@
 							</div>
 							<div class='ability_bonus'>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Wisdom" {% if character.abilityScoreBonus1 == 'WIS' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability1" name="Ability1" value="Wisdom" {% if character.abilityScoreBonus1 == 'WIS' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Wisdom" {% if character.abilityScoreBonus2 == 'WIS' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability2" name="Ability2" value="Wisdom" {% if character.abilityScoreBonus2 == 'WIS' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 							</div>
@@ -183,25 +186,25 @@
 							</div>
 							<div class='ability_bonus'>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Charisma" {% if character.abilityScoreBonus1 == 'CHA' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability1" name="Ability1" value="Charisma" {% if character.abilityScoreBonus1 == 'CHA' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Charisma" {% if character.abilityScoreBonus2 == 'CHA' %}checked{% endif %} disabled/>
+									<input type="radio" id="Ability2" name="Ability2" value="Charisma" {% if character.abilityScoreBonus2 == 'CHA' %} checked {% endif %} disabled/>
 									<span class="checkmark"></span>
 								</label>
 							</div>
 
 						</div>
-						
+
 					</section>
 				</div>
 			</div>
+
 			<button class="accordion">Sorts disponibles</button>
 			<div class="panel-open ">
 				<div class="info-panel">
 
-					{# {{ dump(raceSpells) }} #}
 					<h3>Sort de Race</h3>
 					<ul>
 						{% for spell in raceSpells %}
@@ -211,7 +214,7 @@
 						{% endfor %}
 					</ul>
 
-					{# {{ dump(classSpells) }} #}
+
 					<h3>Sort de Classe</h3>
 					<ul>
 						{% for spell in classSpells %}
@@ -220,6 +223,23 @@
 							<li>Aucun sort pour cette classe.</li>
 						{% endfor %}
 					</ul>
+
+
+
+			<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Mettre à jour</a>
+
+			<!-- Bouton pour ouvrir la modale -->
+			<a href="#" class="mybtn-delete" id="deleteBtn">Supprimer</a>
+
+			<!-- Modale -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+					<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
+						<button id="confirmDeleteBtn" class="mybtn-modal">Supprimer</button>
+					</a>
+
 				</div>
 			</div>
 
@@ -227,6 +247,8 @@
 		</div>
 
 	</div>
+
+	<script src='{{ asset('js/modal.js') }}'></script>
 
 
 {% endblock %}

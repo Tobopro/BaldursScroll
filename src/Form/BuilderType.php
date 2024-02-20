@@ -73,11 +73,30 @@ class BuilderType extends AbstractType
                 'label' => ' ',
                 'attr' => ['min' => 8, 'max' => 15]
             ])
-            ->add('abilityScoreBonus1', RadioType::class, [
-                'label'=> ' ',
+            ->add('abilityScoreBonus1', ChoiceType::class, [
+               'label'=> 'Bonus +2',
+               
+                   'choices' => [
+        'STR' => 'STR',
+        'DEX' => 'DEX',
+        'CON' => 'CON',
+        'INT' => 'INT',
+        'WIS' => 'WIS',
+        'CHA' => 'CHA'
+    ]
+                     
             ])
-             ->add('abilityScoreBonus2', RadioType::class, [
-                'label'=> ' ',
+             ->add('abilityScoreBonus2', ChoiceType::class, [
+                'label'=> 'Bonus +1',
+                
+                'choices' => [
+        'STR' => 'STR',
+        'DEX' => 'DEX',
+        'CON' => 'CON',
+        'INT' => 'INT',
+        'WIS' => 'WIS',
+        'CHA' => 'CHA'
+    ]
                 
             ])
             ->add('idSubRace', ChoiceType::class, [
@@ -98,14 +117,16 @@ class BuilderType extends AbstractType
                 'choice_label' => 'name',
                 'expanded' => true,
                 'label'=> ' ',
-                'mapped'=>false
+                'mapped'=>false,
+                'required'=>false,
             ])
              ->add('idRaces', ChoiceType::class, [
                 'choices' => $this->racesRepository->findAll(),
                 'choice_label' => 'name',
                 'expanded' => true,
                 'label'=> ' ',
-                'mapped'=>false
+                'mapped'=>false,
+                'required'=>false,
             ])
             ->add('idUsers', EntityType::class, [
                 'class' => User::class,
