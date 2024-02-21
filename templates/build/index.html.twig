@@ -5,12 +5,25 @@
 
 {% block body %}
 	<div class="myform-container">
+		<h1>{{ character.name }}</h1>
+
 		<div class="myform">
+
 			<button class="accordion first-section-builder">Classes</button>
 			<div class="panel-open">
 				<div class="info-panel">
-					<h3>Clerc</h3>
-					<p>Les clercs sont des dinguos</p>
+					<h3>{{ character.idSubClasses.idClass.name }}</h3>
+
+					<p>startingHp:
+						{{ character.idSubClasses.idClass.startingHp }}</p>
+					<p>onLevelUpHp:
+						{{ character.idSubClasses.idClass.onLevelUpHp }}</p>
+					<p>savingThrowProficency1:
+						{{ character.idSubClasses.idClass.savingThrowProficency1 }}</p>
+					<p>savingThrowProficency2:
+						{{ character.idSubClasses.idClass.savingThrowProficency2 }}</p>
+
+
 				</div>
 			</div>
 
@@ -18,24 +31,173 @@
 			</button>
 			<div class="panel-open ">
 				<div class="info-panel">
-					<h3>Barde</h3>
-					<p>Les bardes sont des oufs</p>
+					<h3>{{character.idSubClasses.name }}</h3>
+
 				</div>
 			</div>
 
 			<button class="accordion">Races</button>
 			<div class="panel-open ">
 				<div class="info-panel">
-					<h3>Drakéide</h3>
-					<p>Big lizard!</p>
+					<h3>{{  character.idSubRace.idRace.name }}</h3>
+
 				</div>
 			</div>
 
 			<button class="accordion">Sous-races</button>
 			<div class="panel-open ">
 				<div class="info-panel">
-					<h3>Drakéide blanc</h3>
-					<p>Big lizard and white!</p>
+					<h3>{{ character.idSubRace.name }}</h3>
+
+					<p>Speed :
+						{{character.idSubRace.speed }}</p>
+
+				</div>
+			</div>
+
+			<button class="accordion">Abilities</button>
+			<div class="panel-open">
+				<div class="form-group-panel">
+					<section class="ability-container ">
+						<div class='row_ability'>
+							<h2>Characters Ability Points.</h2>
+						</div>
+
+						<div class='row_ability'>
+							<h3>Ability Point</h3>
+							<h3>Bonus</h3>
+						</div>
+						<div class='row_ability'>
+							<h4 class='ability_point'></h4>
+							<div class='ability_bonus'>
+								<h4>+2</h4>
+								<h4>+1</h4>
+							</div>
+						</div>
+
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Strength">Strength:</label>
+
+								<div class="number-input">
+									<p class="" id="Strength" name="Strength">{{ character.strength }}</p>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability1" name="Ability1" value="Strength" {% if character.abilityScoreBonus1 == 'STR' %} checked {% endif %} disabled/>
+
+									<span class="checkmark"></span>
+								</label>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability2" name="Ability2" value="Strength" {% if character.abilityScoreBonus2 == 'STR' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Dexterity">Dexterity:</label>
+
+								<div class="number-input">
+									<p class="" id="Dexterity" name="Dexterity">{{ character.dexterity }}</p>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability1" name="Ability1" value="Dexterity" {% if character.abilityScoreBonus1 == 'DEX' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability2" name="Ability2" value="Dexterity" {% if character.abilityScoreBonus2 == 'DEX' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Constitution">Constitution:</label>
+								<div class="number-input">
+									<p class="" id="Constitution" name="Constitution">{{ character.constitution }}</p>
+								</div>
+
+							</div>
+							<div class='ability_bonus'>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability1" name="Ability1" value="Constitution" {% if character.abilityScoreBonus1 == 'CON' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability2" name="Ability2" value="Constitution" {% if character.abilityScoreBonus2 == 'CON' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Intelligence">Intelligence:</label>
+
+								<div class="number-input">
+									<p class="" id="Intelligence" name="Intelligence">{{ character.intelligence }}</p>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability1" name="Ability1" value="Intelligence" {% if character.abilityScoreBonus1 == 'INT' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability2" name="Ability2" value="Intelligence" {% if character.abilityScoreBonus2 == 'INT' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Wisdom">Wisdom:</label>
+
+								<div class="number-input">
+									<p class="" id="Wisdom" name="Wisdom">{{ character.wisdom }}</p>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability1" name="Ability1" value="Wisdom" {% if character.abilityScoreBonus1 == 'WIS' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability2" name="Ability2" value="Wisdom" {% if character.abilityScoreBonus2 == 'WIS' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+
+						</div>
+						<div class='row_ability'>
+							<div class='ability_choice'>
+								<label for="Charisma">Charisma:</label>
+
+								<div class="number">
+									<p class="" id="Charisma" name="Charisma">{{ character.charisma }}</p>
+								</div>
+							</div>
+							<div class='ability_bonus'>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability1" name="Ability1" value="Charisma" {% if character.abilityScoreBonus1 == 'CHA' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+								<label class="container-checkbox">
+									<input type="radio" id="Ability2" name="Ability2" value="Charisma" {% if character.abilityScoreBonus2 == 'CHA' %} checked {% endif %} disabled/>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+
+						</div>
+
+					</section>
 				</div>
 			</div>
 
@@ -43,12 +205,41 @@
 			<div class="panel-open ">
 				<div class="info-panel">
 
+					<h3>Sort de Race</h3>
 					<ul>
-						<li>Sort 1</li>
-						<li>Sort 2</li>
-						<li>Sort 3</li>
-
+						{% for spell in raceSpells %}
+							<li>{{ spell.idSpell.name }}</li>
+						{% else %}
+							<li>Aucun sort pour cette race.</li>
+						{% endfor %}
 					</ul>
+
+
+					<h3>Sort de Classe</h3>
+					<ul>
+						{% for spell in classSpells %}
+							<li>{{ spell.idSpell.name }}</li>
+						{% else %}
+							<li>Aucun sort pour cette classe.</li>
+						{% endfor %}
+					</ul>
+
+
+
+			<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Mettre à jour</a>
+
+			<!-- Bouton pour ouvrir la modale -->
+			<a href="#" class="mybtn-delete" id="deleteBtn">Supprimer</a>
+
+			<!-- Modale -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+					<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
+						<button id="confirmDeleteBtn" class="mybtn-modal">Supprimer</button>
+					</a>
+
 				</div>
 			</div>
 
@@ -56,6 +247,8 @@
 		</div>
 
 	</div>
+
+	<script src='{{ asset('js/modal.js') }}'></script>
 
 
 {% endblock %}

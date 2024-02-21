@@ -21,6 +21,22 @@ class ClassesSpellsRepository extends ServiceEntityRepository
         parent::__construct($registry, ClassesSpells::class);
     }
 
+    /**
+    * @return ClassesSpells[] Returns an array of ClassesSpells objects
+    */
+    public function getAllSpells($subClass, $level): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.idSubClasses = :subclass')
+            ->andWhere('s.idLevel >= :level')
+            ->setParameter('subclass', $subClass)
+            ->setParameter('level', $level)
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return ClassesSpells[] Returns an array of ClassesSpells objects
 //     */

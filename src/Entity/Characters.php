@@ -229,4 +229,30 @@ class Characters
 
         return $this;
     }
+
+    public function getClassName(): ?string
+    {
+        if ($this->idSubClasses !== null) {
+            $classEntity = $this->idSubClasses->getIdClass();
+
+            if ($classEntity !== null) {
+                return $classEntity->getName();
+            }
+        }
+
+        return null;
+    }
+
+    public function getRaceName(): ?string
+    {
+        if ($this->idSubRace !== null) {
+            $classEntity = $this->idSubRace->getIdRace();
+
+            if ($classEntity !== null) {
+                return $classEntity->getName();
+            }
+        }
+
+        return null;
+    }
 }
