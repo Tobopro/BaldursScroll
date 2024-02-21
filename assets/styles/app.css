@@ -219,7 +219,6 @@ h6 {
 /* Footer */
 
 .myfooter-container {
-
   background-color: #004266;
   position: absolute;
   background-image: url("../img/background_scroll.png");
@@ -232,7 +231,6 @@ h6 {
   position: relative;
   bottom: 0;
   left: 0;
-
 }
 
 .myfooter-container p {
@@ -289,16 +287,15 @@ h6 {
 }
 
 .card {
-
   margin: 25px;
   border-radius: 5px;
 
   /* overflow: hidden; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #1D1D1D;
+  background-color: #1d1d1d;
   /* width: calc(33.33% - 150px); */
   min-width: 250px;
-  color: #CC8828;
+  color: #cc8828;
   /* color: white */
   /* 3 cards per row with 20px gap */
 }
@@ -320,7 +317,6 @@ h6 {
 }
 
 .card img {
-
   /* width: 100%; */
   height: 100px;
 
@@ -410,12 +406,12 @@ h6 {
 }
 
 /* On mouse-over, add a grey background color */
-.container-checkbox:hover input~.checkmark {
+.container-checkbox:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container-checkbox input:checked~.checkmark {
+.container-checkbox input:checked ~ .checkmark {
   /* background-color: #0B516F; */
   background-color: #cc8828;
 }
@@ -428,7 +424,7 @@ h6 {
 }
 
 /* Show the checkmark when checked */
-.container-checkbox input:checked~.checkmark:after {
+.container-checkbox input:checked ~ .checkmark:after {
   display: block;
 }
 
@@ -553,11 +549,11 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
   pointer-events: none;
-  background-color: #1D1D1D;
+  background-color: #1d1d1d;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
@@ -591,10 +587,10 @@ input[type=number]::-webkit-outer-spin-button {
 .number-input button:after {
   display: inline-block;
   position: absolute;
-  content: '';
+  content: "";
   width: 1rem;
   height: 2px;
-  background-color: #CC8828;
+  background-color: #cc8828;
   transform: translate(-50%, -50%);
 }
 
@@ -602,28 +598,27 @@ input[type=number]::-webkit-outer-spin-button {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.number-input input[type=number] {
+.number-input input[type="number"] {
   font-family: sans-serif;
   max-width: 2.5rem;
-  padding: .5rem;
+  padding: 0.5rem;
   border: none;
   border-width: 0 1px;
   font-size: 1rem;
   height: 1.5rem;
   font-weight: bold;
   text-align: center;
-  color: #CC8828;
+  color: #cc8828;
 }
 
 .clear-button {
-  background-color: #CC8828;
+  background-color: #cc8828;
   border-radius: 10px;
   width: 8rem;
   height: 2rem;
   text-decoration: none;
   border-color: none;
   margin-top: 10px;
-
 }
 
 /*BUILD*/
@@ -724,17 +719,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Balsamiq Sans, ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
-    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-    Noto Color Emoji;
 }
 
 .form-container {
   transition: all 0.5s ease;
   position: relative;
   width: 460px;
-  height: 400px;
   border-radius: 12px;
   padding: 20px 30px 120px;
   background-color: #004266;
@@ -855,9 +845,10 @@ form a {
 form .btn {
   margin-top: 15px;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 8px;
   border-radius: 8px;
   font-size: 18px;
+  background-color: #fff;
   cursor: pointer;
 }
 
@@ -918,8 +909,8 @@ input[type="number"] {
   pointer-events: none;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
@@ -953,10 +944,10 @@ input[type=number]::-webkit-outer-spin-button {
 .number-input button:after {
   display: inline-block;
   position: absolute;
-  content: '';
+  content: "";
   width: 1rem;
   height: 2px;
-  background-color: #CC8828;
+  background-color: #cc8828;
   transform: translate(-50%, -50%);
 }
 
@@ -964,15 +955,15 @@ input[type=number]::-webkit-outer-spin-button {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.number-input input[type=number] {
+.number-input input[type="number"] {
   font-family: sans-serif;
   max-width: 2.5rem;
-  padding: .5rem;
+  padding: 0.5rem;
   border: none;
   border-width: 0 1px;
   font-size: 1rem;
   height: 1.5rem;
   font-weight: bold;
   text-align: center;
-  color: #CC8828;
+  color: #cc8828;
 }
