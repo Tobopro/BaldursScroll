@@ -20,29 +20,29 @@ class BuilderController extends AbstractController
     // #[Route('/builder', name: 'app_Builder')]
     // public function index(EntityManagerInterface $entityManager, Request $request): Response
     // {
-   
+
     //     $raceRepository         =       $entityManager->getRepository(Races::class);
     //     $raceResult             =       $raceRepository->findAll();
 
-    
+
     //     $subRacesRepository     =       $entityManager->getRepository(SubRaces::class);
     //     $subRaceResult          =       $subRacesRepository->findAll();
 
-   
+
     //     $ClassesRepository      =       $entityManager->getRepository(Classes::class);
     //     $ClassesResult          =       $ClassesRepository->findAll();
 
-   
+
     //     $subClassesRepository   =       $entityManager->getRepository(SubClasses::class);
     //     $subClassesResult          =    $subClassesRepository->findAll();
 
-       
+
 
     //     if (!$raceResult || !$subRaceResult || !$ClassesResult || !$subClassesResult) {
     //         throw $this->createNotFoundException('not found');
     //     }
-        
-        
+
+
     //     return $this->render('builder/index.html.twig', [
     //         'races'       => $raceResult,
     //         'subRaces'    => $subRaceResult,
@@ -53,59 +53,59 @@ class BuilderController extends AbstractController
     // }
 
     #[Route('/builder', name: 'app_builder_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request): Response {
-            $character = new Characters();
+    public function create(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $character = new Characters();
 
-            $form = $this->createForm(BuilderType::class, $character);
-            $form->handleRequest($request);
-           
-            if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->persist($character);
-                $entityManager->flush();
-                
-                
-                return $this->redirectToRoute('app_builder_create');
-            }
-            
+        $form = $this->createForm(BuilderType::class, $character);
+        $form->handleRequest($request);
 
-            return $this->render('builder/index.html.twig', [
-                'form' => $form->createView(),
-            ]);
-        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($character);
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('app_builder_create');
+        }
+
+
+        return $this->render('builder/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
-    
+
     #[Route('/builder/update/{id}', name: 'app_builder_update')]
-    public function update( EntityManagerInterface $entityManager, $id, Request  $request) : Response
-     {
+    public function update(EntityManagerInterface $entityManager, $id, Request  $request): Response
+    {
         $charactersRepository = $entityManager->getRepository(Characters::class);
         $characterResult = $charactersRepository->find($id);
 
         if (!$characterResult) {
             throw $this->createNotFoundException("La fiche avec l'ID $id n'existe pas.");
         }
- 
+
         $form = $this->createForm(BuilderType::class, $characterResult, [
-            'action' => $this->generateUrl('app_builder_update', ['id' => $id])]);
+            'action' => $this->generateUrl('app_builder_update', ['id' => $id])
+        ]);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            
-             
-                $entityManager->flush();
-                return $this->redirectToRoute('app_dashboard');
-            
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $entityManager->flush();
+            return $this->redirectToRoute('app_dashboard');
         }
 
- 
-       
-            return $this->render('builder/update.html.twig', [
-                'form' => $form->createView(),
-                'character' => $characterResult,
-            ]);
-     }
+
+
+        return $this->render('builder/update.html.twig', [
+            'form' => $form->createView(),
+            'character' => $characterResult,
+        ]);
+    }
 
     #[Route('/builder/delete/{id}', name: 'app_builder_delete')]
-    public function delete( EntityManagerInterface $entityManager, $id): Response
+    public function delete(EntityManagerInterface $entityManager, $id): Response
     {
         $charactersRepository = $entityManager->getRepository(Characters::class);
         $characterResult = $charactersRepository->find($id);
@@ -121,5 +121,4 @@ class BuilderController extends AbstractController
     {
         return $this->render('builder/show_builder.html.twig', []);
     }
-
 }
