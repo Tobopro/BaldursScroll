@@ -137,7 +137,8 @@ class BuilderType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Create Character'
+                'label' => 'Create Character',
+                'attr' => ['class' => 'btn mybtn']
             ])
         ;
     }

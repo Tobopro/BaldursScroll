@@ -65,7 +65,7 @@ class BuilderController extends AbstractController
             $entityManager->flush();
 
 
-            return $this->redirectToRoute('app_builder_create');
+            return $this->redirectToRoute('app_dashboard');
         }
 
 
