@@ -19,6 +19,16 @@ class DashboardController extends AbstractController
       
         $characters= array_reverse($characters);
 
+        
+        $searchTerm = $request->query->get('search'); 
+
+        if ($searchTerm) {            
+               // Récupérez les personnages en fonction du terme de recherche
+            $characters = $charactersRepository->search($searchTerm);
+        }
+     
+      
+
         foreach ($characters as $character) {
             $subRaceName = $character->getIdSubRace()->getName();
             $subClassName = $character->getIdSubClasses()->getName();
