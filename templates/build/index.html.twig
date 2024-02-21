@@ -63,17 +63,6 @@
 							<h2>Characters Ability Points.</h2>
 						</div>
 
-						<div class='row_ability'>
-							<h3>Ability Point</h3>
-							<h3>Bonus</h3>
-						</div>
-						<div class='row_ability'>
-							<h4 class='ability_point'></h4>
-							<div class='ability_bonus'>
-								<h4>+2</h4>
-								<h4>+1</h4>
-							</div>
-						</div>
 
 						<div class='row_ability'>
 							<div class='ability_choice'>
@@ -225,30 +214,29 @@
 					</ul>
 
 
+					<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Mettre à jour</a>
 
-			<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Mettre à jour</a>
+					<!-- Bouton pour ouvrir la modale -->
+					<a href="#" class="mybtn-delete" id="deleteBtn">Supprimer</a>
 
-			<!-- Bouton pour ouvrir la modale -->
-			<a href="#" class="mybtn-delete" id="deleteBtn">Supprimer</a>
+					<!-- Modale -->
+					<div id="myModal" class="modal">
+						<div class="modal-content">
+							<span class="close">&times;</span>
+							<p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+							<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
+								<button id="confirmDeleteBtn" class="mybtn-modal">Supprimer</button>
+							</a>
 
-			<!-- Modale -->
-			<div id="myModal" class="modal">
-				<div class="modal-content">
-					<span class="close">&times;</span>
-					<p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
-					<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
-						<button id="confirmDeleteBtn" class="mybtn-modal">Supprimer</button>
-					</a>
+						</div>
+					</div>
+
 
 				</div>
+
 			</div>
 
-
-		</div>
-
-	</div>
-
-	<script src='{{ asset('js/modal.js') }}'></script>
+			<script src='{{ asset('js/modal.js') }}'></script>
 
 
-{% endblock %}
+		{% endblock %}
