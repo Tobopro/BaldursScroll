@@ -32,17 +32,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => "CURRENT_DATE"])]
     private ?\DateTimeInterface $signInDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
-    #[ORM\Column]
-    private ?bool $isBanned = null;
-
-    #[ORM\Column]
-    private ?bool $isAdmin = null;
 
     #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idUsers')]
     private Collection $characters;
@@ -105,30 +100,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsBanned(): ?bool
-    {
-        return $this->isBanned;
-    }
-
-    public function setIsBanned(bool $isBanned): static
-    {
-        $this->isBanned = $isBanned;
-
-        return $this;
-    }
-
-    public function isIsAdmin(): ?bool
-    {
-        return $this->isAdmin;
-    }
-
-    public function setIsAdmin(bool $isAdmin): static
-    {
-        $this->isAdmin = $isAdmin;
-
-        return $this;
-    }
-
     /**
      * @see UserInterface
      */
@@ -144,7 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         // Vérifiez que $roles n'est pas null avant l'assignation
-        $this->roles = $roles ?? [];
+        $this->roles = $roles;
 
         return $this;
     }

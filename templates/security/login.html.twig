@@ -7,21 +7,7 @@
 			<div class="singup-section" id="singup-section">
 				<header id="singup" onclick="closelogin()">S’inscrire</header>
 
-				<form action="#" method="post">
-					<input type="text" placeholder="Nom et prenom" name="name" required>
-					<input type="email" placeholder="addrese mail" name="email" required>
-					<input type="password" placeholder="mot de passe" name="pass" required>
-					<a href="#">Mot de passe oublié ?</a>
-
-					<button type="submit" class="btn">S’inscrire</button>
-				</form>
-
-			</div>
-
-			<div class="login-section" id="login-section">
-				<header id="login" onclick="openlogin()">Se Connecter</header>
-
-				<form method="POST" class='form-login'>
+				<form method="POST">
 					{% if error %}
 						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
