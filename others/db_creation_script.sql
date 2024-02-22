@@ -360,9 +360,9 @@ INSERT INTO spells (`id`, `name`, `description`, damage_type, damage_roll) VALUE
 
 
 -- Insert data into Users table
-INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, profile_picture, is_banned, is_admin) VALUES
-(1, "[]", 'adventurer1', 'adventurer1@example.com', 'password123', NOW(), '', 0, 0),
-(2, "[]", 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0, 1);
+INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, profile_picture, is_banned) VALUES
+(1, "[]", 'adventurer1', 'adventurer1@example.com', 'password123', NOW(), '', 0),
+(2, "[]", 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0);
 
 -- Insert data into Characters table
 INSERT INTO `characters` (`id`, `name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id) VALUES
