@@ -1,141 +1,3 @@
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-
-DROP DATABASE
-    IF EXISTS BaldursScroll;
-CREATE DATABASE BaldursScroll
-    DEFAULT CHARACTER SET utf8mb4
-    COLLATE utf8mb4_general_ci;
-USE BaldursScroll;
-
-
-CREATE TABLE Races(
-   -- Primary key(s)
-   idRace INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   `name` VARCHAR(20) NOT NULL DEFAULT "default race"
-   -- Constraints / Foreign Key(s)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE Classes(
-   -- Primary key(s)
-   idClass INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   `name` VARCHAR(20) NOT NULL DEFAULT "default class",
-   startingHp INT UNSIGNED NOT NULL DEFAULT 5,
-   onLevelUpHp INT UNSIGNED NOT NULL DEFAULT 5,
-   savingThrowProficency1 VARCHAR(50) NOT NULL DEFAULT "STR",
-   savingThrowProficency2 VARCHAR(50) NOT NULL DEFAULT "CON"
-   -- Constraints / Foreign Key(s)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE Levels(
-   -- Primary key(s)
-   idLevel INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   `level` INT UNSIGNED NOT NULL
-   -- Constraints / Foreign Key(s)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE Spells(
-   -- Primary key(s)
-   idSpell INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-  `name` VARCHAR(50) NOT NULL DEFAULT "default spell",
-   `description` VARCHAR(255),
-   damageType VARCHAR(50),
-   damageRoll VARCHAR(50),
-   icon VARCHAR(100)
-   -- Constraints / Foreign Key(s)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE Users(
-   -- Primary key(s)
-   idUsers INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   username VARCHAR(50) NOT NULL,
-   email VARCHAR(50) NOT NULL,
-   `password` VARCHAR(255) NOT NULL,
-   signInDate DATETIME NOT NULL DEFAULT NOW(),
-   profilePicture VARCHAR(100),
-   isBanned BOOLEAN NOT NULL DEFAULT FALSE,
-   isAdmin BOOLEAN NOT NULL DEFAULT FALSE
-   -- Constraints / Foreign Key(s)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE SubClasses(
-   -- Primary key(s)
-   idSubClasses INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   `name` VARCHAR(30) NOT NULL DEFAULT "default subclass",
-   icon VARCHAR(100),
-   -- Constraints / Foreign Key(s)
-   idClass INT UNSIGNED NOT NULL,
-   FOREIGN KEY(idClass) REFERENCES Classes(idClass)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE SubRaces(
-   -- Primary key(s)
-   idSubRace INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   `name` VARCHAR(30) NOT NULL DEFAULT "default race",
-   speed DECIMAL(3,1) NOT NULL DEFAULT 9,
-   icon VARCHAR(100),
-   -- Constraints / Foreign Key(s)
-   idRace INT UNSIGNED NOT NULL,
-   FOREIGN KEY(idRace) REFERENCES Races(idRace)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE Characters(
-   -- Primary key(s)
-   idCharacter INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   -- Table Content
-   `name` VARCHAR(50) NOT NULL DEFAULT "Tav",
-   strength INT NOT NULL DEFAULT 17,
-   dexterity INT NOT NULL DEFAULT 13,
-   constitution INT NOT NULL DEFAULT 15,
-   intelligence INT NOT NULL DEFAULT 13,
-   wisdom INT NOT NULL DEFAULT 12,
-   charisma INT NOT NULL DEFAULT 8,
-   abilityScoreBonus1 VARCHAR(20) NOT NULL DEFAULT "STR",
-   abilityScoreBonus2 VARCHAR(20) NOT NULL DEFAULT "CON",
-   -- Constraints / Foreign Key(s)
-   idSubRace INT UNSIGNED NOT NULL,
-   idSubClasses INT UNSIGNED NOT NULL,
-   idUsers INT UNSIGNED NOT NULL,
-   FOREIGN KEY(idSubRace) REFERENCES SubRaces(idSubRace),
-   FOREIGN KEY(idSubClasses) REFERENCES SubClasses(idSubClasses),
-   FOREIGN KEY(idUsers) REFERENCES Users(idUsers)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE ClassesSpells(
-   -- Primary key(s)
-   idSpell INT UNSIGNED NOT NULL,
-   idSubClasses INT UNSIGNED NOT NULL,
-   PRIMARY KEY(idSpell, idSubClasses),
-   -- Constraints / Foreign Key(s)
-   FOREIGN KEY(idSpell) REFERENCES Spells(idSpell),
-   FOREIGN KEY(idSubClasses) REFERENCES SubClasses(idSubClasses)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE RacesSpells(
-   -- Primary key(s)
-   idSpell INT UNSIGNED NOT NULL,
-   idSubRace INT UNSIGNED NOT NULL,
-   PRIMARY KEY(idSpell, idSubRace),
-   -- Constraints / Foreign Key(s)
-   FOREIGN KEY(idSpell) REFERENCES Spells(idSpell),
-   FOREIGN KEY(idSubRace) REFERENCES SubRaces(idSubRace)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE SpellsLevel(
-   idLevel INT UNSIGNED NOT NULL,
-   idSpell INT UNSIGNED NOT NULL,
-   PRIMARY KEY(idLevel, idSpell),
-   -- Constraints / Foreign Key(s)
-   FOREIGN KEY(idLevel) REFERENCES Levels(idLevel),
-   FOREIGN KEY(idSpell) REFERENCES Spells(idSpell)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Insert data into Races table
 INSERT INTO races (`id`, `name`) VALUES
@@ -360,17 +222,17 @@ INSERT INTO spells (`id`, `name`, `description`, damage_type, damage_roll) VALUE
 
 
 -- Insert data into Users table
-INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, profile_picture, is_banned, is_admin) VALUES
-(1, "[]", 'adventurer1', 'adventurer1@example.com', 'password123', NOW(), '', 0, 0),
-(2, "[]", 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0, 1);
+INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, profile_picture, is_banned) VALUES
+(1, "[]", 'adventurer1', 'adventurer1@example.com', 'password123', NOW(), '', 0),
+(2, "[]", 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0);
 
 -- Insert data into Characters table
 INSERT INTO `characters` (`id`, `name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id) VALUES
-(1, "Astarion", 8, 15, 14, 12, 13, 10, "AGI", "INT", 2, 30, 1, 1),
+(1, "Astarion", 8, 15, 14, 12, 13, 10, "DEX", "INT", 2, 30, 1, 1),
 (2, "Gale", 8, 13, 14, 10, 12, 8, "INT", "CON", 1, 39, 1, 1),
 (3, "Karlach", 15, 13, 14, 8, 12, 10, "STR", "CON", 20, 1, 1, 1),
 (4, "Lae'zel", 15, 13, 14, 10, 12, 8, "STR", "CON", 21, 17, 1, 1),
-(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "AGI", 6, 12, 1, 1),
+(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "DEX", 6, 12, 1, 1),
 (6, "Wyll", 8, 13, 14, 12, 10, 15, "CHA", "INT", 1, 37, 1, 1),
 (7, "Dark Urge", 8, 13, 14, 12, 10, 15, "CHA", "CON", 31, 33, 1, 1);
 
@@ -1633,12 +1495,3 @@ INSERT INTO races_spells (`id`, id_spell_id, id_sub_race_id, id_level_id) VALUES
 -- Speak with Animals ###########################
 (41, 69, 15, 1);
 
-
-CREATE USER IF NOT EXISTS "baldursscroll"@"localhost"
-IDENTIFIED BY "/baldurs.scroll69(pAsSwOrD)/";
-
-GRANT ALL PRIVILEGES ON BaldursScroll.* TO "baldursscroll"@"localhost";
-
-
-COMMIT;
-SET AUTOCOMMIT = 1;
