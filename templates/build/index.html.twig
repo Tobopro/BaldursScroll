@@ -248,7 +248,37 @@
 			</div>
 		</div>
 
-		<script src='{{ asset('js/modal.js') }}'></script>
+		<!-- Section des commentaires -->
+		<section class="comments-section">
+			<h2>Commentaires</h2>
+
+			<!-- Afficher les commentaires existants -->
+			<div
+				class="existing-comments">{# {% for comment in comments %}
+																				<div class="comment">
+																					<p>{{ comment.content }}</p>
+																					<p>Posté par
+																						{{ comment.author }}
+																						le
+																						{{ comment.createdAt|date('d/m/Y H:i') }}</p>
+																				</div>
+																			{% else %}
+																				<p>Aucun commentaire pour le moment.</p>
+																			{% endfor %} #}
+			</div>
+
+			<!-- Formulaire pour soumettre un nouveau commentaire -->
+			<div class="comment-form">
+				<h3>Ajouter un commentaire</h3>
+				<form method="post" action="">
+					<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
+					<button type="submit">Envoyer</button>
+				</form>
+			</div>
+		</section>
+	</div>
+
+	<script src='{{ asset('js/modal.js') }}'></script>
 
 
-	{% endblock %}
+{% endblock %}

@@ -42,9 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idUsers')]
     private Collection $characters;
 
+    #[ORM\OneToMany(targetEntity: Commentaries::class, mappedBy: 'Author')]
+    private Collection $commentaries;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->commentaries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +182,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($character->getIdUsers() === $this) {
                 $character->setIdUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaries>
+     */
+    public function getCommentaries(): Collection
+    {
+        return $this->commentaries;
+    }
+
+    public function addCommentary(Commentaries $commentary): static
+    {
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries->add($commentary);
+            $commentary->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentaries $commentary): static
+    {
+        if ($this->commentaries->removeElement($commentary)) {
+            // set the owning side to null (unless already changed)
+            if ($commentary->getAuthor() === $this) {
+                $commentary->setAuthor(null);
             }
         }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CharactersRepository;
 use App\Repository\ClassesSpellsRepository;
+use App\Repository\CommentariesRepository;
 use App\Repository\RacesSpellsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,7 +37,8 @@ class BuildController extends AbstractController
     public function index(int $characterId, 
     CharactersRepository $charactersRepository,
     RacesSpellsRepository $racesSpellsRepository,
-    ClassesSpellsRepository $classesSpellsRepository): Response
+    ClassesSpellsRepository $classesSpellsRepository,
+    CommentariesRepository $commentariesRepository): Response
     {
         $character = $charactersRepository->find($characterId);
 
@@ -47,6 +49,17 @@ class BuildController extends AbstractController
         // $raceId = $character->getIdSubRace()->getId();
         // $spellsForRace = $racesSpellsRepository->findSpellsByRace($raceId);
 
+
+        $commentaries = [
+            'commentary1' => 'This is a commentary',
+            'commentary2' => 'This is another commentary',
+        ];
+        // if ($this->getUser()) {
+        //     $commentaries = $commentariesRepository->findBy(['idBuild' => $characterId]);
+        // } else {
+        //     $commentaries = [];
+        // }
+
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
@@ -55,6 +68,7 @@ class BuildController extends AbstractController
             'character' => $character,
             'raceSpells' => $raceSpells,
             'classSpells' => $classSpells,
+            'commentaries' => $commentaries,
 
         ]);
     }
