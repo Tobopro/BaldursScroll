@@ -16,18 +16,22 @@ class CommentaryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('text')
-            ->add('createdAt')
-            ->add('Author', EntityType::class, [
-                'class' => User::class,
-            'choice_label' => 'id',
+            ->add('text', null, [
+                'label' => 'Votre commentaire',
+                'attr' => ['class' => 'form-control'],
             ])
-            ->add('Build', EntityType::class, [
-                'class' => Characters::class,
-            'choice_label' => 'id',
-            ])
+            // ->add('createdAt')
+            // ->add('Author', EntityType::class, [
+            //     'class' => User::class,
+            // 'choice_label' => 'id',
+            // ])
+            // ->add('Build', EntityType::class, [
+            //     'class' => Characters::class,
+            // 'choice_label' => 'id',
+            // ])
             ->add('save', SubmitType::class, [
-                'label' => 'Create',
+                'label' => 'Publier le commentaire',
+                'attr' => ['class' => 'mybtn'],
             ])
         ;
     }

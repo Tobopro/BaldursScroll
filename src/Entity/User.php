@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => "CURRENT_DATE"])]
+    #[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => null])]
     private ?\DateTimeInterface $signInDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -44,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(targetEntity: Commentaries::class, mappedBy: 'Author')]
     private Collection $commentaries;
+
+    #[ORM\Column(options: ["default" => 0])]
+    private ?bool $IsBanned = false;
 
     public function __construct()
     {
@@ -214,6 +217,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $commentary->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsBanned(): ?bool
+    {
+        return $this->IsBanned;
+    }
+
+    public function setIsBanned(bool $IsBanned): static
+    {
+        $this->IsBanned = $IsBanned;
 
         return $this;
     }

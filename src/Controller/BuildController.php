@@ -38,16 +38,9 @@ class BuildController extends AbstractController
             'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
         ]);
 
-
-        $commentaries = [
-            'commentary1' => 'This is a commentary',
-            'commentary2' => 'This is another commentary',
-        ];
-        // if ($this->getUser()) {
-        //     $commentaries = $commentariesRepository->findBy(['idBuild' => $characterId]);
-        // } else {
-        //     $commentaries = [];
-        // }
+       
+        $commentaries = $commentariesRepository->findBy(['Build' => $characterId]);
+      
 
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommentariesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentariesRepository::class)]
@@ -25,6 +27,24 @@ class Commentaries
     #[ORM\ManyToOne(inversedBy: 'commentaries')]
     private ?Characters $Build = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $modifiedAt = null;
+
+    #[ORM\Column(options: ["default" => 0])]
+    private ?bool $isFlaged = false;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'IsResponseTo')]
+    private ?self $response = null;
+
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'response')]
+    private Collection $IsResponseTo;
+
+    public function __construct()
+    {
+        $this->IsResponseTo = new ArrayCollection();
+    }
+
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -77,4 +97,72 @@ class Commentaries
 
         return $this;
     }
+
+    public function getModifiedAt(): ?\DateTimeImmutable
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(?\DateTimeImmutable $modifiedAt): static
+    {
+        $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    public function isIsFlaged(): ?bool
+    {
+        return $this->isFlaged;
+    }
+
+    public function setIsFlaged(bool $isFlaged): static
+    {
+        $this->isFlaged = $isFlaged;
+
+        return $this;
+    }
+
+    public function getResponse(): ?self
+    {
+        return $this->response;
+    }
+
+    public function setResponse(?self $response): static
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getIsResponseTo(): Collection
+    {
+        return $this->IsResponseTo;
+    }
+
+    public function addIsResponseTo(self $isResponseTo): static
+    {
+        if (!$this->IsResponseTo->contains($isResponseTo)) {
+            $this->IsResponseTo->add($isResponseTo);
+            $isResponseTo->setResponse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIsResponseTo(self $isResponseTo): static
+    {
+        if ($this->IsResponseTo->removeElement($isResponseTo)) {
+            // set the owning side to null (unless already changed)
+            if ($isResponseTo->getResponse() === $this) {
+                $isResponseTo->setResponse(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

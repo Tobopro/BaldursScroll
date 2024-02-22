@@ -253,37 +253,44 @@
 			<h2>Commentaires</h2>
 
 			<!-- Afficher les commentaires existants -->
-			<div
-				class="existing-comments">{# {% for comment in comments %}
-																																																																											<div class="comment">
-																																																																												<p>{{ comment.content }}</p>
-																																																																												<p>Posté par
-																																																																													{{ comment.author }}
-																																																																													le
-																																																																													{{ comment.createdAt|date('d/m/Y H:i') }}</p>
-																																																																											</div>
-																																																																										{% else %}
-																																																																											<p>Aucun commentaire pour le moment.</p>
-																																																																										{% endfor %} #}
+			<div class="existing-comments">
+
+				{% for commentary in commentaries %}
+					<div class="comment">
+						<p>{{ commentary.text }}</p>
+						<p>Posté par
+							{{commentary.author.username}}
+							le
+							{{ commentary.createdAt|date('d/m/Y') }}</p>
+					</div>
+				{% else %}
+					<p>Aucun commentaire pour le moment.</p>
+				{% endfor %}
 			</div>
 
-			<!-- Formulaire pour soumettre un nouveau commentaire -->
-			<div class="comment-form">
-				<h3>Ajouter un commentaire</h3>
-				{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
-																																
-																																
-																																					<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
-																																
-																																					<button type="submit">Envoyer</button>
-																																				</form> #}
-				{{form_start(form)}}
-				{{form_row(form.text)}}
-				{{form_row(form.save)}}
-				{{ form_rest(form) }}
 
-				{{form_end(form)}}
-			</div>
+			{% if app.user %}
+				<!-- Formulaire pour soumettre un nouveau commentaire -->
+				<div class="comment-form">
+					<h3>Ajouter un commentaire</h3>
+					{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
+																																																																																										
+																																																																																										
+																																																																																															<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
+																																																																																										
+																																																																																															<button type="submit">Envoyer</button>
+																																																																																														</form> #}
+					{{form_start(form)}}
+					{{form_row(form.text)}}
+					{{form_row(form.save)}}
+
+
+					{{form_end(form)}}
+				</div>
+
+			{% endif %}
+
+
 		</section>
 	</div>
 
