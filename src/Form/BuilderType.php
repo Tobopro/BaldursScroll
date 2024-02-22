@@ -128,10 +128,7 @@ class BuilderType extends AbstractType
                 'mapped'=>false,
                 'required'=>false,
             ])
-            ->add('idUsers', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            
             ->add('idLevel', EntityType::class, [
                 'class' => Levels::class,
                 'choice_label' => 'id',

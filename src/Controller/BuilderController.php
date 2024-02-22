@@ -13,44 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class BuilderController extends AbstractController
 {
-    // #[Route('/builder', name: 'app_Builder')]
-    // public function index(EntityManagerInterface $entityManager, Request $request): Response
-    // {
-
-    //     $raceRepository         =       $entityManager->getRepository(Races::class);
-    //     $raceResult             =       $raceRepository->findAll();
-
-
-    //     $subRacesRepository     =       $entityManager->getRepository(SubRaces::class);
-    //     $subRaceResult          =       $subRacesRepository->findAll();
-
-
-    //     $ClassesRepository      =       $entityManager->getRepository(Classes::class);
-    //     $ClassesResult          =       $ClassesRepository->findAll();
-
-
-    //     $subClassesRepository   =       $entityManager->getRepository(SubClasses::class);
-    //     $subClassesResult          =    $subClassesRepository->findAll();
-
-
-
-    //     if (!$raceResult || !$subRaceResult || !$ClassesResult || !$subClassesResult) {
-    //         throw $this->createNotFoundException('not found');
-    //     }
-
-
-    //     return $this->render('builder/index.html.twig', [
-    //         'races'       => $raceResult,
-    //         'subRaces'    => $subRaceResult,
-    //         'classes'     => $ClassesResult,
-    //         'subClasses'  => $subClassesResult,
-    //         'form'        => $form->createView(),
-    //     ]);
-    // }
 
     #[Route('/builder', name: 'app_builder_create')]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
@@ -59,10 +25,13 @@ class BuilderController extends AbstractController
 
         $form = $this->createForm(BuilderType::class, $character);
         $form->handleRequest($request);
+     
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $character->setIdUsers($this->getUser());
             $entityManager->persist($character);
             $entityManager->flush();
+
 
 
             return $this->redirectToRoute('app_dashboard');

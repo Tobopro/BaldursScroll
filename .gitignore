@@ -22,4 +22,5 @@
 ###> symfony/asset-mapper ###
 # /public/assets/
 /assets/vendor/
+.php-version
 ###< symfony/asset-mapper ###
