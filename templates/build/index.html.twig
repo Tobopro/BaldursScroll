@@ -248,7 +248,53 @@
 			</div>
 		</div>
 
-		<script src='{{ asset('js/modal.js') }}'></script>
+		<!-- Section des commentaires -->
+		<section class="comments-section">
+			<h2>Commentaires</h2>
+
+			<!-- Afficher les commentaires existants -->
+			<div class="existing-comments">
+
+				{% for commentary in commentaries %}
+					<div class="comment">
+						<p>{{ commentary.text }}</p>
+						<p>Posté par
+							{{commentary.author.username}}
+							le
+							{{ commentary.createdAt|date('d/m/Y') }}</p>
+					</div>
+				{% else %}
+					<p>Aucun commentaire pour le moment.</p>
+				{% endfor %}
+			</div>
 
 
-	{% endblock %}
+			{% if app.user %}
+				<!-- Formulaire pour soumettre un nouveau commentaire -->
+				<div class="comment-form">
+					<h3>Ajouter un commentaire</h3>
+					{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
+																																																																																										
+																																																																																										
+																																																																																															<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
+																																																																																										
+																																																																																															<button type="submit">Envoyer</button>
+																																																																																														</form> #}
+					{{form_start(form)}}
+					{{form_row(form.text)}}
+					{{form_row(form.save)}}
+
+
+					{{form_end(form)}}
+				</div>
+
+			{% endif %}
+
+
+		</section>
+	</div>
+
+	<script src='{{ asset('js/modal.js') }}'></script>
+
+
+{% endblock %}

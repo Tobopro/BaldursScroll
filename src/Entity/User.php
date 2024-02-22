@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => "CURRENT_DATE"])]
+    #[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => null])]
     private ?\DateTimeInterface $signInDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -42,9 +42,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idUsers')]
     private Collection $characters;
 
+    #[ORM\OneToMany(targetEntity: Commentaries::class, mappedBy: 'Author')]
+    private Collection $commentaries;
+
+    #[ORM\Column(options: ["default" => 0])]
+    private ?bool $IsBanned = false;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->commentaries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +187,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $character->setIdUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaries>
+     */
+    public function getCommentaries(): Collection
+    {
+        return $this->commentaries;
+    }
+
+    public function addCommentary(Commentaries $commentary): static
+    {
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries->add($commentary);
+            $commentary->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentaries $commentary): static
+    {
+        if ($this->commentaries->removeElement($commentary)) {
+            // set the owning side to null (unless already changed)
+            if ($commentary->getAuthor() === $this) {
+                $commentary->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isIsBanned(): ?bool
+    {
+        return $this->IsBanned;
+    }
+
+    public function setIsBanned(bool $IsBanned): static
+    {
+        $this->IsBanned = $IsBanned;
 
         return $this;
     }

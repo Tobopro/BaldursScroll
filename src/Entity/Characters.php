@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CharactersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CharactersRepository::class)]
@@ -55,6 +57,9 @@ class Characters
     #[ORM\ManyToOne(inversedBy: 'characters')]
     private ?Levels $idLevel = null;
 
+    #[ORM\OneToMany(targetEntity: Commentaries::class, mappedBy: 'Build')]
+    private Collection $commentaries;
+
     public function __construct()
     {
         $this->strength = 8;
@@ -63,6 +68,7 @@ class Characters
         $this->intelligence = 8;
         $this->wisdom = 8;
         $this->charisma = 8;
+        $this->commentaries = new ArrayCollection();
     }
 
 
@@ -254,5 +260,35 @@ class Characters
         }
 
         return null;
+    }
+
+    /**
+     * @return Collection<int, Commentaries>
+     */
+    public function getCommentaries(): Collection
+    {
+        return $this->commentaries;
+    }
+
+    public function addCommentary(Commentaries $commentary): static
+    {
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries->add($commentary);
+            $commentary->setBuild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentaries $commentary): static
+    {
+        if ($this->commentaries->removeElement($commentary)) {
+            // set the owning side to null (unless already changed)
+            if ($commentary->getBuild() === $this) {
+                $commentary->setBuild(null);
+            }
+        }
+
+        return $this;
     }
 }

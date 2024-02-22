@@ -2,41 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\Characters;
+use App\Entity\Commentaries;
+use App\Form\CommentaryType;
 use App\Repository\CharactersRepository;
-use App\Repository\ClassesSpellsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RacesSpellsRepository;
+use App\Repository\CommentariesRepository;
+use App\Repository\ClassesSpellsRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BuildController extends AbstractController
 {
-    // #[Route('/build', name: 'app_build')]
-    // public function index(CharactersRepository $charactersRepository): Response
-    // {
-    //     $characters = $charactersRepository->findAll();
-
-    //     foreach ($characters as $character) {
-    //         $subRaceName = $character->getIdSubRace()->getName();
-    //         $subClassName = $character->getIdSubClasses()->getName();
-    //         $users = $character->getIdUsers()->getUsername();
-
-    //         $character->subRaceName = $subRaceName;
-    //         $character->subClassName = $subClassName;
-    //         $character->users = $users;
-    //     }
-
-    //     return $this->render('build/index.html.twig', [
-    //         'controller_name' => 'BuildController',
-    //         'characters' => $characters,
-    //     ]);
-    // }
-
     #[Route('/build/{characterId}', name: 'app_build')]
     public function index(int $characterId, 
     CharactersRepository $charactersRepository,
     RacesSpellsRepository $racesSpellsRepository,
-    ClassesSpellsRepository $classesSpellsRepository): Response
+    ClassesSpellsRepository $classesSpellsRepository,
+    CommentariesRepository $commentariesRepository): Response
     {
         $character = $charactersRepository->find($characterId);
 
@@ -47,6 +33,15 @@ class BuildController extends AbstractController
         // $raceId = $character->getIdSubRace()->getId();
         // $spellsForRace = $racesSpellsRepository->findSpellsByRace($raceId);
 
+        $commentary = new Commentaries();
+        $form = $this->createForm(CommentaryType::class, $commentary, [
+            'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
+        ]);
+
+       
+        $commentaries = $commentariesRepository->findBy(['Build' => $characterId]);
+      
+
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
@@ -55,8 +50,33 @@ class BuildController extends AbstractController
             'character' => $character,
             'raceSpells' => $raceSpells,
             'classSpells' => $classSpells,
+            'commentaries' => $commentaries,
+            'form' => $form->createView(),
 
         ]);
+    }
+
+    #[Route('/build/{characterId}/commentary', name: 'app_build_commentary')]
+    public function createCommentary(int $characterId, Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $characters = $entityManager->getRepository(Characters::class)->find($characterId);
+        $commentary = new Commentaries();
+        $form = $this->createForm(CommentaryType::class, $commentary);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentary->setAuthor($this->getUser());
+            $commentary->setCreatedAt(new \DateTimeImmutable());
+            $commentary->setBuild($characters);
+            $entityManager->persist($commentary);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+        }
+
+        $this->addFlash('error', 'There was an error with your form');
+        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
    
