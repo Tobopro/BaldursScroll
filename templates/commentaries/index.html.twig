@@ -1,6 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CommentariesController!
+{% block title %}Commentaires
 {% endblock %}
 
-{% block body %}{% endblock %}
+
+{% block body %}
+	<section class="comments-section">
+		<h2>Commentaires</h2>
+
+		<!-- Afficher les commentaires existants -->
+		<div class="existing-comments">
+
+			{% for commentary in commentaries %}
+				<div class="comment">
+					<p>{{ commentary.text }}</p>
+					<p>Posté par
+						{{commentary.author.username}}
+						le
+						{{ commentary.createdAt|date('d/m/Y') }}</p>
+				</div>
+			{% else %}
+				<p>Aucun commentaire pour le moment.</p>
+			{% endfor %}
+		</div>
+
+
+	</section>
+
+{% endblock %}
