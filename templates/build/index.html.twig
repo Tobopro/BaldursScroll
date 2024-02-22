@@ -257,48 +257,62 @@
 
 				{% for commentary in commentaries %}
 					<div class="comment">
-						<p>{{ commentary.text }}</p>
-						<p>Posté par
-							{{commentary.author.username}}
-							le
-							{{ commentary.createdAt|date('d/m/Y') }}</p>
-						<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="mybtn-delete">Supprimer</a>
+						<p>{{ commentary.text }}
+							{% if app.user %}
+								{% if app.user.id == commentary.author.id %}
+									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="btn btn-danger ms-5">Supprimer votre commentaire</a>
+								{% else %}
+									{% if commentary.isFlaged == true %}
+
+										<p class="text-danger">Commentaire signalé</p>
+									{% else %}
+										<a href="{{ path('app_build_commentary_report', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" mx-5">
+											<i class="fa-regular fa-flag"></i>
+										</a>
+									{% endif %}
 
 
-					</div>
-
-				{% else %}
-					<p>Aucun commentaire pour le moment.</p>
-				{% endfor %}
-			</div>
-
-
-			{% if app.user %}
-				<!-- Formulaire pour soumettre un nouveau commentaire -->
-				<div class="comment-form">
-					<h3>Ajouter un commentaire</h3>
-					{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
-																																																																																																																																																						
-																																																																																																																																																						
-																																																																																																																																																											<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
-																																																																																																																																																						
-																																																																																																																																																											<button type="submit">Envoyer</button>
-																																																																																																																																																										</form> #}
-					{{form_start(form)}}
-					{{form_row(form.text)}}
-					{{form_row(form.save)}}
+								{% endif %}
+							{% endif %}
+						</p>
+					</p>
+					<p>Posté par
+						{{commentary.author.username}}
+						le
+						{{ commentary.createdAt|date('d/m/Y') }}</p>
 
 
-					{{form_end(form)}}
 				</div>
 
-			{% endif %}
+			{% else %}
+				<p>Aucun commentaire pour le moment.</p>
+			{% endfor %}
+		</div>
 
 
-		</section>
-	</div>
+		{% if app.user %}
+			<!-- Formulaire pour soumettre un nouveau commentaire -->
+			<div class="comment-form">
+				<h3>Ajouter un commentaire</h3>
+				{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
+																																																																																																																																																																																																																																																																																										
+																																																																																																																																																																																																																																																																																										
+																																																																																																																																																																																																																																																																																															<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
+																																																																																																																																																																																																																																																																																										
+																																																																																																																																																																																																																																																																																															<button type="submit">Envoyer</button>
+																																																																																																																																																																																																																																																																																														</form> #}
+				{{form_start(form)}}
+				{{form_row(form.text)}}
+				{{form_row(form.save)}}
 
-	<script src='{{ asset('js/modal.js') }}'></script>
+
+				{{form_end(form)}}
+			</div>
+
+		{% endif %}
 
 
-{% endblock %}
+	</section>
+</div>
+
+<script src='{{ asset('js/modal.js') }}'></script>{% endblock %}

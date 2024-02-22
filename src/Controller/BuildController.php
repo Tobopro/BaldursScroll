@@ -89,5 +89,15 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
+     #[Route('/build/{characterId}/commentary/{commentaryId}/report', name: 'app_build_commentary_report')]
+    public function reportCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager): Response
+    {
+        $commentary = $entityManager->getRepository(Commentaries::class)->find($commentaryId);
+        $commentary->setIsFlaged(true);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+    }
+
    
 }

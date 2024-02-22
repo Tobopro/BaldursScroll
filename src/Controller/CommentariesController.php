@@ -20,4 +20,14 @@ class CommentariesController extends AbstractController
             'commentaries' => $commentaries,
         ]);
     }
+
+    #[Route('commentariesFlaged/', name: 'app_commentary_flaged')]
+    public function indexFlaged(CommentariesRepository $commentariesRepository): Response
+    {
+        $commentaries = $commentariesRepository->findBy(['isFlaged' => true]);
+        return $this->render('commentaries/index.html.twig', [
+            'controller_name' => 'CommentariesController',
+            'commentaries' => $commentaries,
+        ]);
+    }
 }
