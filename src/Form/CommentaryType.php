@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Characters;
 use App\Entity\Commentaries;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CommentaryType extends AbstractType
 {
@@ -24,6 +25,9 @@ class CommentaryType extends AbstractType
             ->add('Build', EntityType::class, [
                 'class' => Characters::class,
             'choice_label' => 'id',
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Create',
             ])
         ;
     }
