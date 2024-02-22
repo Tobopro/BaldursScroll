@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use App\Repository\CommentariesRepository;
+use App\Entity\Commentaries;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CommentariesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommentariesController extends AbstractController
 {
@@ -25,9 +27,30 @@ class CommentariesController extends AbstractController
     public function indexFlaged(CommentariesRepository $commentariesRepository): Response
     {
         $commentaries = $commentariesRepository->findBy(['isFlaged' => true]);
-        return $this->render('commentaries/index.html.twig', [
+        return $this->render('commentaries/flaged.html.twig', [
             'controller_name' => 'CommentariesController',
             'commentaries' => $commentaries,
         ]);
+    }
+
+    #[Route('commentariesFlaged/unflag/{idCommentary}', name: 'app_commentary_unflaged')]
+    public function unflagCommentary(int $idCommentary, EntityManagerInterface $entityManager): Response
+    {
+    
+        $commentary = $entityManager->getRepository(Commentaries::class)->find($idCommentary);
+        $commentary->setIsFlaged(false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_commentary_flaged');
+    }
+
+    #[Route('commentariesFlaged/delete/{idCommentary}', name: 'app_commentary_delete')]
+    public function deleteCommentary(int $idCommentary, EntityManagerInterface $entityManager): Response
+    {
+        $commentary = $entityManager->getRepository(Commentaries::class)->find($idCommentary);
+        $entityManager->remove($commentary);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_commentary_flaged');
     }
 }

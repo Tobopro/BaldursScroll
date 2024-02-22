@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Characters;
 use App\Entity\Commentaries;
 use App\Form\CommentaryType;
+use App\Form\ResponseType;
 use App\Repository\CharactersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RacesSpellsRepository;
@@ -38,6 +39,10 @@ class BuildController extends AbstractController
             'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
         ]);
 
+        // $formResponse = $this->createForm(ResponseType::class, $commentary, [
+        //     'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
+        // ]);
+
        
         $commentaries = $commentariesRepository->findBy(['Build' => $characterId]);
       
@@ -52,6 +57,7 @@ class BuildController extends AbstractController
             'classSpells' => $classSpells,
             'commentaries' => $commentaries,
             'form' => $form->createView(),
+            // 'formResponse' => $formResponse->createView()
 
         ]);
     }
@@ -74,6 +80,22 @@ class BuildController extends AbstractController
 
             return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
         }
+
+        // $response = new Commentaries();
+        // $formResponse= $this->createForm(ResponseType::class, $commentary);
+        // $formResponse->handleRequest($request);
+
+        // if ($formResponse->isSubmitted() && $formResponse->isValid()) {
+        //     $response->setAuthor($this->getUser());
+        //     $response->setCreatedAt(new \DateTimeImmutable());
+        //     $response->setBuild($characters);
+        //     $response->setResponse($commentary);
+        //     $entityManager->persist($response);
+        //     $entityManager->flush();
+
+        //     return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+        // }
+
 
         $this->addFlash('error', 'There was an error with your form');
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
@@ -99,5 +121,29 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
+    #[Route('/build/{characterId}/commentary/{commentaryId}/response', name: 'app_build_commentary_response')]
+    public function handleResponse(int $characterId, int $commentaryId, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $characters = $entityManager->getRepository(Characters::class)->find($characterId);
+        $commentary = $entityManager->getRepository(Commentaries::class)->find($commentaryId);
+
+        // Récupérer les données du formulaire
+        $responseText = $request->request->get('response');
+
+        // Création de la nouvelle réponse
+        $response = new Commentaries();
+        $response->setAuthor($this->getUser());
+        $response->setCreatedAt(new \DateTimeImmutable());
+        $response->setBuild($characters);
+        $response->addIsResponseTo($commentary);
+        $response->setText($responseText); // Utilisez le contenu de la réponse
+
+        // Persiste et enregistre la réponse
+        $entityManager->persist($response);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Réponse envoyée avec succès.');
+        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+    }
    
 }
