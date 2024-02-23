@@ -4,19 +4,69 @@
 {% endblock %}
 
 {% block body %}
-	<div class='mycontainer'>
-		<div class='profile-pic-container'>
-			<img src="https://cdn.pixabay.com/photo/2012/11/28/10/48/samurai-67662_1280.jpg" class="img-profile">
-		</div>
-		<div class='profile-text-container'>
-			<h1>Molalix</h1>
-			<p>Membre depuis le 02.02.2024</p>
-			<p>X Builds</p>
-		</div>
+	<div class='container-fluid'>
+		<div class="row my-5">
+			<div class="col-5 offset-1 col-md-3 offset-md-1">
+				<div class='profile-pic-container'>
+					<img src="{{user.profilePicture}}" class="img-profile">
+				</div>
+			</div>
+			<div class="col-6 col-md-8  mt-5">
 
-		<div class='profile-showcase-title'>
-			<h2>Mes créations</h2>
+
+				<div class='profile-text-container'>
+					<h1>{{user.username}}</h1>
+					<p>Membre depuis le
+						{{ user.signInDate|date('d/m/Y') }}</p>
+
+					<p>{{numberOfCharacters}}
+						Builds</p>
+					<p>
+
+						{% if numberOfComments !=0 %}
+							<a href="{{ path('app_commentaries_user', {'userId': app.user.id} ) }}">
+
+
+								Voir mes
+								{{numberOfComments}}
+								commentaires</a>
+					{% else %}
+						</p>
+					</p>
+					<p>Vous n'avez pas encore commenté de build
+					{% endif %}
+				</p>
+			</div>
 		</div>
+	</div>
+
+	<div class='profile-showcase-title'>
+		<h2>Mes créations</h2>
+
 
 	</div>
-{% endblock %}
+	<div class="dashboard-cards">
+		{% if numberOfCharacters != 0 %}
+			{% for character in userCharacters %}
+
+
+				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+					<div class="card">
+
+						<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
+
+						<div class="card-content">
+							<h2>{{ character.name }}</h2>
+							<p>Classe :
+								{{ character.idSubClasses.name }}</p>
+							<p>Race :
+								{{ character.idSubRace.name }}</p>
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+		{% else %}
+			<p class="mx-5">Vous n'avez pas encore créé de personnage</p>
+		{% endif %}
+	</div>
+</div></div>{% endblock %}
