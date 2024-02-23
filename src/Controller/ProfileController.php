@@ -20,6 +20,7 @@ class ProfileController extends AbstractController
         }
         $userCharacters = $charactersRepository->findBy(['idUsers' => $idUser]);
         $numberOfCharacters = count($userCharacters);
+        $numberOfComments = count($user->getCommentaries());
 
 
 
@@ -27,7 +28,8 @@ class ProfileController extends AbstractController
             'controller_name' => 'ProfileController',
             'user' => $user,
             'userCharacters' => $userCharacters,
-            'numberOfCharacters' => $numberOfCharacters
+            'numberOfCharacters' => $numberOfCharacters,
+            'numberOfComments' => $numberOfComments
         ]);
     }
 }
