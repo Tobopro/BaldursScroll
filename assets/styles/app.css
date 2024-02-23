@@ -83,7 +83,7 @@ h6 {
 }
 
 .mynav-list {
-    grid-column: 6/12;
+    grid-column: 3/12;
     grid-row: 1;
     display: flex;
     align-items: center;
@@ -100,7 +100,7 @@ h6 {
 }
 
 .mynav-pencil {
-    grid-column: 9/12;
+    grid-column: 6/12;
     grid-row: 1;
     display: flex;
     align-items: center;
@@ -112,6 +112,22 @@ h6 {
 
 @media only screen and (max-width: 992px) {
     .mynav-pencil {
+        display: none;
+    }
+}
+.mynav-users {
+    grid-column: 9/12;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+}
+
+.mynav-users i {
+    color: whitesmoke;
+}
+
+@media only screen and (max-width: 992px) {
+    .mynav-users {
         display: none;
     }
 }
@@ -855,7 +871,7 @@ input[type=number]::-webkit-outer-spin-button {
     /* Couleur du texte de chaque élément de pagination */
 }
 
-// Style for Login page
+/* Style for Login page*/
 @import url(https://db.onlinewebfonts.com/c/f8ecf8ba4bdf80a4ba4277a3b2f702b6?family=PeydaWeb+SemBd);
 
 * {
