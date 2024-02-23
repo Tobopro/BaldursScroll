@@ -44,7 +44,20 @@ class BuildController extends AbstractController
         // ]);
 
        
-        $commentaries = $commentariesRepository->findBy(['Build' => $characterId]);
+        $commentaries = $commentariesRepository->createQueryBuilder('c')
+                        ->where('c.Build = :characterId')
+                        ->andWhere('c.response IS NULL')
+                        ->setParameter('characterId', $characterId)
+                        ->getQuery()
+                        ->getResult();
+
+        $responses = $commentariesRepository->createQueryBuilder('c')
+                        ->where('c.Build = :characterId')
+                        ->andWhere('c.response IS NOT NULL')
+                        ->setParameter('characterId', $characterId)
+                        ->getQuery()
+                        ->getResult();
+
       
 
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
@@ -57,6 +70,7 @@ class BuildController extends AbstractController
             'classSpells' => $classSpells,
             'commentaries' => $commentaries,
             'form' => $form->createView(),
+            'responses' => $responses
             // 'formResponse' => $formResponse->createView()
 
         ]);
@@ -135,7 +149,7 @@ class BuildController extends AbstractController
         $response->setAuthor($this->getUser());
         $response->setCreatedAt(new \DateTimeImmutable());
         $response->setBuild($characters);
-        $response->addIsResponseTo($commentary);
+        $response->setResponse($commentary);
         $response->setText($responseText); // Utilisez le contenu de la réponse
 
         // Persiste et enregistre la réponse
