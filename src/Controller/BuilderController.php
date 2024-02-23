@@ -8,12 +8,13 @@ use App\Entity\SubRaces;
 use App\Form\BuilderType;
 use App\Entity\Characters;
 use App\Entity\SubClasses;
+use App\Form\NewBuilderType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BuilderController extends AbstractController
 {
@@ -38,7 +39,7 @@ class BuilderController extends AbstractController
         }
 
 
-        return $this->render('builder/index.html.twig', [
+        return $this->render('builder/indeex.html.twig', [
             'form' => $form->createView(),
         ]);
     }

@@ -558,7 +558,7 @@ h6 {
 .accordion {
     background-color: #1d1d1d;
     color: #ececec;
-    cursor: pointer;
+    /* cursor: pointer; */
     padding: 18px;
     width: 100%;
     text-align: left;
@@ -572,6 +572,42 @@ h6 {
 .active,
 .accordion:hover {
     background-color: rgb(44, 44, 44);
+}
+
+/* Accordions */
+
+/* change default color of Bootstrap accordion */
+
+.accordion-button:not(.collapsed),
+.accordion-body:not(.collapsed) {
+    color: #ffffff;
+    background-color: rgb(44, 44, 44);
+}
+
+.accordion-button,
+.accordion-body {
+    color: #ffffff;
+    background-color: rgb(44, 44, 44);
+}
+
+/* header text color to white */
+
+.accordion-button:not(.collapsed) {
+    color: #ffffff;.transparent-bg {
+    background-color: transparent !important;
+}
+}
+
+/* Remove active blue glow */
+
+.accordion-button:focus {
+    box-shadow: inset 0 0 5px white;
+}
+
+/* Change arrow color to white */
+
+.accordion-button:after {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
 }
 
 /* Style the accordion panel. Note: hidden by default */
@@ -628,8 +664,17 @@ h6 {
     grid-template-columns: 3fr 2fr;
     /* gap: 3px;  */
     /* text-align: center; */
-    margin: 3px 0;
+    margin: 15px 0;
     padding: 0;
+    font-size: 18px;
+}
+
+.ability_point {
+    width: fit-content;
+    color: #cc8828;
+    text-align: center;
+    font-size: 24px;
+    margin-left: 1rem;
 }
 
 .ability_bonus {
@@ -642,6 +687,8 @@ h6 {
 .ability_choice {
     display: grid;
     grid-template-columns: 3fr 1fr;
+    align-items: center;
+    width: 100%;
     /* gap: 3px;  */
 }
 
@@ -662,6 +709,8 @@ input[type=number]::-webkit-outer-spin-button {
 .number-input {
     border: 0;
     display: inline-flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .number-input,
@@ -713,11 +762,33 @@ input[type=number]::-webkit-outer-spin-button {
     color: #CC8828;
 }
 
+.form-check {
+    display: flex;
+    gap: 10px;
+}
+
+.form-check-label,
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-input {
+    padding: 10px;
+}
+
+.form-check-input:checked {
+    background-color: #CC8828;
+    color: #CC8828;
+}
+
+.form-check-input:focus {
+    box-shadow: inset 0 0 5px #CC8828;
+}
+
 .clear-button {
     background-color: #CC8828;
     border-radius: 10px;
     width: 8rem;
-    height: 2rem;
     text-decoration: none;
     border-color: none;
     margin-top: 10px;
@@ -1026,102 +1097,4 @@ form .btn {
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-}
-
-/*section ability*/
-
-.row_ability h2 {
-    width: 100%;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-}
-
-.row_ability {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    /* gap: 3px;  */
-    /* text-align: center; */
-    margin: 3px 0;
-    padding: 0;
-}
-
-.ability_bonus {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-between;
-    /* gap: 1px;  */
-}
-
-.ability_choice {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    /* gap: 3px;  */
-}
-
-/* input type number */
-input[type="number"] {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    pointer-events: none;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
-
-.number-input {
-    border: 0;
-    display: inline-flex;
-}
-
-.number-input,
-.number-input * {
-    box-sizing: border-box;
-}
-
-.number-input button {
-    outline: none;
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
-    margin: 0px;
-    position: relative;
-    box-shadow: 0px 0px 1px #474747;
-    border-radius: 50%;
-}
-
-.number-input button:before,
-.number-input button:after {
-    display: inline-block;
-    position: absolute;
-    content: '';
-    width: 1rem;
-    height: 2px;
-    background-color: #CC8828;
-    transform: translate(-50%, -50%);
-}
-
-.number-input button.plus:after {
-    transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.number-input input[type=number] {
-    font-family: sans-serif;
-    max-width: 2.5rem;
-    padding: .5rem;
-    border: none;
-    border-width: 0 1px;
-    font-size: 1rem;
-    height: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    color: #CC8828;
 }

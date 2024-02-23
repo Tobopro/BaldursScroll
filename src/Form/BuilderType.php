@@ -50,54 +50,52 @@ class BuilderType extends AbstractType
                 'label' => 'Nom de votre personnage'
             ])
             ->add('strength', IntegerType::class, [
-                'label' => ' ',
+                'label' => FALSE,
                 'attr' => ['min' => 8, 'max' => 15]
             ])
             ->add('dexterity', IntegerType::class, [
-                'label' => ' ',
+                'label' => FALSE,
                 'attr' => ['min' => 8, 'max' => 15]
             ])
             ->add('constitution', IntegerType::class, [
-                'label' => ' ',
+                'label' => FALSE,
                 'attr' => ['min' => 8, 'max' => 15]
             ])
             ->add('intelligence', IntegerType::class, [
-                'label' => ' ',
+                'label' => FALSE,
                 'attr' => ['min' => 8, 'max' => 15]
             ])
             ->add('wisdom', IntegerType::class, [
-                'label' => ' ',
+                'label' => FALSE,
                 'attr' => ['min' => 8, 'max' => 15]
             ])
             ->add('charisma', IntegerType::class, [
-                'label' => ' ',
+                'label' => FALSE,
                 'attr' => ['min' => 8, 'max' => 15]
             ])
             ->add('abilityScoreBonus1', ChoiceType::class, [
                'label'=> 'Bonus +2',
-               
-                   'choices' => [
-        'STR' => 'STR',
-        'DEX' => 'DEX',
-        'CON' => 'CON',
-        'INT' => 'INT',
-        'WIS' => 'WIS',
-        'CHA' => 'CHA'
-    ]
-                     
+               'choices' => [
+                    'STR' => 'STR',
+                    'DEX' => 'DEX',
+                    'CON' => 'CON',
+                    'INT' => 'INT',
+                    'WIS' => 'WIS',
+                    'CHA' => 'CHA'
+                ],
+                'attr' => ['class' => 'w-75']
             ])
              ->add('abilityScoreBonus2', ChoiceType::class, [
                 'label'=> 'Bonus +1',
-                
                 'choices' => [
-        'STR' => 'STR',
-        'DEX' => 'DEX',
-        'CON' => 'CON',
-        'INT' => 'INT',
-        'WIS' => 'WIS',
-        'CHA' => 'CHA'
-    ]
-                
+                    'STR' => 'STR',
+                    'DEX' => 'DEX',
+                    'CON' => 'CON',
+                    'INT' => 'INT',
+                    'WIS' => 'WIS',
+                    'CHA' => 'CHA'
+                ],
+                'attr' => ['class' => 'w-75']
             ])
             ->add('idSubRace', ChoiceType::class, [
                 'choices' => $this->subRacesRepository->findAll(),
@@ -131,6 +129,7 @@ class BuilderType extends AbstractType
             
             ->add('idLevel', EntityType::class, [
                 'class' => Levels::class,
+                'label' => 'Character\'s level',
                 'choice_label' => 'id',
             ])
             ->add('save', SubmitType::class, [

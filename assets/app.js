@@ -1,6 +1,5 @@
 import './bootstrap.js';
-import './modal.js';
-import './builder.js';
+// import './modal.js';
 
 /*
  * Welcome to your app's main JavaScript file!

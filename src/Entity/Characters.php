@@ -37,10 +37,10 @@ class Characters
     private ?int $charisma = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $abilityScoreBonus1 = null;
+    private ?string $abilityScoreBonus1 = "STR";
 
     #[ORM\Column(length: 20)]
-    private ?string $abilityScoreBonus2 = null;
+    private ?string $abilityScoreBonus2 = "DEX";
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: true)]
