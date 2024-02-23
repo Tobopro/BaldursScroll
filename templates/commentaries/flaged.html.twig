@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaires
+{% endblock %}
+
+{% block body %}
+	<section class="comments-section">
+		<h2>Commentaires signalés</h2>
+
+		<!-- Afficher les commentaires existants -->
+		<div class="existing-comments">
+			{% if commentaries is not empty %}
+				<table class="comment-table">
+					<thead>
+						<tr>
+							<th>Commentaire</th>
+							<th>Auteur</th>
+							<th>Date de création</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for commentary in commentaries %}
+							<tr>
+								<td>{{ commentary.text }}</td>
+								<td>{{ commentary.author.username }}</td>
+								<td>{{ commentary.createdAt|date('d/m/Y') }}</td>
+
+								<td>
+									<a href="{{ path('app_commentary_delete', {'idCommentary': commentary.id}) }}" class="mybtn-delete">Supprimer</a>
+
+									<a href="{{ path('app_commentary_unflaged', {'idCommentary': commentary.id}) }}" class="mybtn">Annuler le signalement</a>
+
+								</td>
+							</tr>
+
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>Aucun commentaire n'a été signalé.</p>
+
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}
