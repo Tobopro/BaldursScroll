@@ -43,7 +43,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-                {{ form_row(form.username) }}
+					{{ form_row(form.username) }}
 					{{ form_row(form.email) }}
 					{{ form_row(form.password) }}
 
@@ -71,33 +71,43 @@
 			<div class="modal-content">
 
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Créer un nouvel utilisateur</h1>
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Gestion du role</h1>
+					
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<form action="{{ path('app_user_set_roles', { id: user.id }) }}" method="post">
 					<div class="modal-body">
+					<div>
+						<h2 class="fs-5" id="">
+							{% for role in user.roles %}
+								{{ role }}
+							{% endfor %}
+						</h2>
+					</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="ROLE_USER" id="{{user.id}}-roles-user" name="{{user.id}}-roles-user" {{user|has_role('ROLE_USER') ? 'checked'}}>
+							<label class="form-check-label" for="{{user.id}}-roles-user">
+								Role utilisateur
+							</label>
+						</div>
 
-						
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="ROLE_ADMIN" id="{{user.id}}-roles-admin" name="{{user.id}}-roles-admin" {{user|has_role('ROLE_ADMIN') ? 'checked'}}>
 							<label class="form-check-label" for="{{user.id}}-roles-admin">
 								Role Administrateur
 							</label>
 						</div>
-                        <div class="form-check">
+						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="ROLE_IS_BANNED" id="{{user.id}}-roles-isBanned" name="{{user.id}}-roles-isBanned" {{user|has_role('ROLE_IS_BANNED') ? 'checked'}}>
 							<label class="form-check-label" for="{{user.id}}-roles-isBanned">
 								Role isBanned
 							</label>
 						</div>
 
-						{% for role in user.roles %}
-							{{ role }}
-						{% endfor %}
 
 					</div>
 					<div class="modal-footer">
-					<input type="hidden" name = '_token' value="{{csrf_token('role-' ~ user.id)}}" />
+						<input type="hidden" name='_token' value="{{csrf_token('role-' ~ user.id)}}"/>
 						<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 					</div>

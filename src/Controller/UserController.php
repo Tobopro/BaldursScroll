@@ -43,7 +43,7 @@ class UserController extends AbstractController
         );
 
         $newUser = new User();
-        $form = $this->createForm(UserType::class, $newUser, [
+        $form = $this->createForm(CreateUserType::class, $newUser, [
             'action' => $this->generateUrl('app_user_handleCreate'),
         ]);
 
@@ -188,6 +188,9 @@ class UserController extends AbstractController
         }
         if ($request->request->get("$id-roles-admin")) {
             $roles[] = 'ROLE_ADMIN';
+        }
+        if ($request->request->get("$id-roles-isBanned")) {
+            $roles[] = 'ROLE_IS_BANNED';
         }
 
         $user->setRoles($roles);

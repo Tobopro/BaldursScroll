@@ -38,12 +38,12 @@
                     <th {% if users.isSorted('u.username') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "Username", 'u.username') }}
 					</th>
-					<th {% if users.isSorted('u.email') %} class="sorted" {% endif %}>
+					{# <th {% if users.isSorted('u.email') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "Email", 'u.email') }}
 					</th>
 					<th {% if users.isSorted('u.roles') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "roles", 'u.roles') }}
-					</th>
+					</th> #}
 
 					<th scope="col">Actions</th>
 				</tr>
