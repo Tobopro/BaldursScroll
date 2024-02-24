@@ -111,12 +111,12 @@
 
 {# Modal for Delete the profile #}
 {% macro deleteProfileModal(user) %}
-	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ app.user.id }}">
+	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal-{{ app.user.id }}">
 		Supprimer mon compte
 	</button>
 
 	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="deleteProfileModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -135,3 +135,28 @@
 	</div>
 
 {% endmacro %}
+
+{# Modal for edit the profile #}
+{% macro editProfileModal(editProfileForm) %}
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ app.user.id }}">
+		Modifier Profile
+	</button>
+	<!-- Edit Modal -->
+	<div class="modal fade" id="editModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Modifier Votre Profile</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					{{ form(editProfileForm) }}
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						<a href="{{ path('app_profile_delete', { id: app.user.id }) }}" class="btn btn-danger">Supprimer</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endmacro %}

@@ -50,7 +50,7 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $pagination,
-             'createForm' => $form
+            'createForm' => $form
         ]);
     }
 

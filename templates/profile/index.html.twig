@@ -36,10 +36,9 @@
 					<p>Vous n'avez pas encore commenté de build
 					{% endif %}
 				</p>
-				{% if(app.user) %}
-					{# <a href="{{ path('app_profile_edit', { id: u.id }) }}" class="btn btn-warning">Modifier</a> #}
+				{% if app.user %}
+					<a href="{{ path('app_profile_edit', { idUser: app.user.id }) }}" class="btn btn-warning">Modifier</a>
 					{{ modal.deleteProfileModal(app.user) }}
-					{# <a href="{{ path('app_profile_reset_pwd',{id: app.user.id}) }}" class="btn btn-primary">Reset Mot de passe</a> #}
 				{% endif %}
 			</div>
 		</div>
