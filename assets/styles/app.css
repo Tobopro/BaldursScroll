@@ -273,9 +273,28 @@ h6 {
 
 /* Suppresion Modal */
 
+<<<<<<< HEAD
+.modal__modal {
+    display: none;
+    /* Par défaut, la modale est cachée */
+    position: fixed;
+    /* Permet de la positionner par rapport à la fenêtre du navigateur */
+    z-index: 1;
+    /* Position de la modale au-dessus du reste du contenu */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* Ajoute un défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Fond semi-transparent */
+}
+=======
+>>>>>>> 299cacf0b532cb4f966328a6e3508854d78b2073
 
 /* Contenu de la modale */
-.modal-content {
+.modal__modal-content {
     background-color: #505050;
     /* margin: 15% auto; */
     /* Centrer verticalement */
@@ -284,6 +303,10 @@ h6 {
     /* width: 40%; */
     /* Largeur de la modale */
 }
+
+/* .modal-backdrop{
+    --bs-backdrop-zindex: none;
+} */
 
 .mybtn-modal {
     background-color: #9e1818;
