@@ -34,6 +34,7 @@ class Commentaries
     private ?bool $isFlaged = false;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'IsResponseTo')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?self $response = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'response')]
