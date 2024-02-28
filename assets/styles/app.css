@@ -353,6 +353,7 @@ h6 {
     background-position: 50%;
     color: white;
     padding: 0;
+    padding-top: 3vh;
     text-align: center;
     margin-top: 25vh;
     position: relative;
@@ -1149,4 +1150,11 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: bold;
     text-align: center;
     color: #CC8828;
+}
+
+// edit form style
+.edit-form{
+    border-radius: 20px;
+    marge-top: 3rem;
+    background-color: black;
 }
