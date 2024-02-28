@@ -44,7 +44,10 @@ class UserType extends AbstractType
             ])
             ->add('profilePicture')
             ->add('save', SubmitType::class, [
-                'label' => 'Submit'
+                'label' => 'Submit',
+                'attr' => [
+                    'class' => 'btn-primary w-100'
+                ]
             ]);
     }
 

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class ProfileController extends AbstractController
 {
@@ -49,46 +50,8 @@ class ProfileController extends AbstractController
     }
 
 
-    // Edit ptofile
     #[Route('/profile/{idUser}/edit', name: 'app_profile_edit')]
-    // public function edit(int $idUser, UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, UserPasswordHasherInterface $passwordHasher): Response
-    // {
-    //     $user = $userRepository->find($idUser);
-    //     if (!$user) {
-    //         throw $this->createNotFoundException('User not found');
-    //     }
-
-    //     $form = $this->createForm(EditProfileType::class, $user);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $submittedData = $form->getData();
-    //         $currentPassword = $submittedData->getPassword();
-
-    //         if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
-    //             $this->addFlash('error', 'Current password is incorrect.');
-    //             return $this->redirectToRoute('app_profile_edit', ['idUser' => $user->getId()]);
-    //         }
-
-    //         // Hash and set new password
-    //         $newPassword = $submittedData->getNewPassword();
-    //         $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
-    //         $user->setPassword($hashedPassword);
-
-    //         $entityManager->flush();
-
-    //         $this->addFlash('success', 'User profile updated successfully.');
-    //         return $this->redirectToRoute('app_profile');
-    //     }
-
-    //     return $this->render('profile/edit.html.twig', [
-    //         'editProfileForm' => $form->createView(),
-    //         'idUser' => $user->getId()
-    //     ]);
-    // }
-
-    #[Route('/profile/{idUser}/edit', name: 'app_profile_edit')]
-    public function edit(EntityManagerInterface $entityManager, Request $request, int $idUser, UserRepository $userRepository): Response
+    public function edit(EntityManagerInterface $entityManager, Request $request, int $idUser, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $userRepository->find($idUser);
         $form = $this->createForm(EditProfileType::class, $user);
@@ -96,6 +59,20 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $form->get('currentPassword')->getData();
+
+            // Validate current password
+            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('error', 'Current password is incorrect.');
+                return $this->redirectToRoute('app_profile_edit', ['idUser' => $user->getId()]);
+            }
+
+            // Update password if provided
+            $newPassword = $form->get('plainPassword')->getData();
+            if ($newPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+                $user->setPassword($hashedPassword);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();

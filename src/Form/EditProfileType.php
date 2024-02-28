@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class EditProfileType extends AbstractType
 {
@@ -17,10 +18,24 @@ class EditProfileType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => "Your username"
+                'label' => "Your username",
+                'required' => false
             ])
             ->add('email', EmailType::class, [
-                'label' => "Email"
+                'label' => "Email",
+                'required' => false
+            ])
+            ->add('currentPassword', PasswordType::class, [
+                'label' => 'Current Password',
+                'mapped' => false,
+                'required' => false
+            ])
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => ['label' => 'New Password'],
+                'second_options' => ['label' => 'Repeat New Password'],
+                'mapped' => false,
+                'required' => false
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Submit'
