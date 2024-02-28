@@ -59,12 +59,14 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Check if current password is provided
             $currentPassword = $form->get('currentPassword')->getData();
-
-            // Validate current password
-            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
-                $this->addFlash('error', 'Current password is incorrect.');
-                return $this->redirectToRoute('app_profile_edit', ['idUser' => $user->getId()]);
+            if ($currentPassword !== null) {
+                // Validate current password
+                if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                    $this->addFlash('error', 'Current password is incorrect.');
+                    return $this->redirectToRoute('app_profile_edit', ['idUser' => $user->getId()]);
+                }
             }
 
             // Update password if provided
