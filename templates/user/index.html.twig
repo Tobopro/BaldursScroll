@@ -35,11 +35,14 @@
 
 			<thead>
 				<tr>
-					<th scope="col">#</th>
-					<th {% if users.isSorted('u.username') %} class="sorted" {% endif %}>
+					<th scope="col">Id</th>
+					<th scope="col">User</th>
+					<th scope="col">Email</th>
+					<th scope="col">Role</th>
+					{# <th {% if users.isSorted('u.username') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "Username", 'u.username') }}
 					</th>
-					{# <th {% if users.isSorted('u.email') %} class="sorted" {% endif %}>
+					<th {% if users.isSorted('u.email') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "Email", 'u.email') }}
 					</th>
 					<th {% if users.isSorted('u.roles') %} class="sorted" {% endif %}>
@@ -64,7 +67,7 @@
 							{% if(app.user != u) %}
 								<a href="{{ path('app_user_edit', { id: u.id }) }}" class="btn btn-warning">Modifier</a>
 								{{ modal.deleteUserModal(u) }}
-								{# <a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset Mot de passe</a> #}
+								<a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset Mot de passe</a>
 							{% endif %}
 						</td>
 					</tr>
