@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Races;
-use App\Entity\Classes;
-use App\Entity\SubRaces;
 use App\Form\BuilderType;
 use App\Entity\Characters;
-use App\Entity\SubClasses;
-use App\Form\NewBuilderType;
+use App\Repository\CharactersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,20 +17,26 @@ class BuilderController extends AbstractController
 {
 
     #[Route('/builder', name: 'app_builder_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request): Response
+    public function create(EntityManagerInterface $entityManager, Request $request, CharactersRepository $charactersRepository, UserRepository $userRepository): Response
     {
         $character = new Characters();
+        // $character = $charactersRepository->find(1);
+        // $character->setClassWithSubClass();
+        // $character->setRaceWithSubRace();
+        // dd($character);
 
         $form = $this->createForm(BuilderType::class, $character);
         $form->handleRequest($request);
+        // dump($form);
      
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $character->setIdUsers($this->getUser());
+            // dd($request);
+            // dd($form);
+            // $character->setIdUsers($this->getUser());
+            $character->setIdUsers($userRepository->find(1));
             $entityManager->persist($character);
             $entityManager->flush();
-
-
 
             return $this->redirectToRoute('app_dashboard');
         }
