@@ -33,8 +33,8 @@ class BuilderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($request);
             // dd($form);
-            // $character->setIdUsers($this->getUser());
-            $character->setIdUsers($userRepository->find(1));
+            $character->setIdUsers($this->getUser());
+            // $character->setIdUsers($userRepository->find(1));
             $entityManager->persist($character);
             $entityManager->flush();
 
