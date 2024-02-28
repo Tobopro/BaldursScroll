@@ -37,18 +37,22 @@ class Characters
     private ?int $charisma = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $abilityScoreBonus1 = null;
+    private ?string $abilityScoreBonus1 = "STR";
 
     #[ORM\Column(length: 20)]
-    private ?string $abilityScoreBonus2 = null;
+    private ?string $abilityScoreBonus2 = "DEX";
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: true)]
     private ?SubRaces $idSubRace = null;
 
+    private ?Races $idRaces = null;
+
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: true)]
     private ?SubClasses $idSubClasses = null;
+
+    private ?Classes $idClasses = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
@@ -69,6 +73,8 @@ class Characters
         $this->wisdom = 8;
         $this->charisma = 8;
         $this->commentaries = new ArrayCollection();
+        $this->idClasses = $this->setClassWithSubClass();
+        $this->idRaces = $this->setRaceWithSubRace();
     }
 
 
@@ -236,6 +242,28 @@ class Characters
         return $this;
     }
 
+    public function getIdClasses(): ?Classes
+    {
+        return $this->idClasses;
+    }
+
+    public function setIdClasses(?Classes $class): static
+    {
+        $this->idClasses = $class;
+
+        return $this;
+    }
+
+    public function setClassWithSubClass(): ?Characters
+    {
+        if ($this->idSubClasses !== null) {
+            $this->setIdClasses($this->idSubClasses->getIdClass());
+            return $this;
+        } else {
+            return null;
+        }
+    }
+
     public function getClassName(): ?string
     {
         if ($this->idSubClasses !== null) {
@@ -249,13 +277,35 @@ class Characters
         return null;
     }
 
+    public function getIdRaces(): ?Races
+    {
+        return $this->idRaces;
+    }
+
+    public function setIdRaces(?Races $race): static
+    {
+        $this->idRaces = $race;
+
+        return $this;
+    }
+
+    public function setRaceWithSubRace(): ?Characters
+    {
+        if ($this->idSubRace !== null) {
+            $this->setIdRaces($this->idSubRace->getIdRace());
+            return $this;
+        } else {
+            return null;
+        }
+    }
+
     public function getRaceName(): ?string
     {
         if ($this->idSubRace !== null) {
-            $classEntity = $this->idSubRace->getIdRace();
+            $raceEntity = $this->idSubRace->getIdRace();
 
-            if ($classEntity !== null) {
-                return $classEntity->getName();
+            if ($raceEntity !== null) {
+                return $raceEntity->getName();
             }
         }
 

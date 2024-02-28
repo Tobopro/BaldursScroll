@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, options: ["default" => null])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ["default" => "NOW()"])]
     private ?\DateTimeInterface $signInDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
