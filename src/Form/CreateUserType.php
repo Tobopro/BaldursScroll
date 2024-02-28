@@ -9,46 +9,37 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
-
-class UserType extends AbstractType
+class CreateUserType extends EditUserType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        parent::initForm($builder, $options);
         $builder
 
-            ->add('username', TextType::class, [
-                'label' => "Your username"
-            ])
-            ->add('email', EmailType::class, [
-                'label' => "Votre email"
-            ])
             ->add('password', RepeatedType::class, [
-                'type'          => PasswordType::class,
+                'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Your password'
+                    'label' => "Mot de passe"
                 ],
                 'second_options' => [
-                    'label' => 'Confirm your password'
+                    'label' => "Confirmez mot de passe"
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'the password should be 8 chars'
+                        'minMessage' => "Met plus de caractères stp!",
                     ]),
-                ],
-            ])
-            ->add('profilePicture')
-            ->add('save', SubmitType::class, [
-                'label' => 'Submit',
-                'attr' => [
-                    'class' => 'btn-primary w-100'
                 ]
-            ]);
+            ])
+
+            ->add('save', SubmitType::class, [
+                'label' => "Enregistrer"
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

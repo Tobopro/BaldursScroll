@@ -28,6 +28,7 @@ class RegisterController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
+        $profilePictureRand=rand(1, 1000);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -36,6 +37,7 @@ class RegisterController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setSignInDate(new \DateTime());
             $user->setRoles(['ROLE_USER']);
+            $user->setProfilePicture('https://picsum.photos/seed/'.$profilePictureRand.'/200/300');
             $entityManager->persist($user);
             $entityManager->flush();
 

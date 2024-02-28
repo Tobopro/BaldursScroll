@@ -7,8 +7,41 @@
 
 	<div class="container-dashboard">
 		<div class="dashboard-filter">
-			<form-check></form-check>
+
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-6">
+
+						<form method="get" action="{{ path('app_dashboard') }}">
+							<label for="classFilter">Filtrer par classe :</label>
+							<select name="classFilter" id="classFilter">
+								<option value="">Toutes les classes</option>
+								{% for classe in classes %}
+									<option value="{{ classe.id }}">{{ classe.name }}</option>
+								{% endfor %}
+							</select>
+							<button type="submit">Filtrer</button>
+						</form>
+					</div>
+					<div class="col-6">
+						<form method="get" action="{{ path('app_dashboard') }}">
+							<label for="raceFilter">Filtrer par race :</label>
+							<select name="raceFilter" id="raceFilter">
+
+								<option value="">Toutes les races</option>
+								{% for race in races %}
+
+									<option value="{{ race.id }}">{{ race.name }}</option>
+								{% endfor %}
+							</select>
+							<button type="submit">Filtrer</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+
 		<div class="pagination-container">
 			<div class="pagination">
 				{{ knp_pagination_render(pagination) }}
@@ -39,5 +72,4 @@
 		</div>
 
 	</div>
-
 {% endblock %}

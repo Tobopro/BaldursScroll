@@ -1,67 +1,94 @@
 {% macro navbar() %}
 	<div class='mynav-container-container'>
 		<nav class='mynav-container'>
-			<div class="mynav-logo">
-				<a href="/">
-					<img class='logo-BS ps-2' src="{{ asset('img/logo-transparent-svg.svg') }}" alt="Logo">
-				</a>
-			</div>
-			<div class="mynav-research">
-				<i class="fa-solid fa-search fa-xl"></i>
-				<form method="get" action="{{ path('app_dashboard') }}">
-					<input type="text" name="search" placeholder="Search...">
-					<button type="submit">Search</button>
-				</form>
+			<div class="container-fluid ">
+				<div class="row  ">
+					<div class="mynav-logo col-1 ">
+						<a href="/">
+							<img class='logo-BS ps-2  w-75' src="{{ asset('img/logo-transparent-svg.svg') }}" alt="Logo">
 
+						</a>
+					</div>
+					<div class="mynav-research col-6 col-md-4">
+						<i class="fa-solid fa-search fa-xl"></i>
+						<form method="get" action="{{ path('app_dashboard') }}">
+							<input type="text" class="h-25" name="search" placeholder="Search...">
+							<button type="submit">Search</button>
+						</form>
+
+					</div>
+					<div class="mynav-list col-1">
+						<a href="/">
+							<i class="fa-solid fa-list fa-xl"></i>
+						</a>
+					</div>
+					{% if  is_granted('ROLE_USER')%}
+					<div class="mynav-pencil col-1">
+						<a href="/builder">
+							<i class="fa-solid fa-pen fa-xl"></i>
+						</a>
+					</div>
+					{% endif %}
+					{% if  is_granted('ROLE_ADMIN')%}
+
+						<div class="mynav-users col-1">
+							<a href="/user">
+								<i class="fa-solid fa-users"></i>
+							</a>
+						</div>
+					{% endif %}
+					{% if (app.user)%}
+						<div class="mynav-login col-4 offset-1">
+
+							<a href="{{ path('app_profile', {'idUser': app.user.id} ) }}" class="mx-5 ">
+
+
+								<p>
+									<i class="fa-regular fa-user fa-xl"></i>
+									{{ app.user.username }}
+								</p>
+								<a href="{{ path('app_logout') }}" class="">
+									<p>
+										Logout
+									</p>
+								</a>
+							</div>
+						{% else %}
+							<div class="mynav-login col-3 offset-2">
+								<a href="{{ path('app_login') }}">
+									<p>
+										<i class="fa-regular fa-user fa-xl"></i>
+										Login
+									</p>
+								</a>
+								<a class="ps-4" href="{{ path('app_register') }}">
+									<p>
+										Register
+									</p>
+								</a>
+							</div>
+						{% endif %}
+					</nav>
+				</div>
 			</div>
-			<div class="mynav-list">
-				<a href="/">
-					<i class="fa-solid fa-list fa-xl"></i>
-				</a>
-			</div>
-			<div class="mynav-pencil">
-				<a href="/builder">
-					<i class="fa-solid fa-pen fa-xl"></i>
-				</a>
-			</div>
-			{% if (app.user)%}
-				<div class="mynav-login">
-					<a href="{{ path('app_logout') }}">
-						<p>
-							<i class="fa-regular fa-user fa-xl"></i>
-							logout
-						</p>
+		</div>
+		<div class='mynav-container-container-mobile'>
+			<nav class='mynav-container-mobile'>
+				<div class="mynav-list-mobile">
+					<a href="/">
+						<i class="fa-solid fa-list fa-xl"></i>
 					</a>
 				</div>
-			{% else %}
-				<div class="mynav-login">
-					<a href="{{ path('app_login') }}">
-						<p>
-							<i class="fa-regular fa-user fa-xl"></i>
-							Login
-						</p>
+				<div class="mynav-pencil-mobile">
+					<a href="/builder">
+						<i class="fa-solid fa-pen fa-xl"></i>
 					</a>
 				</div>
-			{% endif %}
-		</nav>
-	</div>
-	<div class='mynav-container-container-mobile'>
-		<nav class='mynav-container-mobile'>
-			<div class="mynav-list-mobile">
-				<a href="/">
-					<i class="fa-solid fa-list fa-xl"></i>
-				</a>
-			</div>
-			<div class="mynav-pencil-mobile">
-				<a href="/builder">
-					<i class="fa-solid fa-pen fa-xl"></i>
-				</a>
-			</div>
-			<div class="mynav-login-mobile">
-				<a href="/profile">
-					<i class="fa-regular fa-user fa-xl"></i>
-				</a>
-			</div>
-		</nav>
-	</div>
-{% endmacro %}
+				<div class="mynav-login-mobile">
+					<a href="/profile">
+						<i class="fa-regular fa-user fa-xl"></i>
+					</a>
+				</div>
+			</nav>
+		</div>
+	{% endmacro %}
