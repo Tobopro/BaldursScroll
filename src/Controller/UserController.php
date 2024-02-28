@@ -95,6 +95,11 @@ class UserController extends AbstractController
                 ->context([
                     'name' => $user->getUsername()
                 ]);
+                try {
+                    $mailer->send($email);
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
 
             $this->addFlash('success', 'L\'utilisateur a bien été créé');
             return $this->redirectToRoute('app_user');
@@ -180,7 +185,12 @@ class UserController extends AbstractController
             ->context([
                 'resetToken' => $resetToken,
             ]);
-        $mailer->send($email);
+            try {
+                $mailer->send($email);
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+        // $mailer->send($email);
 
         $this->addFlash('success', 'un mail de réinitialisation de mot de passe a été envoyé à l\'utilisateur');
         return $this->redirectToRoute('app_user');
