@@ -95,12 +95,12 @@ class UserController extends AbstractController
                 ->context([
                     'name' => $user->getUsername()
                 ]);
-                try {
-                    $mailer->send($email);
-                } catch (\Exception $e) {
-                    dd($e->getMessage());
-                }
-
+                // try {
+                //     $mailer->send($email);
+                // } catch (\Exception $e) {
+                //     dd($e->getMessage());
+                // }
+                $mailer->send($email);
             $this->addFlash('success', 'L\'utilisateur a bien été créé');
             return $this->redirectToRoute('app_user');
         }
@@ -166,14 +166,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id<\d*>}/reset-password', name: 'app_user_reset_pwd')]
-    public function resetPassword(User $user,  MailerInterface $mailer, TranslatorInterface $translator, ResetPasswordHelperInterface $resetPasswordHelper): Response
+    public function resetPassword(User $user,  MailerInterface $mailer,  ResetPasswordHelperInterface $resetPasswordHelper): Response
     {
+        // dd( $resetPasswordHelper->generateResetToken($user));
         try {
-            $resetToken = $resetPasswordHelper->generateResetToken($user, 60 * 60 * 48);
+            // dd('lulu');
+            $resetToken = $resetPasswordHelper->generateResetToken($user);
+            // dd($resetToken);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('error', $e->getReason());
-
-
             return $this->redirectToRoute('app_user');
         }
 
@@ -185,12 +186,13 @@ class UserController extends AbstractController
             ->context([
                 'resetToken' => $resetToken,
             ]);
-            try {
-                $mailer->send($email);
-            } catch (\Exception $e) {
-                dd($e->getMessage());
-            }
-        // $mailer->send($email);
+            // try {
+            //     $mailer->send($email);
+            // } catch (\Exception $e) {
+            //     dd($e->getMessage());
+            // }
+            // dd($email);
+         $mailer->send($email);
 
         $this->addFlash('success', 'un mail de réinitialisation de mot de passe a été envoyé à l\'utilisateur');
         return $this->redirectToRoute('app_user');
