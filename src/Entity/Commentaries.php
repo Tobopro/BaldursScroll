@@ -25,6 +25,7 @@ class Commentaries
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaries')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?Characters $Build = null;
 
     #[ORM\Column(nullable: true)]
