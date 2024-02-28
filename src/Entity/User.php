@@ -38,6 +38,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
+    #[ORM\OneToMany(targetEntity: ResetPasswordRequest::class, mappedBy: 'user')]
+    private ?Collection $resetPasswordRequests = null;
 
     #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idUsers')]
     private Collection $characters;
@@ -52,6 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->characters = new ArrayCollection();
         $this->commentaries = new ArrayCollection();
+        $this->resetPasswordRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +232,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsBanned(bool $IsBanned): static
     {
         $this->IsBanned = $IsBanned;
+
+        return $this;
+    }
+    /**
+     * @return Collection<int, ResetPasswordRequest>
+     */
+    public function getResetPasswordRequests(): Collection
+    {
+        return $this->resetPasswordRequests;
+    }
+
+    public function addResetPasswordRequest(ResetPasswordRequest $resetPasswordRequest): static
+    {
+        if (!$this->resetPasswordRequests->contains($resetPasswordRequest)) {
+            $this->resetPasswordRequests->add($resetPasswordRequest);
+            $resetPasswordRequest->setUser($this);
+        }
+
+        return $this;
+    }
+    public function removeResetPasswordRequest(ResetPasswordRequest $resetPasswordRequest): static
+    {
+        if ($this->resetPasswordRequests->removeElement($resetPasswordRequest)) {
+
+            if ($resetPasswordRequest->getUser() === $this) {
+                $resetPasswordRequest->setUser(null);
+            }
+        }
 
         return $this;
     }
