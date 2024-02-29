@@ -53,14 +53,14 @@ class BuildVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
-               if( $userId == $authorId){
+               if( $userId == $authorId || in_array('ROLE_ADMIN', $user->getRoles()) ){
                    return true; }
                    
                 break;
 
             case self::VIEW:
-                 if( $userId == $authorId){
-                   return true; }
+               
+                   return true; 
                  
                 break;
         }
