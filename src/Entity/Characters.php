@@ -392,4 +392,5 @@ class Characters
 
         return $this;
     }
+    
 }

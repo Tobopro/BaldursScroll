@@ -65,6 +65,20 @@
 								{{ character.idSubClasses.name }}</p>
 							<p>Race :
 								{{ character.idSubRace.name }}</p>
+							<p>
+								<i class="fa-solid fa-arrow-trend-up"></i>
+								{{character.getLikes()}}</p>
+							<p>
+								{% if character.isIsPublic() %}
+									<p>
+										<i class="fa-solid fa-globe"></i>
+										Public</p>
+								{% else %}
+									<p>
+										<i class="fa-solid fa-lock"></i>
+										Private</p>
+								{% endif %}
+							</p>
 						</div>
 					</div>
 				</a>

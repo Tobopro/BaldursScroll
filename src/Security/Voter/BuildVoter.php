@@ -38,9 +38,11 @@ class BuildVoter extends Voter
     {
         // return false;
         $user = $token->getUser();
-        $userId = $user->getId();
+        if($user){ $userId = $user->getId();}
+   
         $idCharacter = $subject;
         $authorId = $this->findCharachter($idCharacter)->getIdUsers()->getId();
+        $character = $this->findCharachter($idCharacter);
         // dd($authorId);
         
 
@@ -60,7 +62,8 @@ class BuildVoter extends Voter
 
             case self::VIEW:
                
-                   return true; 
+                   if( $character->isIsPublic() || $userId == $authorId || in_array('ROLE_ADMIN', $user->getRoles()) ){
+                       return true; }
                  
                 break;
         }

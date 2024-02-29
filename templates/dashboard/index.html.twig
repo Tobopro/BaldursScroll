@@ -42,6 +42,16 @@
 						</form>
 					</div>
 
+					{% if is_granted( 'ROLE_ADMIN' ) %}
+						<div class="col-3">
+							<form method="get" action="{{ path('app_dashboard') }}">
+								<input type="checkbox" id="allCharacters" name="allCharacters" value="1">
+								<label for="allCharacters">See All Characters</label>
+								<button type="submit">search</button>
+							</form>
+						</div>
+					{% endif %}
+
 
 				</div>
 			</div>

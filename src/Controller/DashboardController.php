@@ -25,9 +25,14 @@ class DashboardController extends AbstractController
      RacesRepository $racesRepository,
      SubRacesRepository $subRacesRepository): Response
     {
-        $characters = $charactersRepository->findAll();
-      
-         $mostLiked = $request->query->get('mostLiked');
+        $characters = $charactersRepository->findAllPublicCharacters();
+
+        $allCharacters = $request->query->get('allCharacters');
+        if ($allCharacters && $this->isGranted('ROLE_ADMIN')) {
+            $characters = $charactersRepository->findAll();
+        }
+        
+        $mostLiked = $request->query->get('mostLiked');
         if ($mostLiked) {
             // Créer un tableau pour stocker les nombres de likes pour chaque personnage
             $likesCount = [];
