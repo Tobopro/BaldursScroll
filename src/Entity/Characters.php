@@ -67,6 +67,9 @@ class Characters
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'liked')]
     private Collection $liked;
 
+    #[ORM\Column]
+    private ?bool $isPublic = null;
+
     public function __construct()
     {
         $this->strength = 8;
@@ -374,6 +377,18 @@ class Characters
         if ($this->liked->removeElement($liked)) {
             $liked->removeLiked($this);
         }
+
+        return $this;
+    }
+
+    public function isIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
 
         return $this;
     }
