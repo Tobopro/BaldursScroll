@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
-use App\Entity\User;
 use App\Repository\CharactersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class ProfileController extends AbstractController
 {
@@ -106,42 +109,45 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    // #[Route('/profile/{idUser}/edit', name: 'app_profile_edit')]
-    // public function edit(EntityManagerInterface $entityManager, Request $request, int $idUser, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
-    // {
-    //     $user = $userRepository->find($idUser);
-    //     $form = $this->createForm(EditProfileType::class, $user);
 
-    //     $form->handleRequest($request);
+    #[Route('/profile/{idUser}/upload-profile-picture', name: 'upload_profile_picture')]
+    public function uploadProfilePicture(Request $request, int $idUser, EntityManagerInterface $entityManager): Response
+    {
+        // Find the user by id
+        $user = $entityManager->getRepository(User::class)->find($idUser);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         // Check if current password is provided
-    //         $currentPassword = $form->get('currentPassword')->getData();
-    //         if ($currentPassword !== null) {
-    //             // Validate current password
-    //             if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
-    //                 $this->addFlash('error', 'Current password is incorrect.');
-    //                 return $this->redirectToRoute('app_profile_edit', ['idUser' => $user->getId()]);
-    //             }
-    //         }
+        if ($request->isMethod('POST')) {
+            $uploadedFile = $request->files->get('profilePicture');
 
-    //         // Update password if provided
-    //         $newPassword = $form->get('plainPassword')->getData();
-    //         if ($newPassword) {
-    //             $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
-    //             $user->setPassword($hashedPassword);
-    //         }
+            if ($uploadedFile) {
+                // Generate a new file name with 'profile_pic'
+                $newFilename = 'profile_pic_' . md5(uniqid()) . '.' . $uploadedFile->getClientOriginalExtension();
 
-    //         $entityManager->persist($user);
-    //         $entityManager->flush();
+                // Move the uploaded file to the public uploads directory
+                $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads/profile_pictures';
+                $uploadedFile->move($uploadsDirectory, $newFilename);
 
-    //         $this->addFlash('success', 'L\'utilisateur a bien été modifié');
-    //         return $this->redirectToRoute('app_profile', ['idUser' => $user->getId()]);
-    //     }
+                // Delete the old profile picture if it exists
+                $oldFilename = $user->getProfilePicture();
+                if ($oldFilename) {
+                    $oldFilePath = $uploadsDirectory . '/' . basename($oldFilename);
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
+                }
 
-    //     return $this->render('profile/edit.html.twig', [
-    //         'title' => "Modifier un utilisateur",
-    //         'editProfileForm' => $form,
-    //     ]);
-    // }
+                // Update the user's profile picture field
+                $user->setProfilePicture('/uploads/profile_pictures/' . $newFilename);
+
+                // Save the changes to the database
+                $entityManager->flush();
+
+                // Redirect to the profile page
+                return $this->redirectToRoute('app_profile', ['idUser' => $idUser]);
+            }
+        }
+
+        // Render the upload profile picture form
+        return $this->render('profile/upload_profile_picture.html.twig');
+    }
 }
