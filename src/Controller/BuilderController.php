@@ -95,19 +95,19 @@ class BuilderController extends AbstractController
     public function update(EntityManagerInterface $entityManager, $id, Request  $request): Response
     {
         $charactersRepository = $entityManager->getRepository(Characters::class);
-        $characterResult = $charactersRepository->find($id);
-        // $character = $charactersRepository->find(1);
-        // $character->setClassWithSubClass();
-        // $character->setRaceWithSubRace();
+        $character = $charactersRepository->find($id);
+        $character->setClassWithSubClass();
+        $character->setRaceWithSubRace();
 
-        if (!$characterResult) {
+        if (!$character) {
             throw $this->createNotFoundException("La fiche avec l'ID $id n'existe pas.");
         }
 
-        $form = $this->createForm(BuilderType::class, $characterResult, [
+        $form = $this->createForm(BuilderType::class, $character, [
             'action' => $this->generateUrl('app_builder_update', ['id' => $id])
         ]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
 
@@ -118,8 +118,7 @@ class BuilderController extends AbstractController
 
 
         return $this->render('builder/update.html.twig', [
-            'form' => $form->createView(),
-            'character' => $characterResult,
+            'form' => $form->createView()
         ]);
     }
 

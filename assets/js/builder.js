@@ -107,7 +107,7 @@ let classId;
 let ajaxClass;
 
 async function getClassesAndSubClasses() {
-    const request = await fetch("builder/info/classes");
+    const request = await fetch("./builder/info/classes");
     ajaxClass = await request.json();
 
     for (const formCheck of classField.children) {
@@ -207,7 +207,7 @@ let racesId;
 let ajaxRaces;
 
 async function getRacesAndSubRaces() {
-    const request = await fetch("builder/info/races");
+    const request = await fetch("./builder/info/races");
     ajaxRaces = await request.json();
 
     let subraceId = 0;
