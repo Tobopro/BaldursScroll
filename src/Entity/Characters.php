@@ -64,6 +64,12 @@ class Characters
     #[ORM\OneToMany(targetEntity: Commentaries::class, mappedBy: 'Build')]
     private Collection $commentaries;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'liked')]
+    private Collection $liked;
+
+    #[ORM\Column]
+    private ?bool $isPublic = null;
+
     public function __construct()
     {
         $this->strength = 8;
@@ -75,6 +81,7 @@ class Characters
         $this->commentaries = new ArrayCollection();
         $this->idClasses = $this->setClassWithSubClass();
         $this->idRaces = $this->setRaceWithSubRace();
+        $this->liked = new ArrayCollection();
     }
 
 
@@ -341,4 +348,49 @@ class Characters
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, User>
+     */
+
+    public function getLikes(): int
+    {
+        return $this->liked->count();
+    }
+    public function getLiked(): Collection
+    {
+        return $this->liked;
+    }
+
+    public function addLiked(User $liked): static
+    {
+        if (!$this->liked->contains($liked)) {
+            $this->liked->add($liked);
+            $liked->addLiked($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLiked(User $liked): static
+    {
+        if ($this->liked->removeElement($liked)) {
+            $liked->removeLiked($this);
+        }
+
+        return $this;
+    }
+
+    public function isIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
+
+        return $this;
+    }
+    
 }
