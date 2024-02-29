@@ -27,8 +27,24 @@ class DashboardController extends AbstractController
     {
         $characters = $charactersRepository->findAll();
       
-        $characters= array_reverse($characters);
+         $mostLiked = $request->query->get('mostLiked');
+        if ($mostLiked) {
+            // Créer un tableau pour stocker les nombres de likes pour chaque personnage
+            $likesCount = [];
+            foreach ($characters as $character) {
+                // Calculer le nombre total de likes pour chaque personnage
+                $totalLikes = $character->getLikes();
+                // Stocker le nombre total de likes dans le tableau
+                $likesCount[$character->getId()] = $totalLikes;
+            }
 
+            // Trier le tableau $characters en fonction du nombre total de likes
+            usort($characters, function($a, $b) use ($likesCount) {
+                return $likesCount[$b->getId()] - $likesCount[$a->getId()];
+            });
+        } else {
+            $characters = array_reverse($characters);
+        }
         
         $searchTerm = $request->query->get('search'); 
 

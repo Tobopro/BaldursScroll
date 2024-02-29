@@ -66,6 +66,23 @@ class BuildController extends AbstractController
         ]);
     }
 
+    #[Route('/build/{characterId}/liked', name: 'app_build_liked')]
+    public function liked(int $characterId, EntityManagerInterface $entityManager): Response
+    {
+        $character = $entityManager->getRepository(Characters::class)->find($characterId);
+        $user = $this->getUser();
+
+        if ($character->getLiked()->contains($user)) {
+            $character->removeLiked($user);
+        } else {
+            $character->addLiked($user);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+    }
+
     #[Route('/build/{characterId}/commentary', name: 'app_build_commentary')]
     public function createCommentary(int $characterId, Request $request, EntityManagerInterface $entityManager): Response
     {

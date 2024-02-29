@@ -20,6 +20,7 @@ class CharactersRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Characters::class);
     }
+    
 
     public function search($term)
     {

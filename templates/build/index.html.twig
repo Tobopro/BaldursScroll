@@ -253,6 +253,30 @@
 
 			</div>
 		</div>
+		<section class="likes my-5">
+			{% if app.user %}
+				{# {% if character.getLiked(app.user)|length > 0 %} #}
+				{% if app.user.doesLikes(character) %}
+					<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+						<i class="fa-solid fa-2xl  fa-thumbs-up"></i>
+
+					</a>
+				{% else %}
+					<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+						<i class="fa-regular fa-2xl fa-thumbs-up"></i>
+					</a>
+
+
+				{% endif %}
+			{% endif %}
+
+			{% if character.getLikes %}
+				<p>{{ character.getLikes() }}
+					like</p>
+			{% else %}
+				<p>No likes yet</p>
+			{% endif %}
+		</section>
 
 		<!-- Section des commentaires -->
 		<section class="comments-section my-5">
@@ -334,12 +358,12 @@
 			<div class="comment-form my-5">
 				<h3>Ajouter un commentaire</h3>
 				{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				<button type="submit">Envoyer</button>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			</form> #}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<button type="submit">Envoyer</button>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</form> #}
 				{{form_start(form)}}
 				{{form_row(form.text)}}
 				{{form_row(form.save)}}
