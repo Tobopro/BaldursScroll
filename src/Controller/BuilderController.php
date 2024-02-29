@@ -72,7 +72,10 @@ class BuilderController extends AbstractController
     {
         $character = new Characters();
 
-        $form = $this->createForm(BuilderType::class, $character);
+        $form = $this->createForm(BuilderType::class, $character, [
+            'attr' => ['class' => 'w-75 h-auto',
+            "name" => "builder"]
+        ]);
         $form->handleRequest($request);
      
 
@@ -104,20 +107,19 @@ class BuilderController extends AbstractController
         }
 
         $form = $this->createForm(BuilderType::class, $character, [
-            'action' => $this->generateUrl('app_builder_update', ['id' => $id])
+            'attr' => ['class' => 'w-75 h-auto',
+            "name" => "builder"]
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $entityManager->flush();
             return $this->redirectToRoute('app_dashboard');
         }
 
 
 
-        return $this->render('builder/update.html.twig', [
+        return $this->render('builder/index.html.twig', [
             'form' => $form->createView()
         ]);
     }

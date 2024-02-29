@@ -1,7 +1,7 @@
-let builder_form = document.forms.builder;
+const builder_form = document.forms.builder;
 // ABILITY PANNEL
 // ABILITY POINTS
-let total_points = document.forms.builder.total_points;
+let total_points = builder_form.total_points;
 
 let strength_input = builder_form.builder_strength;
 let dexterity_input = builder_form.builder_dexterity;
@@ -52,7 +52,27 @@ builder_form.addEventListener("click", (event) => {
         }
     }
 })
-// TODO calculate available points for edit
+
+// GET TOTAL POINTS
+function getStartingPoints() {
+    let value = 0;
+    for (const input in ability_inputs) {
+        value = ability_inputs[input].value;
+        if (value == 15) {
+            total_points.stepDown(4);
+            value = 13;
+        }
+        if (value == 14) {
+            total_points.stepDown(2);
+            value = 13;
+        }
+        if (value > 8) {
+            total_points.stepDown(value - 8);
+        }
+    }
+}
+
+getStartingPoints();
 // END ABILITY POINTS
 
 // ABILITY SCORE BONUS
@@ -107,7 +127,7 @@ let classId;
 let ajaxClass;
 
 async function getClassesAndSubClasses() {
-    const request = await fetch("./builder/info/classes");
+    const request = await fetch(`${window.location.origin}/builder/info/classes`);
     ajaxClass = await request.json();
 
     for (const formCheck of classField.children) {
@@ -207,7 +227,7 @@ let racesId;
 let ajaxRaces;
 
 async function getRacesAndSubRaces() {
-    const request = await fetch("./builder/info/races");
+    const request = await fetch(`${window.location.origin}/builder/info/races`);
     ajaxRaces = await request.json();
 
     let subraceId = 0;
@@ -289,3 +309,10 @@ accordionRaces.addEventListener("click", (event) => {
         changeAvailableSubraces();
     }
 })
+// END AJAX SUBRACES
+
+// UPDATE SPECIFIC //
+// SUBMIT BUTTON TEXT
+if (window.location.href.includes("/builder/update/")) {
+    builder_form.builder_save.innerText = "Update Character";
+}
