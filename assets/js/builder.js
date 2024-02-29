@@ -52,7 +52,27 @@ builder_form.addEventListener("click", (event) => {
         }
     }
 })
-// TODO calculate available points for edit
+
+// GET TOTAL POINTS
+function getStartingPoints() {
+    let value = 0;
+    for (const input in ability_inputs) {
+        value = ability_inputs[input].value;
+        if (value == 15) {
+            total_points.stepDown(4);
+            value = 13;
+        }
+        if (value == 14) {
+            total_points.stepDown(2);
+            value = 13;
+        }
+        if (value > 8) {
+            total_points.stepDown(value - 8);
+        }
+    }
+}
+
+getStartingPoints();
 // END ABILITY POINTS
 
 // ABILITY SCORE BONUS
@@ -289,3 +309,10 @@ accordionRaces.addEventListener("click", (event) => {
         changeAvailableSubraces();
     }
 })
+// END AJAX SUBRACES
+
+// UPDATE SPECIFIC //
+// SUBMIT BUTTON TEXT
+if (window.location.href.includes("/builder/update/")) {
+    builder_form.builder_save.innerText = "Update Character";
+}

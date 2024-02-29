@@ -8,7 +8,7 @@
 	<script src='{{ asset('js/builder.js') }}' defer></script>
 
 	<div class="myform-container">
-		<form class="w-75 h-auto" method="POST" action="{{ path('app_builder_create') }}" name="builder">
+		{{ form_start(form) }}
 
 			<div
 				class="accordion p-0" id="accordionCreateBuild">
@@ -181,7 +181,7 @@
 
 		</div>
 
-	</form>
+    {{ form_end(form) }}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>{% endblock %}
