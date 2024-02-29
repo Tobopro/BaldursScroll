@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Races;
 use App\Entity\Levels;
+use App\Entity\Classes;
 use App\Entity\SubRaces;
 use App\Entity\Characters;
-use App\Entity\Classes;
-use App\Entity\Races;
 use App\Entity\SubClasses;
 use App\Repository\RacesRepository;
 use App\Repository\ClassesRepository;
@@ -15,12 +15,13 @@ use App\Repository\SubClassesRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class BuilderType extends AbstractType
 {
