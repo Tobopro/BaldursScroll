@@ -58,18 +58,26 @@ class DashboardController extends AbstractController
 
         // Récupérer la valeur du filtre de classe depuis la requête GET
         $classFilter = $request->query->get('classFilter');
-        if ($classFilter) {
-            $charactersBySubClasses = $subClassesRepository->findByidClass($classFilter);
-            $characters = $charactersRepository->findBy(['idSubClasses' => $charactersBySubClasses]);
-           
-        }
-
-        // Récupérer la valeur du filtre de classe depuis la requête GET
         $raceFilter = $request->query->get('raceFilter');
-        if ($raceFilter) {
-            $charactersBySubRaces = $subRacesRepository->findByidRace($raceFilter);
-            $characters = $charactersRepository->findBy(['idSubRace' => $charactersBySubRaces]);
-           
+
+        if ($classFilter || $raceFilter) {
+            // Initialisez le tableau de critères de filtrage
+            $criteria = [];
+
+            // Si le filtre de classe est défini, ajoutez-le aux critères de filtrage
+            if ($classFilter) {
+                $charactersBySubClasses = $subClassesRepository->findByidClass($classFilter);
+                $criteria['idSubClasses'] = $charactersBySubClasses;
+            }
+
+            // Si le filtre de race est défini, ajoutez-le aux critères de filtrage
+            if ($raceFilter) {
+                $charactersBySubRaces = $subRacesRepository->findByidRace($raceFilter);
+                $criteria['idSubRace'] = $charactersBySubRaces;
+            }
+
+            // Utilisez les critères de filtrage pour récupérer les personnages
+            $characters = $charactersRepository->findBy($criteria);
         }
      
       
@@ -93,6 +101,8 @@ class DashboardController extends AbstractController
             'pagination' => $pagination,
             'classes' => $classes,
             'races' => $races,
+            'classFilter' => $classFilter,
+            'raceFilter' => $raceFilter,
             // 'characters' => $characters 
         ]);
     }
