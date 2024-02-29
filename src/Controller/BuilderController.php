@@ -109,8 +109,6 @@ class BuilderController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $entityManager->flush();
             return $this->redirectToRoute('app_dashboard');
         }

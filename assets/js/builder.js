@@ -1,7 +1,7 @@
-let builder_form = document.forms.builder;
+const builder_form = document.forms.builder;
 // ABILITY PANNEL
 // ABILITY POINTS
-let total_points = document.forms.builder.total_points;
+let total_points = builder_form.total_points;
 
 let strength_input = builder_form.builder_strength;
 let dexterity_input = builder_form.builder_dexterity;
@@ -107,7 +107,7 @@ let classId;
 let ajaxClass;
 
 async function getClassesAndSubClasses() {
-    const request = await fetch("./builder/info/classes");
+    const request = await fetch(`${window.location.origin}/builder/info/classes`);
     ajaxClass = await request.json();
 
     for (const formCheck of classField.children) {
@@ -207,7 +207,7 @@ let racesId;
 let ajaxRaces;
 
 async function getRacesAndSubRaces() {
-    const request = await fetch("./builder/info/races");
+    const request = await fetch(`${window.location.origin}/builder/info/races`);
     ajaxRaces = await request.json();
 
     let subraceId = 0;

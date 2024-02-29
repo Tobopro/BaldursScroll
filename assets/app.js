@@ -1,4 +1,4 @@
-import './bootstrap.js';
+// import './bootstrap.js';
 // import './modal.js';
 
 /*
