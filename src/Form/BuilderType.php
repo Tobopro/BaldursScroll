@@ -186,6 +186,11 @@ class BuilderType extends AbstractType
                 'label' => 'Nom de votre personnage',
                 "constraints" => new NotBlank(["message" => "Enter the character's name"]),
             ])
+            ->add('isPublic', CheckboxType::class, [
+                'label' => 'Make my character public',
+                'required' => false,
+                'data' => true,
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Create Character',
                 'attr' => ['class' => 'btn mybtn'],
