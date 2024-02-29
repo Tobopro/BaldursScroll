@@ -43,7 +43,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Valider',
+                'label' => 'Submit',
                 'attr' => [
                     'class' => 'btn-primary w-100'
                 ]

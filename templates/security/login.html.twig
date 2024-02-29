@@ -5,7 +5,7 @@
 		<div class="form-container">
 
 			<div class="singup-section" id="singup-section">
-				<header id="singup" onclick="closelogin()">S’inscrire</header>
+				<header id="singup" onclick="closelogin()">Me Connecter</header>
 
 				<form method="POST">
 					{% if error %}
@@ -24,8 +24,6 @@
 					<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 					<button type="submit" class="btn btn-primary">Se Connecter</button>
-					<a href="#" class="" >Mot de passe oublié ? </a> 
-					<a href="{{ path('app_login') }}" class="text-white">M'inscrire</a>
 				</form>
 
 			</div>

@@ -74,65 +74,65 @@ INSERT INTO classes (`id`, `name`, starting_hp, on_level_up_hp, saving_throw_pro
 (12, 'Wizard', 6, 4, 'INT', 'WIS');
 
 -- Insert data into SubClasses table
-INSERT INTO sub_classes (`id`, `name`, `id_class_id`) VALUES
+INSERT INTO sub_classes (`id`, `name`, `id_class_id`, icon) VALUES
 -- Barbarian
-(1, 'Berserker', 1),
-(2, 'Wild Magic', 1),
-(3, 'Wildheart', 1),
+(1, 'Berserker', 1, "Barbarian.jpg"),
+(2, 'Wild Magic', 1, "Barbarian.jpg"),
+(3, 'Wildheart', 1, "Barbarian.jpg"),
 -- Bard
-(4, 'College of Lore', 2),
-(5, 'College of Swords', 2),
-(6, 'College of Valour', 2),
+(4, 'College of Lore', 2, "Bard.jpg"),
+(5, 'College of Swords', 2, "Bard.jpg"),
+(6, 'College of Valour', 2, "Bard.jpg"),
 -- Cleric
-(7, 'Knowledge Domain', 3),
-(8, 'Life Domain', 3),
-(9, 'Light Domain', 3),
-(10, 'Nature Domain', 3),
-(11, 'Tempest Domain', 3),
-(12, 'Trickery Domain', 3),
-(13, 'War Domain', 3),
+(7, 'Knowledge Domain', 3, "Cleric.jpg"),
+(8, 'Life Domain', 3, "Cleric.jpg"),
+(9, 'Light Domain', 3, "Cleric.jpg"),
+(10, 'Nature Domain', 3, "Cleric.jpg"),
+(11, 'Tempest Domain', 3, "Cleric.jpg"),
+(12, 'Trickery Domain', 3, "Cleric.jpg"),
+(13, 'War Domain', 3, "Cleric.jpg"),
 -- Druid
-(14, 'Circle of the Land', 4),
-(15, 'Circle of the Moon', 4),
-(16, 'Circle of the Spores', 4),
+(14, 'Circle of the Land', 4, "Druid.jpg"),
+(15, 'Circle of the Moon', 4, "Druid.jpg"),
+(16, 'Circle of the Spores', 4, "Druid.jpg"),
 -- Fighter
-(17, 'Battle Master', 5),
-(18, 'Champion', 5),
-(19, 'Eldritch Knight', 5),
+(17, 'Battle Master', 5, "Fighter.jpg"),
+(18, 'Champion', 5, "Fighter.jpg"),
+(19, 'Eldritch Knight', 5, "Fighter.jpg"),
 -- Monk
-(20, 'Way of the Open Hand', 6),
-(21, 'Way of Shadow', 6),
-(22, 'Way of the Four Elements', 6),
+(20, 'Way of the Open Hand', 6, "Monk.jpg"),
+(21, 'Way of Shadow', 6, "Monk.jpg"),
+(22, 'Way of the Four Elements', 6, "Monk.jpg"),
 -- Paladin
-(23, 'Oath of the Ancients', 7),
-(24, 'Oath of Devotion', 7),
-(25, 'Oath of Vengeance', 7),
-(26, 'Oathbreaker', 7),
+(23, 'Oath of the Ancients', 7, "Paladin.jpg"),
+(24, 'Oath of Devotion', 7, "Paladin.jpg"),
+(25, 'Oath of Vengeance', 7, "Paladin.jpg"),
+(26, 'Oathbreaker', 7, "Paladin.jpg"),
 -- Ranger
-(27, 'Hunter', 8),
-(28, 'Beast Master', 8),
-(29, 'Gloom Stalker', 8),
+(27, 'Hunter', 8, "Ranger.jpg"),
+(28, 'Beast Master', 8, "Ranger.jpg"),
+(29, 'Gloom Stalker', 8, "Ranger.jpg"),
 -- Rogue
-(30, 'Arcane Trickster', 9),
-(31, 'Thief', 9),
-(32, 'Assassin', 9),
+(30, 'Arcane Trickster', 9, "Rogue.jpg"),
+(31, 'Thief', 9, "Rogue.jpg"),
+(32, 'Assassin', 9, "Rogue.jpg"),
 -- Sorcerer
-(33, 'Draconic Bloodline', 10),
-(34, 'Wild Magic', 10),
-(35, 'Storm Sorcery', 10),
+(33, 'Draconic Bloodline', 10, "Sorcerer.jpg"),
+(34, 'Wild Magic', 10, "Sorcerer.jpg"),
+(35, 'Storm Sorcery', 10, "Sorcerer.jpg"),
 -- Warlock
-(36, 'The Archfey', 11),
-(37, 'The Fiend', 11),
-(38, 'The Great Old One', 11),
+(36, 'The Archfey', 11, "Warlock.jpg"),
+(37, 'The Fiend', 11, "Warlock.jpg"),
+(38, 'The Great Old One', 11, "Warlock.jpg"),
 -- Wizard
-(39, 'Abjuration School', 12),
-(40, 'Conjuration School', 12),
-(41, 'Divination School', 12),
-(42, 'Enchantment School', 12),
-(43, 'Evocation School', 12),
-(44, 'Illusion School', 12),
-(45, 'Necromancy School', 12),
-(46, 'Transmutation School', 12);
+(39, 'Abjuration School', 12, "Wizard.jpg"),
+(40, 'Conjuration School', 12, "Wizard.jpg"),
+(41, 'Divination School', 12, "Wizard.jpg"),
+(42, 'Enchantment School', 12, "Wizard.jpg"),
+(43, 'Evocation School', 12, "Wizard.jpg"),
+(44, 'Illusion School', 12, "Wizard.jpg"),
+(45, 'Necromancy School', 12, "Wizard.jpg"),
+(46, 'Transmutation School', 12, "Wizard.jpg");
 
 -- Insert data into Levels table
 INSERT INTO levels (`id`, `level`) VALUES

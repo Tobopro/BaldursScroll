@@ -2,7 +2,8 @@
 {% import 'inc/modal.macro.twig' as modal %}
 
 
-{% block title %}Admin utilisateurs!{% endblock %}
+{% block title %}Admin utilisateurs!
+{% endblock %}
 
 
 {% block body %}
@@ -34,8 +35,11 @@
 
 			<thead>
 				<tr>
-					<th scope="col">#</th>
-                    <th {% if users.isSorted('u.username') %} class="sorted" {% endif %}>
+					<th scope="col">Id</th>
+					<th scope="col">User</th>
+					<th scope="col">Email</th>
+					<th scope="col">Role</th>
+					{# <th {% if users.isSorted('u.username') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "Username", 'u.username') }}
 					</th>
 					<th {% if users.isSorted('u.email') %} class="sorted" {% endif %}>
@@ -43,7 +47,7 @@
 					</th>
 					<th {% if users.isSorted('u.roles') %} class="sorted" {% endif %}>
 						{{ knp_pagination_sortable(users, "roles", 'u.roles') }}
-					</th>
+					</th> #}
 
 					<th scope="col">Actions</th>
 				</tr>
@@ -52,18 +56,18 @@
 
 				{% for u in users %}
 					<tr>
-                    <td>{{ u.id }}</td>
-                    <td>{{ u.username }}</td>
+						<td>{{ u.id }}</td>
+						<td>{{ u.username }}</td>
 						<td>{{u.email}}</td>
 						<td>
 							{{ modal.editRolesModal(u) }}
-							
+
 						</td>
 						<td>
 							{% if(app.user != u) %}
-                 <a href="{{ path('app_user_edit', { id: u.id }) }}" class="btn btn-warning">Modifier</a>
+								<a href="{{ path('app_user_edit', { id: u.id }) }}" class="btn btn-warning">Modifier</a>
 								{{ modal.deleteUserModal(u) }}
-								{# <a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset Mot de passe</a> #}
+								<a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset Mot de passe</a>
 							{% endif %}
 						</td>
 					</tr>

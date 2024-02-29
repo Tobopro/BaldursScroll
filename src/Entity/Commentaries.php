@@ -25,6 +25,7 @@ class Commentaries
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaries')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?Characters $Build = null;
 
     #[ORM\Column(nullable: true)]
@@ -34,6 +35,7 @@ class Commentaries
     private ?bool $isFlaged = false;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'IsResponseTo')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?self $response = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'response')]

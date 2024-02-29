@@ -22,11 +22,13 @@
 							<i class="fa-solid fa-list fa-xl"></i>
 						</a>
 					</div>
+					{% if  is_granted('ROLE_USER')%}
 					<div class="mynav-pencil col-1">
 						<a href="/builder">
 							<i class="fa-solid fa-pen fa-xl"></i>
 						</a>
 					</div>
+					{% endif %}
 					{% if  is_granted('ROLE_ADMIN')%}
 
 						<div class="mynav-users col-1">
@@ -62,6 +64,11 @@
 								<a class="ps-4" href="{{ path('app_register') }}">
 									<p>
 										M'inscrire
+									</p>
+								</a>
+								<a class="ps-4" href="{{ path('app_register') }}">
+									<p>
+										Register
 									</p>
 								</a>
 							</div>

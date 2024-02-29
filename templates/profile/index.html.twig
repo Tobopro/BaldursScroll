@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+{% import 'inc/modal.macro.twig' as modal %}
+
 
 {% block title %}Hello ProfileController!
 {% endblock %}
@@ -12,8 +14,6 @@
 				</div>
 			</div>
 			<div class="col-6 col-md-8  mt-5">
-
-
 				<div class='profile-text-container'>
 					<h1>{{user.username}}</h1>
 					<p>Membre depuis le
@@ -36,6 +36,10 @@
 					<p>Vous n'avez pas encore commenté de build
 					{% endif %}
 				</p>
+				{% if app.user %}
+					<a href="{{ path('app_profile_edit', { idUser: app.user.id }) }}" class="btn btn-warning">Modifier</a>
+					{{ modal.deleteProfileModal(app.user) }}
+				{% endif %}
 			</div>
 		</div>
 	</div>
