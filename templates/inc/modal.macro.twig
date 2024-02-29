@@ -1,7 +1,7 @@
 {% macro deleteUserModal(user) %}
 
 	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ user.id }}">
-		Supprimer
+		Delete
 	</button>
 
 	<!-- Delete Modal -->
@@ -9,17 +9,17 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation de suppression</h1>
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Delete confirmation</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					Êtes-vous sûr de vouloir supprimer le compte de
+					Are you sure you want to delete this account :
 					{{ user.email }}
 					?
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-					<a href="{{ path('app_user_delete', { id: user.id }) }}" class="btn btn-danger">Supprimer</a>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					<a href="{{ path('app_user_delete', { id: user.id }) }}" class="btn btn-danger">Delete</a>
 				</div>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 {% macro createUserModal(form) %}
 
 	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#createModal">
-		Ajouter un utilisateur
+		Add a new user
 	</button>
 
 	<!-- Delete Modal -->
@@ -43,7 +43,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					
+					{{ form_row(form.username) }}
 					{{ form_row(form.username) }}
 					{{ form_row(form.email) }}
 					{{ form_row(form.password) }}
@@ -63,7 +63,7 @@
 {% macro editRolesModal(user) %}
 
 	<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editRolesModal-{{ user.id }}">
-		gerer les roles
+		Handle permissions
 	</button>
 
 	<!-- set role Modal -->
@@ -72,104 +72,130 @@
 			<div class="modal-content">
 
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Gestion du role</h1>
-					
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Role management</h1>
+
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<form action="{{ path('app_user_set_roles', { id: user.id }) }}" method="post">
 					<div class="modal-body">
-					<div>
-						<h2 class="fs-5" id="">
-							{% for role in user.roles %}
-								{{ role }}
-							{% endfor %}
-						</h2>
-					</div>
+						<div>
+							<h2 class="fs-5" id="">
+								{% for role in user.roles %}
+									{{ role }}
+								{% endfor %}
+							</h2>
+						</div>
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="ROLE_USER" id="{{user.id}}-roles-user" name="{{user.id}}-roles-user" {{user|has_role('ROLE_USER') ? 'checked'}}>
 							<label class="form-check-label" for="{{user.id}}-roles-user">
-								Role utilisateur
+								User Role
 							</label>
 						</div>
 
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="ROLE_ADMIN" id="{{user.id}}-roles-admin" name="{{user.id}}-roles-admin" {{user|has_role('ROLE_ADMIN') ? 'checked'}}>
 							<label class="form-check-label" for="{{user.id}}-roles-admin">
-								Role Administrateur
+								Admin Role
 							</label>
 						</div>
 						<div class="form-check">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="ROLE_IS_BANNED" id="{{user.id}}-roles-isBanned" name="{{user.id}}-roles-isBanned" {{user|has_role('ROLE_IS_BANNED') ? 'checked'}}>
-							<label class="form-check-label" for="{{user.id}}-roles-isBanned">
-								Role isBanned
-							</label>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="ROLE_IS_BANNED" id="{{user.id}}-roles-isBanned" name="{{user.id}}-roles-isBanned" {{user|has_role('ROLE_IS_BANNED') ? 'checked'}}>
+								<label class="form-check-label" for="{{user.id}}-roles-isBanned">
+									Banned
+								</label>
+							</div>
+
+
 						</div>
-
-
-					</div>
-					<div class="modal-footer">
-						<input type="hidden" name='_token' value="{{csrf_token('role-' ~ user.id)}}"/>
-						<input type="hidden" name='_token' value="{{csrf_token('role-' ~ user.id)}}"/>
-						<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-{% endmacro %}
-
-
-{# Modal for Delete the profile #}
-{% macro deleteProfileModal(user) %}
-	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal-{{ app.user.id }}">
-		Supprimer mon compte
-	</button>
-
-	<!-- Delete Modal -->
-	<div class="modal fade" id="deleteProfileModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title text-dark fs-5" id="exampleModalLabel">Confirmation de suppression</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body  text-dark">
-					Êtes-vous sûr de vouloir supprimer votre compte ?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-					<a href="{{ path('app_profile_delete', { id: app.user.id }) }}" class="btn btn-danger">Supprimer</a>
+						<div class="modal-footer">
+							<input type="hidden" name='_token' value="{{csrf_token('role-' ~ user.id)}}"/>
+							<input type="hidden" name='_token' value="{{csrf_token('role-' ~ user.id)}}"/>
+							<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
-	</div>
 
-{% endmacro %}
-
-{# Modal for edit the profile #}
-{% macro editProfileModal(editProfileForm) %}
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ app.user.id }}">
-		Modifier Profile
-	</button>
-	<!-- Edit Modal -->
-	<div class="modal fade" id="editModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Modifier Votre Profile</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					{{ form(editProfileForm) }}
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-						<a href="{{ path('app_profile_delete', { id: app.user.id }) }}" class="btn btn-danger">Supprimer</a>
-					</div>
-				</div>
-			</div>
-		</div>
 	{% endmacro %}
+
+
+	{# Modal for Delete the profile #}
+	{% macro deleteProfileModal(user) %}
+		<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal-{{ app.user.id }}">
+			Delete my account
+		</button>
+
+		<!-- Delete Modal -->
+		<div class="modal fade" id="deleteProfileModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title text-dark fs-5" id="exampleModalLabel">Delete confirmation</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body  text-dark">
+						<p>Are you you sure you want to delete your account</p>
+						<p>This action is irreversible</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<a href="{{ path('app_profile_delete', { id: app.user.id }) }}" class="btn btn-danger">Delete</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{% endmacro %}
+
+	{# Modal for edit the profile #}
+	{% macro editProfileModal(editProfileForm) %}
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal-{{ app.user.id }}">
+			Edit profile
+		</button>
+		<!-- Edit Modal -->
+		<div class="modal fade" id="editModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title text-dark fs-5" id="exampleModalLabel">Edit your profile</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-dark">
+						{{ form(editProfileForm) }}
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+							<a href="{{ path('app_profile_delete', { id: app.user.id }) }}" class="btn btn-danger">Delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endmacro %}
+
+		{% macro uploadProfilePictureModal(user) %}
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadProfilePictureModal-{{ app.user.id }}">
+				Upload Profile Picture
+			</button>
+			<div class="modal fade" id="uploadProfilePictureModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="uploadProfilePictureModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header text-dark">
+							<h5 class="modal-title" id="uploadProfilePictureModalLabel">Upload Profile Picture</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body text-dark">
+							<form action="{{ path('upload_profile_picture', {'idUser': user.id}) }}" method="post" enctype="multipart/form-data">
+								<div class="mb-3">
+									<label for="profilePicture" class="form-label">Choose profile picture:</label>
+									<input type="file" class="form-control" id="profilePicture" name="profilePicture">
+								</div>
+								<button type="submit" class="btn btn-primary">Upload</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endmacro %}

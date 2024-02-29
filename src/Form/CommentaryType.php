@@ -17,7 +17,7 @@ class CommentaryType extends AbstractType
     {
         $builder
             ->add('text', null, [
-                'label' => 'Votre commentaire',
+                'label' => 'Your comment',
                 'attr' => ['class' => 'form-control'],
             ])
             // ->add('createdAt')
@@ -30,7 +30,7 @@ class CommentaryType extends AbstractType
             // 'choice_label' => 'id',
             // ])
             ->add('save', SubmitType::class, [
-                'label' => 'Publier le commentaire',
+                'label' => 'Publish your comment',
                 'attr' => ['class' => 'mybtn'],
             ])
         ;

@@ -11,33 +11,48 @@
 			<div class="container-fluid">
 				<div class="row">
 
-					<div class="col-6">
-
-						<form method="get" action="{{ path('app_dashboard') }}">
-							<label for="classFilter">Filtrer par classe :</label>
+					<form method="get" action="{{ path('app_dashboard') }}" class="d-flex ">
+						<div class="col-3">
+							<label for="classFilter">Search by classes :</label>
 							<select name="classFilter" id="classFilter">
-								<option value="">Toutes les classes</option>
+								<option value="">All classes</option>
 								{% for classe in classes %}
-									<option value="{{ classe.id }}">{{ classe.name }}</option>
+									<option value="{{ classe.id }}" {% if classe.id == classFilter %} selected {% endif %}>{{ classe.name }}</option>
 								{% endfor %}
 							</select>
-							<button type="submit">Filtrer</button>
-						</form>
-					</div>
-					<div class="col-6">
-						<form method="get" action="{{ path('app_dashboard') }}">
-							<label for="raceFilter">Filtrer par race :</label>
+						</div>
+						<div class="col-3">
+							<label for="raceFilter">Search by races :</label>
 							<select name="raceFilter" id="raceFilter">
-
-								<option value="">Toutes les races</option>
+								<option value="">All races</option>
 								{% for race in races %}
-
-									<option value="{{ race.id }}">{{ race.name }}</option>
+									<option value="{{ race.id }}" {% if race.id == raceFilter %} selected {% endif %}>{{ race.name }}</option>
 								{% endfor %}
 							</select>
-							<button type="submit">Filtrer</button>
+						</div>
+						<button type="submit">Search</button>
+					</form>
+
+
+					<div class="col-3">
+						<form method="get" action="{{ path('app_dashboard') }}">
+							<input type="checkbox" id="mostLiked" name="mostLiked" value="1">
+							<label for="mostLiked">Trending</label>
+							<button type="submit">search</button>
 						</form>
 					</div>
+
+					{% if is_granted( 'ROLE_ADMIN' ) %}
+						<div class="col-3">
+							<form method="get" action="{{ path('app_dashboard') }}">
+								<input type="checkbox" id="allCharacters" name="allCharacters" value="1">
+								<label for="allCharacters">See All Characters</label>
+								<button type="submit">search</button>
+							</form>
+						</div>
+					{% endif %}
+
+
 				</div>
 			</div>
 		</div>
@@ -51,24 +66,40 @@
 
 
 		<div class="dashboard-cards">
-			{% for character in pagination.items %}
+
+			{% if pagination.items != null %}
+				{% for character in pagination.items %}
 
 
-				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
-					<div class="card">
+					<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+						<div class="card">
 
-						<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
+							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
 
-						<div class="card-content">
-							<h2>{{ character.name }}</h2>
-							<p>Classe :
-								{{ character.idSubClasses.name }}</p>
-							<p>Race :
-								{{ character.idSubRace.name }}</p>
+							<div class="card-content">
+								<h2>{{ character.name }}</h2>
+								<p>Class :
+									{{ character.idSubClasses.name }}</p>
+								<p>Race :
+									{{ character.idSubRace.name }}</p>
+								<p>
+									<i class="fa-solid fa-arrow-trend-up"></i>
+									{{character.getLikes()}}</p>
+
+							</div>
 						</div>
-					</div>
-				</a>
-			{% endfor %}
+					</a>
+				{% endfor %}
+			{% else %}
+				<div class="card border-5 ">
+					<h2>Can't find what you're looking for?</h2>
+					<h5>Create a character now!</h5>
+					<a href="{{ path('app_builder_create') }}" class="btn btn-warning m-5">Create a new character</a>
+
+
+				</div>
+			{% endif %}
+
 		</div>
 
 	</div>

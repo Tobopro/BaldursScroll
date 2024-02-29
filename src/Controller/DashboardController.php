@@ -25,10 +25,31 @@ class DashboardController extends AbstractController
      RacesRepository $racesRepository,
      SubRacesRepository $subRacesRepository): Response
     {
-        $characters = $charactersRepository->findAll();
-      
-        $characters= array_reverse($characters);
+        $characters = $charactersRepository->findAllPublicCharacters();
 
+        $allCharacters = $request->query->get('allCharacters');
+        if ($allCharacters && $this->isGranted('ROLE_ADMIN')) {
+            $characters = $charactersRepository->findAll();
+        }
+        
+        $mostLiked = $request->query->get('mostLiked');
+        if ($mostLiked) {
+            // Créer un tableau pour stocker les nombres de likes pour chaque personnage
+            $likesCount = [];
+            foreach ($characters as $character) {
+                // Calculer le nombre total de likes pour chaque personnage
+                $totalLikes = $character->getLikes();
+                // Stocker le nombre total de likes dans le tableau
+                $likesCount[$character->getId()] = $totalLikes;
+            }
+
+            // Trier le tableau $characters en fonction du nombre total de likes
+            usort($characters, function($a, $b) use ($likesCount) {
+                return $likesCount[$b->getId()] - $likesCount[$a->getId()];
+            });
+        } else {
+            $characters = array_reverse($characters);
+        }
         
         $searchTerm = $request->query->get('search'); 
 
@@ -42,18 +63,26 @@ class DashboardController extends AbstractController
 
         // Récupérer la valeur du filtre de classe depuis la requête GET
         $classFilter = $request->query->get('classFilter');
-        if ($classFilter) {
-            $charactersBySubClasses = $subClassesRepository->findByidClass($classFilter);
-            $characters = $charactersRepository->findBy(['idSubClasses' => $charactersBySubClasses]);
-           
-        }
-
-        // Récupérer la valeur du filtre de classe depuis la requête GET
         $raceFilter = $request->query->get('raceFilter');
-        if ($raceFilter) {
-            $charactersBySubRaces = $subRacesRepository->findByidRace($raceFilter);
-            $characters = $charactersRepository->findBy(['idSubRace' => $charactersBySubRaces]);
-           
+
+        if ($classFilter || $raceFilter) {
+            // Initialisez le tableau de critères de filtrage
+            $criteria = [];
+
+            // Si le filtre de classe est défini, ajoutez-le aux critères de filtrage
+            if ($classFilter) {
+                $charactersBySubClasses = $subClassesRepository->findByidClass($classFilter);
+                $criteria['idSubClasses'] = $charactersBySubClasses;
+            }
+
+            // Si le filtre de race est défini, ajoutez-le aux critères de filtrage
+            if ($raceFilter) {
+                $charactersBySubRaces = $subRacesRepository->findByidRace($raceFilter);
+                $criteria['idSubRace'] = $charactersBySubRaces;
+            }
+
+            // Utilisez les critères de filtrage pour récupérer les personnages
+            $characters = $charactersRepository->findBy($criteria);
         }
      
       
@@ -69,7 +98,7 @@ class DashboardController extends AbstractController
         $pagination = $paginator->paginate(
             $characters,
             $request->query->getInt('page', 1), // Le numéro de la page actuelle
-            3 // Nombre d'éléments par page
+            8 // Nombre d'éléments par page
         );
 
         return $this->render('dashboard/index.html.twig', [
@@ -77,6 +106,8 @@ class DashboardController extends AbstractController
             'pagination' => $pagination,
             'classes' => $classes,
             'races' => $races,
+            'classFilter' => $classFilter,
+            'raceFilter' => $raceFilter,
             // 'characters' => $characters 
         ]);
     }

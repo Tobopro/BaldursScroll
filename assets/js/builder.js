@@ -1,264 +1,318 @@
+const builder_form = document.forms.builder;
+// ABILITY PANNEL
+// ABILITY POINTS
+let total_points = builder_form.total_points;
 
-document.addEventListener("DOMContentLoaded", function () {
-  var accordionButtons = document.querySelectorAll('.accordion');
+let strength_input = builder_form.builder_strength;
+let dexterity_input = builder_form.builder_dexterity;
+let constitution_input = builder_form.builder_constitution;
+let intelligence_input = builder_form.builder_intelligence;
+let wisdom_input = builder_form.builder_wisdom;
+let charisma_input = builder_form.builder_charisma;
 
-  accordionButtons.forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      event.preventDefault(); // Empêche l'action par défaut du bouton (ouverture du panneau)
-      // Ajoutez ici votre propre logique pour gérer l'ouverture/fermeture des panneaux si nécessaire
-    });
-  });
+const ability_inputs = {
+    "strength" : strength_input,
+    "dexterity" : dexterity_input,
+    "constitution" : constitution_input,
+    "intelligence" : intelligence_input,
+    "wisdom" : wisdom_input,
+    "charisma" : charisma_input
+}
 
-  const moinsButtons = document.querySelectorAll('.moins');
-  moinsButtons.forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      const inputElement = button.parentNode.querySelector('input[type=number]');
-      inputElement.stepDown();
-    });
-  });
-
-  const plusButtons = document.querySelectorAll('.plus');
-  plusButtons.forEach(function (button) {
-    button.addEventListener('click', function (event) {
-      event.preventDefault();
-      const inputElement = button.parentNode.querySelector('input[type=number]');
-      inputElement.stepUp();
-    });
-  });
-
-  var acc = document.getElementsByClassName("accordion");
-
-  // var submitButton = document.createElement("button");
-  // submitButton.innerText = "Submit";
-  // submitButton.style.display = "none";
-
-  document.addEventListener("DOMContentLoaded", function () {
-    var sections = document.querySelectorAll('.panel');
-    var submitButton = document.createElement('button');
-    var submitButtonWrapper = document.createElement("div");
-    var submitButtonInfo = document.createElement("div");
-    submitButton.classList.add("submit-button");
-    submitButton.innerText = 'Submit';
-    submitButton.style.display = 'none';
-    submitButtonWrapper.classList.add('submit-button-container');
-    submitButtonInfo.classList.add('submit-button-info');
-
-    // Cacher le bouton initialement
-
-    var allSectionsChecked = false;
-
-    // Vérifier si toutes les cases de chaque section sont cochées
-    // function checkAllSectionsChecked() {
-    //   allSectionsChecked = true;
-    //   sections.forEach(function (section) {
-    //     var checkboxes = section.querySelectorAll('input[type="checkbox"]');
-    //     var sectionChecked = false;
-    //     checkboxes.forEach(function (checkbox) {
-    //       if (checkbox.checked) {
-    //         sectionChecked = true;
-    //       }
-    //     });
-    //     if (!sectionChecked) {
-    //       allSectionsChecked = false;
-    //     }
-    //   });
-
-    //   // Afficher le bouton de soumission si toutes les sections sont cochées
-    //   if (allSectionsChecked) {
-    //     submitButton.style.display = 'block';
-    //     submitButtonInfo.innerHTML = '';
-    //   } else {
-    //     submitButton.style.display = 'none';
-    //     submitButtonInfo.innerHTML = 'Il faut cocher un choix par catégorie pour valider le formulaire.';
-
-    //   }
-    // }
-
-    // Ajouter un écouteur d'événements à chaque case
-    // sections.forEach(function (section) {
-    //   var checkboxes = section.querySelectorAll('input[type="checkbox"]');
-    //   checkboxes.forEach(function (checkbox) {
-    //     checkbox.addEventListener('change', checkAllSectionsChecked);
-    //   });
-    // });
-
-    // document.querySelector('.last-section').appendChild(submitButtonWrapper); // Ajouter la div parent à la dernière section
-    // document.querySelector('.last-section').appendChild(submitButtonInfo); // Ajouter la div parent à la dernière section
-    // submitButtonWrapper.appendChild(submitButton); // Ajouter le bouton à la div parent
-
-    // Ajouter un gestionnaire d'événements pour le clic sur le bouton de soumission
-    // submitButton.addEventListener('click', function () {
-    //   alert('Form submitted!');
-    // });
-  });
-
-
-  for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-      // Fermer toutes les sections qui ne sont pas cliquées
-      for (var j = 0; j < acc.length; j++) {
-        if (j !== i) {
-          acc[j].classList.remove("active");
-          acc[j].nextElementSibling.style.display = "none";
+builder_form.addEventListener("click", (event) => {
+    // Check if the button pressed is minus
+    if (event.target.classList.value == "minus") {
+        // Check and get the correct input number
+        if (event.target.getAttribute("name") in ability_inputs) {
+            target_input = ability_inputs[event.target.getAttribute("name")];
+            // Check if operation is valid
+            if (target_input.value > 13) {
+                target_input.stepDown();
+                total_points.stepUp(2);
+            } else if (total_points.value < 27 && target_input.value > 8) {
+                target_input.stepDown();
+                total_points.stepUp();
+            }
         }
-      }
-
-      /* Toggle between adding and removing the "active" class,
-      to highlight the button that controls the panel */
-      this.classList.toggle("active");
-
-      /* Toggle between hiding and showing the active panel */
-      var panel = this.nextElementSibling;
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    });
-  }
-
-
-
-
-  // document.addEventListener('DOMContentLoaded', function () {
-  //     let abilityPoints = 27;
-  //     const abilityPointElement = document.querySelector('.ability_point');
-  //     abilityPointElement.innerText = abilityPoints;
-  //     let newValue = document.querySelector('input[type=number]').value;
-
-
-
-
-  //     function handleButtonClick(btnClass, increment) {
-  //         const buttons = document.querySelectorAll(btnClass);
-  //         buttons.forEach(function (button) {
-  //             button.addEventListener('click', function (event) {
-  //                 const clickedButton = event.target;
-
-
-  //                 let input = this.parentElement.querySelector('input[type=number]');
-  //                  newValue = parseInt(input.value);
-  //                  console.log(clickedButton.nextSibling);
-  //                 if (abilityPointElement.innerText !== '0') {
-  //                     if (btnClass === '.moins' ) {
-  //                         if (newValue === 8) {
-  //                             clickedButton.disabled = true;
-  //                         }
-  //                         else{
-  //                             clickedButton.disabled = false;
-  //                         }
-  //                         if (newValue <= 13) {
-  //                             abilityPoints +=  increment ;
-  //                         }else{
-  //                             abilityPoints += 2 * increment;
-  //                         }
-
-  //                     } else if (btnClass === '.plus' ) {
-  //                         if (newValue === 15) {
-  //                             clickedButton.disabled = true;
-  //                         }else{
-  //                             clickedButton.disabled = false;
-  //                         }
-
-  //                         if (newValue >= 13) {
-  //                             abilityPoints += 2*increment;
-  //                         }
-  //                         else{
-  //                             abilityPoints += increment;
-  //                         }
-
-  //                         // abilityPoints += (newValue >= 12) ? increment : 2 * increment;
-  //                     }
-
-  //                     abilityPointElement.innerText = abilityPoints;
-  //                 }
-
-  //             });
-  //         });
-  //     }
-
-  //     handleButtonClick('.moins', 1);
-  //     handleButtonClick('.plus', -1);
-  // });
-
-
-
-  // Fonction pour désactiver tous les boutons "moins"
-  function disableMinusButtons() {
-    const minusButtons = document.querySelectorAll('.moins');
-    minusButtons.forEach(function (button) {
-      // button.disabled = true;
-    });
-  }
-
-  // Fonction pour activer tous les boutons "moins"
-  function enableMinusButtons() {
-    const minusButtons = document.querySelectorAll('.moins');
-    minusButtons.forEach(function (button) {
-      button.disabled = false;
-    });
-  }
-  // Fonction pour gérer l'événement du bouton "moins"
-  function handleMinusButtonClick(nodeName) {
-    const inputElement = document.getElementById(nodeName);
-    inputElement.stepDown();
-    const minusButton = document.querySelector(`.moins[name="${nodeName}"]`);
-
-    if (parseInt(inputElement.value, 10) !== 8) {
-      console.log('false minus');
-      minusButton.disabled = false;
-    } else {
-      console.log('true minus');
-      minusButton.disabled = true;
     }
-    console.log(`Clicked on minus for ${nodeName}, Node number: ${inputElement.value}`);
-  }
 
-  // Fonction pour gérer l'événement du bouton "plus"
-  function handlePlusButtonClick(nodeName) {
-    const inputElement = document.getElementById(nodeName);
-    inputElement.stepUp();
-    const plusButton = document.querySelector(`.plus[name="${nodeName}"]`);
-    if (parseInt(inputElement.value, 10) !== 15) {
-      console.log('false plus');
-      plusButton.disabled = false;
-    } else {
-      console.log('true plus');
-      plusButton.disabled = true;
+    // Check if the button pressed is plus
+    if (event.target.classList.value == "plus") {
+        // Check and get the correct input number
+        if (event.target.getAttribute("name") in ability_inputs) {
+            target_input = ability_inputs[event.target.getAttribute("name")];
+            // Check if operation is valid
+            if (total_points.value > 1 && target_input.value < 15 && target_input.value >= 13) {
+                target_input.stepUp();
+                total_points.stepDown(2);
+            } else if (total_points.value > 0 && target_input.value < 13) {
+                target_input.stepUp();
+                total_points.stepDown();
+            }
+        }
     }
-    console.log(`Clicked on plus for ${nodeName}, Node number: ${inputElement.value}`);
-  }
+})
 
-  document.addEventListener('DOMContentLoaded', function () {
-    // Désactiver tous les boutons "moins" au début
-    disableMinusButtons();
+// GET TOTAL POINTS
+function getStartingPoints() {
+    let value = 0;
+    for (const input in ability_inputs) {
+        value = ability_inputs[input].value;
+        if (value == 15) {
+            total_points.stepDown(4);
+            value = 13;
+        }
+        if (value == 14) {
+            total_points.stepDown(2);
+            value = 13;
+        }
+        if (value > 8) {
+            total_points.stepDown(value - 8);
+        }
+    }
+}
 
-    // Activer les boutons "moins" lorsque le Clear button est cliqué
-    // document.getElementById('Clear').addEventListener('click', function () {
-    //   enableMinusButtons();
-    // });
+getStartingPoints();
+// END ABILITY POINTS
 
-    // Sélectionnez tous les boutons "moins" et ajoutez un écouteur d'événements
-    const minusButtons = document.querySelectorAll('.moins');
-    minusButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        const nodeName = button.getAttribute('name');
-        handleMinusButtonClick(nodeName);
-      });
+// ABILITY SCORE BONUS
+let ability_bonus_1 = builder_form.builder_abilityScoreBonus1;
+let ability_bonus_2 = builder_form.builder_abilityScoreBonus2;
+
+// Change the selected option on the other select when both are the same
+ability_bonus_1.addEventListener("change", () =>{
+    if (ability_bonus_1.selectedIndex == ability_bonus_2.selectedIndex) {
+        ability_bonus_2.selectedIndex = (ability_bonus_2.selectedIndex + 1) % ability_bonus_2.length;
+    }
+})
+ability_bonus_2.addEventListener("change", () =>{
+    if (ability_bonus_2.selectedIndex == ability_bonus_1.selectedIndex) {
+        ability_bonus_1.selectedIndex = (ability_bonus_1.selectedIndex + 1) % ability_bonus_1.length;
+    }
+})
+// END ABILITY SCORE BONUS
+
+// CLEAR BUTTON
+const clear_button = builder_form.clear;
+
+function reset_abilities()
+{
+    // Reset all abilities back to 8
+    for (ability in ability_inputs) {
+        ability_inputs[ability].value = 8;
+        ability_inputs[ability].setAttribute("value", 8);
+    }
+
+    // Reset total points back to 27
+    total_points.value = 27;
+    total_points.setAttribute("value", 27);
+
+    // Reset the ability score bonus to STR and DEX
+    ability_bonus_1.selectedIndex = 0;
+    ability_bonus_2.selectedIndex = 1;
+}
+
+clear_button.addEventListener("click", () => {
+    reset_abilities();
+})
+// END CLEAR BUTTON
+// END ABILITY PANNEL
+
+// AJAX CLASSES
+const classField = document.querySelector("#builder_idClasses");
+const subclassField = document.querySelector("#builder_idSubClasses");
+
+let classId;
+
+let ajaxClass;
+
+async function getClassesAndSubClasses() {
+    const request = await fetch(`${window.location.origin}/builder/info/classes`);
+    ajaxClass = await request.json();
+
+    for (const formCheck of classField.children) {
+        for (const input of formCheck.children) {
+            if (input.getAttribute("checked") == "checked") {
+                classId = input.value;
+            }
+        }
+    }
+
+    let subclassId = 0;
+    for (const formCheck of subclassField.children) {
+        for (const input of formCheck.children) {
+            if (input.getAttribute("checked") == "checked") {
+                subclassId = input.value;
+            }
+        }
+    }
+
+    changeAvailableSubclasses(subclassId);
+}
+
+function changeAvailableSubclasses(dbSubClass = 0) {
+    if (!classId) {
+        document.querySelector("#subclasses-accordion").classList.add("d-none");
+        subclassField.innerHTML = `
+        <div class="form-check">
+            <input type="radio" id="builder_idSubClasses_placeholder" name="builder[idSubClasses]" class="form-check-input" value checked="checked">
+            <label class="form-check-label" for="builder_idSubClasses_placeholder">Choose a subclass</label>
+        </div>
+        `;
+        return;
+    }
+
+    html = "";
+    ajaxClass.forEach(gameClass => {
+        if (gameClass.id == classId) {
+            let first = true;
+            gameClass.subclasses.forEach(subClass => {
+                if (dbSubClass) {
+                    if (subClass.id == dbSubClass) {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubClasses_${subClass.id}" name="builder[idSubClasses]" class="form-check-input" value="${subClass.id}" checked>
+                            <label class="form-check-label" for="builder_idSubClasses_${subClass.id}">${subClass.name}</label>
+                        </div>
+                        `;
+                    } else {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubClasses_${subClass.id}" name="builder[idSubClasses]" class="form-check-input" value="${subClass.id}">
+                            <label class="form-check-label" for="builder_idSubClasses_${subClass.id}">${subClass.name}</label>
+                        </div>
+                        `;
+                    }
+                } else {
+                    if (first) {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubClasses_${subClass.id}" name="builder[idSubClasses]" class="form-check-input" value="${subClass.id}" checked>
+                            <label class="form-check-label" for="builder_idSubClasses_${subClass.id}">${subClass.name}</label>
+                        </div>
+                        `;
+                        first = false;
+                    } else {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubClasses_${subClass.id}" name="builder[idSubClasses]" class="form-check-input" value="${subClass.id}">
+                            <label class="form-check-label" for="builder_idSubClasses_${subClass.id}">${subClass.name}</label>
+                        </div>
+                        `;
+                    }
+                }
+            })
+        }
     });
+    subclassField.innerHTML = html;
+    document.querySelector("#subclasses-accordion").classList.remove("d-none");
+}
 
-    // Sélectionnez tous les boutons "plus" et ajoutez un écouteur d'événements
-    const plusButtons = document.querySelectorAll('.plus');
-    plusButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        const nodeName = button.getAttribute('name');
-        handlePlusButtonClick(nodeName);
-      });
+getClassesAndSubClasses();
+
+accordionClass = document.querySelector("#accordion-class");
+accordionClass.addEventListener("click", (event) => {
+    if (ajaxClass && event.target.nodeName == "INPUT") {
+        classId = event.target.value;
+        changeAvailableSubclasses();
+    }
+})
+// END AJAX SUBCLASSES
+
+// AJAX SUBRACES
+const racesField = document.querySelector("#builder_idRaces");
+const subracesField = document.querySelector("#builder_idSubRace");
+
+let racesId;
+let ajaxRaces;
+
+async function getRacesAndSubRaces() {
+    const request = await fetch(`${window.location.origin}/builder/info/races`);
+    ajaxRaces = await request.json();
+
+    let subraceId = 0;
+    for (const formCheck of racesField.children) {
+        for (const input of formCheck.children) {
+            if (input.getAttribute("checked") == "checked") {
+                racesId = input.value;
+            }
+        }
+    }
+
+    changeAvailableSubraces(subraceId);
+}
+
+function changeAvailableSubraces(dbsubrace = 0) {
+    if (!racesId) {
+        document.querySelector("#subraces-accordion").classList.add("d-none");
+        subracesField.innerHTML = `
+        <div class="form-check">
+            <input type="radio" id="builder_idSubRace_placeholder" name="builder[idSubRace]" class="form-check-input" value checked="checked">
+            <label class="form-check-label" for="builder_idSubRace_placeholder">Choose a subrace</label>
+        </div>
+        `;
+        return;
+    }
+
+    html = "";
+    ajaxRaces.forEach(gameRaces => {
+        if (gameRaces.id == racesId) {
+            let first = true;
+            gameRaces.subraces.forEach(subRaces => {
+                if (dbsubrace) {
+                    if (subRaces.id == dbsubrace) {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubRace_${subRaces.id}" name="builder[idSubRace]" class="form-check-input" value="${subRaces.id}" checked>
+                            <label class="form-check-label" for="builder_idSubRace_${subRaces.id}">${subRaces.name}</label>
+                        </div>
+                        `;
+                    } else {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubRace_${subRaces.id}" name="builder[idSubRace]" class="form-check-input" value="${subRaces.id}">
+                            <label class="form-check-label" for="builder_idSubRace_${subRaces.id}">${subRaces.name}</label>
+                        </div>
+                        `;
+                    }
+                } else {
+                    if (first) {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubRace_${subRaces.id}" name="builder[idSubRace]" class="form-check-input" value="${subRaces.id}" checked>
+                            <label class="form-check-label" for="builder_idSubRace_${subRaces.id}">${subRaces.name}</label>
+                        </div>
+                        `;
+                        first = false;
+                    } else {
+                        html +=  `
+                        <div class="form-check">
+                            <input type="radio" id="builder_idSubRace_${subRaces.id}" name="builder[idSubRace]" class="form-check-input" value="${subRaces.id}">
+                            <label class="form-check-label" for="builder_idSubRace_${subRaces.id}">${subRaces.name}</label>
+                        </div>
+                        `;
+                    }
+                }
+            })
+        }
     });
-  });
+    subracesField.innerHTML = html;
+    document.querySelector("#subraces-accordion").classList.remove("d-none");
+}
 
+getRacesAndSubRaces();
 
-});
+accordionRaces = document.querySelector("#accordion-races");
+accordionRaces.addEventListener("click", (event) => {
+    if (ajaxRaces && event.target.nodeName == "INPUT") {
+        racesId = event.target.value;
+        changeAvailableSubraces();
+    }
+})
+// END AJAX SUBRACES
 
-
+// UPDATE SPECIFIC //
+// SUBMIT BUTTON TEXT
+if (window.location.href.includes("/builder/update/")) {
+    builder_form.builder_save.innerText = "Update Character";
+}

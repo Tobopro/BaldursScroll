@@ -4,37 +4,83 @@ namespace App\Controller;
 
 use App\Form\BuilderType;
 use App\Entity\Characters;
-use App\Repository\CharactersRepository;
-use App\Repository\UserRepository;
+use App\Repository\ClassesRepository;
+use App\Repository\RacesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BuilderController extends AbstractController
 {
+    #[Route('/builder/info/classes', name: 'app_builder_info_classes')]
+    public function getBuilderInfoClasses(ClassesRepository $classesRepository)
+    {
+        $result = $classesRepository->findAll();
+        $response = [];
+        foreach ($result as $class) {
+            $newArray = [];
+            $newArray["id"] = $class->getId();
+            $newArray["name"] = $class->getName();
+            $subclasses = $class->getSubClasses();
+            $allSubclassesArray = [];
+            foreach ($subclasses as $subclass) {
+                $subclassArray = [];
+                $subclassArray["id"] = $subclass->getId();
+                $subclassArray["name"] = $subclass->getName();
+                $allSubclassesArray[] = $subclassArray;
+            }
+            $newArray["subclasses"] = $allSubclassesArray;
+            $response[] = $newArray;
+        }
+
+        print(json_encode($response));
+
+        exit();
+    }
+    
+    #[Route('/builder/info/races', name: 'app_builder_info_races')]
+    public function getBuilderInfoRaces(RacesRepository $racesRepository)
+    {
+        $result = $racesRepository->findAll();
+        $response = [];
+        foreach ($result as $races) {
+            $newArray = [];
+            $newArray["id"] = $races->getId();
+            $newArray["name"] = $races->getName();
+            $subraces = $races->getSubRaces();
+            $allSubracesArray = [];
+            foreach ($subraces as $subrace) {
+                $subraceArray = [];
+                $subraceArray["id"] = $subrace->getId();
+                $subraceArray["name"] = $subrace->getName();
+                $allSubracesArray[] = $subraceArray;
+            }
+            $newArray["subraces"] = $allSubracesArray;
+            $response[] = $newArray;
+        }
+
+        print(json_encode($response));
+
+        exit();
+    }
+
 
     #[Route('/builder', name: 'app_builder_create')]
-    public function create(EntityManagerInterface $entityManager, Request $request, CharactersRepository $charactersRepository, UserRepository $userRepository): Response
+    public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
         $character = new Characters();
-        // $character = $charactersRepository->find(1);
-        // $character->setClassWithSubClass();
-        // $character->setRaceWithSubRace();
-        // dd($character);
 
-        $form = $this->createForm(BuilderType::class, $character);
+        $form = $this->createForm(BuilderType::class, $character, [
+            'attr' => ['class' => 'w-75 h-auto',
+            "name" => "builder"]
+        ]);
         $form->handleRequest($request);
-        // dump($form);
      
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($request);
-            // dd($form);
             $character->setIdUsers($this->getUser());
-            // $character->setIdUsers($userRepository->find(1));
             $entityManager->persist($character);
             $entityManager->flush();
 
@@ -42,7 +88,7 @@ class BuilderController extends AbstractController
         }
 
 
-        return $this->render('builder/indeex.html.twig', [
+        return $this->render('builder/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -52,28 +98,29 @@ class BuilderController extends AbstractController
     public function update(EntityManagerInterface $entityManager, $id, Request  $request): Response
     {
         $charactersRepository = $entityManager->getRepository(Characters::class);
-        $characterResult = $charactersRepository->find($id);
+        $character = $charactersRepository->find($id);
+        $character->setClassWithSubClass();
+        $character->setRaceWithSubRace();
 
-        if (!$characterResult) {
+        if (!$character) {
             throw $this->createNotFoundException("La fiche avec l'ID $id n'existe pas.");
         }
 
-        $form = $this->createForm(BuilderType::class, $characterResult, [
-            'action' => $this->generateUrl('app_builder_update', ['id' => $id])
+        $form = $this->createForm(BuilderType::class, $character, [
+            'attr' => ['class' => 'w-75 h-auto',
+            "name" => "builder"]
         ]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $entityManager->flush();
             return $this->redirectToRoute('app_dashboard');
         }
 
 
 
-        return $this->render('builder/update.html.twig', [
-            'form' => $form->createView(),
-            'character' => $characterResult,
+        return $this->render('builder/index.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 

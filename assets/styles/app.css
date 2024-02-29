@@ -6,6 +6,7 @@ body {
     color: #cc8828;
     margin: 0;
     margin-top: 10px;
+    height: 100%;
 }
 
 h1,
@@ -345,14 +346,14 @@ h6 {
 .myfooter-container {
     background-color: #004266;
     position: absolute;
-    background-image: url("../img/background_scroll.png");
+    /* background-image: url("../img/background_scroll.png"); */
     background-size: 60%;
     background-position: 50%;
     color: white;
     padding: 0;
     padding-top: 3vh;
     text-align: center;
-    margin-top: 25vh;
+    margin-top: 50vh;
     position: relative;
     bottom: 0;
     left: 0;
@@ -615,9 +616,11 @@ h6 {
 /* header text color to white */
 
 .accordion-button:not(.collapsed) {
-    color: #ffffff;.transparent-bg {
-    background-color: transparent !important;
-}
+    color: #ffffff;
+
+    .transparent-bg {
+        background-color: transparent !important;
+    }
 }
 
 /* Remove active blue glow */
@@ -824,7 +827,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: #CC8828;
     border-radius: 10px;
     width: 100%;
-    height: 10rem;
+    height: auto;
     overflow-y: scroll;
     text-decoration: none;
     border-color: none;
@@ -838,7 +841,7 @@ input[type=number]::-webkit-outer-spin-button {
     /* align-items: end; */
 }
 
-#builder_idSubRace label {}
+/* #builder_idSubRace label {} */
 
 /* SCROLL */
 
@@ -876,10 +879,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 /*PROFILE*/
 
-.profile-pic-container {
-    /* grid-column: 2/2;
-    grid-row: 2; */
-}
+/* .profile-pic-container {
+    grid-column: 2/2;
+    grid-row: 2;
+} */
 
 .profile-text-container {
     /* grid-column: 4/8;
@@ -1220,9 +1223,30 @@ input[type=number]::-webkit-outer-spin-button {
     color: #CC8828;
 }
 
-// edit form style
-.edit-form{
-    border-radius: 20px;
-    marge-top: 3rem;
-    background-color: black;
+.user-profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+
+/*COMMENTS*/
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    background-color: #1D1D1D;
+    border-radius: 15px;
+
 }

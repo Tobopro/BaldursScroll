@@ -50,11 +50,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ["default" => 0])]
     private ?bool $IsBanned = false;
 
+    #[ORM\ManyToMany(targetEntity: characters::class, inversedBy: 'liked')]
+    private Collection $liked;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->commentaries = new ArrayCollection();
         $this->resetPasswordRequests = new ArrayCollection();
+        $this->liked = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,6 +264,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $resetPasswordRequest->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, characters>
+     */
+    public function getLiked(): Collection
+    {
+        return $this->liked;
+    }
+
+    public function doesLikes(Characters $character): bool
+    {
+        return $this->liked->contains($character);
+    }
+
+    public function addLiked(characters $liked): static
+    {
+        if (!$this->liked->contains($liked)) {
+            $this->liked->add($liked);
+        }
+
+        return $this;
+    }
+
+    public function removeLiked(characters $liked): static
+    {
+        $this->liked->removeElement($liked);
 
         return $this;
     }
