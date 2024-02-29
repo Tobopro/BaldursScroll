@@ -5,7 +5,7 @@
 
 
 {% block body %}
-	<script src='{{ asset('js/builder.js') }}' defer></script>
+	<script src='{{ asset('js/new_builder.js') }}' defer></script>
 
 	<div class="myform-container">
 		<form class="w-75 h-auto" method="POST" action="{{ path('app_builder_create') }}" name="builder">
@@ -20,14 +20,14 @@
 						</button>
 					</h2>
 					<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionCreateBuild">
-						<div class="accordion-body" id="accordion-class">
+						<div class="accordion-body">
 							{{ form_row(form.idClasses) }}
 						</div>
 					</div>
 				</div>
 
 				{# SUBCLASSES #}
-				<div class="accordion-item d-none" id="subclasses-accordion">
+				<div class="accordion-item">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 							Sous-classes
@@ -48,14 +48,14 @@
 						</button>
 					</h2>
 					<div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionCreateBuild">
-						<div class="accordion-body" id="accordion-races">
+						<div class="accordion-body">
 							{{ form_row(form.idRaces) }}
 						</div>
 					</div>
 				</div>
 
 				{# SUBRACES #}
-				<div class="accordion-item d-none" id="subraces-accordion">
+				<div class="accordion-item">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 							Sous-races
@@ -80,7 +80,7 @@
 							<section class="ability-container ">
 								<h2>Choose your characters Ability Points.</h2>
 								<div class='row_ability'>
-									<h3 class="m-0">Points available :</h3>
+									<h3 class="m-0">Ability Point</h3>
 									<input type="number" readonly class="ability_point" name="total_points" value="27" min="0" max="27"></input>
 							</div>
 
@@ -171,8 +171,8 @@
 				<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionCreateBuild">
 					<div class="accordion-body">
 						{{ form_row(form.idLevel) }}
+						{# {{form_row(form.isPublic)}} #}
 						{{ form_row(form.name) }}
-						{{form_row(form.isPublic)}}
 						{{ form_row(form.save) }}
 					</div>
 				</div>

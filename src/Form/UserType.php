@@ -22,15 +22,15 @@ class UserType extends AbstractType
         $builder
 
             ->add('username', TextType::class, [
-                'label' => "Your username"
+                'label' => "Username"
             ])
             ->add('email', EmailType::class, [
-                'label' => "Votre email"
+                'label' => "Email"
             ])
             ->add('password', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Your password'
+                    'label' => 'Password'
                 ],
                 'second_options' => [
                     'label' => 'Confirm your password'
@@ -42,7 +42,6 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('profilePicture')
             ->add('save', SubmitType::class, [
                 'label' => 'Submit',
                 'attr' => [

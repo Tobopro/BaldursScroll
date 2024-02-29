@@ -11,33 +11,48 @@
 			<div class="container-fluid">
 				<div class="row">
 
-					<div class="col-6">
-
-						<form method="get" action="{{ path('app_dashboard') }}">
+					<form method="get" action="{{ path('app_dashboard') }}" class="d-flex ">
+						<div class="col-3">
 							<label for="classFilter">Filtrer par classe :</label>
 							<select name="classFilter" id="classFilter">
 								<option value="">Toutes les classes</option>
 								{% for classe in classes %}
-									<option value="{{ classe.id }}">{{ classe.name }}</option>
+									<option value="{{ classe.id }}" {% if classe.id == classFilter %} selected {% endif %}>{{ classe.name }}</option>
 								{% endfor %}
 							</select>
-							<button type="submit">Filtrer</button>
-						</form>
-					</div>
-					<div class="col-6">
-						<form method="get" action="{{ path('app_dashboard') }}">
+						</div>
+						<div class="col-3">
 							<label for="raceFilter">Filtrer par race :</label>
 							<select name="raceFilter" id="raceFilter">
-
 								<option value="">Toutes les races</option>
 								{% for race in races %}
-
-									<option value="{{ race.id }}">{{ race.name }}</option>
+									<option value="{{ race.id }}" {% if race.id == raceFilter %} selected {% endif %}>{{ race.name }}</option>
 								{% endfor %}
 							</select>
-							<button type="submit">Filtrer</button>
+						</div>
+						<button type="submit">Filtrer</button>
+					</form>
+
+
+					<div class="col-3">
+						<form method="get" action="{{ path('app_dashboard') }}">
+							<input type="checkbox" id="mostLiked" name="mostLiked" value="1">
+							<label for="mostLiked">Trending</label>
+							<button type="submit">search</button>
 						</form>
 					</div>
+
+					{% if is_granted( 'ROLE_ADMIN' ) %}
+						<div class="col-3">
+							<form method="get" action="{{ path('app_dashboard') }}">
+								<input type="checkbox" id="allCharacters" name="allCharacters" value="1">
+								<label for="allCharacters">See All Characters</label>
+								<button type="submit">search</button>
+							</form>
+						</div>
+					{% endif %}
+
+
 				</div>
 			</div>
 		</div>
@@ -65,6 +80,10 @@
 								{{ character.idSubClasses.name }}</p>
 							<p>Race :
 								{{ character.idSubRace.name }}</p>
+							<p>
+								<i class="fa-solid fa-arrow-trend-up"></i>
+								{{character.getLikes()}}</p>
+
 						</div>
 					</div>
 				</a>

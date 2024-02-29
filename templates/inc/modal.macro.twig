@@ -43,7 +43,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					
+					{{ form_row(form.username) }}
 					{{ form_row(form.username) }}
 					{{ form_row(form.email) }}
 					{{ form_row(form.password) }}
@@ -159,10 +159,10 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Modifier Votre Profile</h1>
+					<h1 class="modal-title text-dark fs-5" id="exampleModalLabel">Modifier Votre Profile</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body text-dark">
 					{{ form(editProfileForm) }}
 					</div>
 					<div class="modal-footer">
@@ -173,3 +173,28 @@
 			</div>
 		</div>
 	{% endmacro %}
+
+{% macro uploadProfilePictureModal(user) %}
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadProfilePictureModal-{{ app.user.id }}">
+		upload profile picture
+	</button>
+    <div class="modal fade" id="uploadProfilePictureModal-{{ app.user.id }}" tabindex="-1" aria-labelledby="uploadProfilePictureModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-dark">
+                    <h5 class="modal-title" id="uploadProfilePictureModalLabel">Upload Profile Picture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-dark">
+                    <form action="{{ path('upload_profile_picture', {'idUser': user.id}) }}" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="profilePicture" class="form-label">Choose profile picture:</label>
+                            <input type="file" class="form-control" id="profilePicture" name="profilePicture">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

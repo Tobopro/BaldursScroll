@@ -38,6 +38,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
+    #[ORM\OneToMany(targetEntity: ResetPasswordRequest::class, mappedBy: 'user')]
+    private ?Collection $resetPasswordRequests = null;
 
     #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idUsers')]
     private Collection $characters;
@@ -48,10 +50,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ["default" => 0])]
     private ?bool $IsBanned = false;
 
+    #[ORM\ManyToMany(targetEntity: characters::class, inversedBy: 'liked')]
+    private Collection $liked;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
         $this->commentaries = new ArrayCollection();
+        $this->resetPasswordRequests = new ArrayCollection();
+        $this->liked = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +236,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsBanned(bool $IsBanned): static
     {
         $this->IsBanned = $IsBanned;
+
+        return $this;
+    }
+    /**
+     * @return Collection<int, ResetPasswordRequest>
+     */
+    public function getResetPasswordRequests(): Collection
+    {
+        return $this->resetPasswordRequests;
+    }
+
+    public function addResetPasswordRequest(ResetPasswordRequest $resetPasswordRequest): static
+    {
+        if (!$this->resetPasswordRequests->contains($resetPasswordRequest)) {
+            $this->resetPasswordRequests->add($resetPasswordRequest);
+            $resetPasswordRequest->setUser($this);
+        }
+
+        return $this;
+    }
+    public function removeResetPasswordRequest(ResetPasswordRequest $resetPasswordRequest): static
+    {
+        if ($this->resetPasswordRequests->removeElement($resetPasswordRequest)) {
+
+            if ($resetPasswordRequest->getUser() === $this) {
+                $resetPasswordRequest->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, characters>
+     */
+    public function getLiked(): Collection
+    {
+        return $this->liked;
+    }
+
+    public function doesLikes(Characters $character): bool
+    {
+        return $this->liked->contains($character);
+    }
+
+    public function addLiked(characters $liked): static
+    {
+        if (!$this->liked->contains($liked)) {
+            $this->liked->add($liked);
+        }
+
+        return $this;
+    }
+
+    public function removeLiked(characters $liked): static
+    {
+        $this->liked->removeElement($liked);
 
         return $this;
     }
