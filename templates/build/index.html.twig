@@ -9,7 +9,7 @@
 
 		<div class="myform">
 
-			<button class="accordion first-section-builder">Classes</button>
+			<button class="accordion first-section-builder">Class</button>
 			<div class="panel-open">
 				<div class="info-panel">
 					<h3>{{ character.idSubClasses.idClass.name }}</h3>
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 
-			<button class="accordion">Sous-classes</button>
+			<button class="accordion">Subclass</button>
 			<div class="panel-open ">
 				<div class="info-panel">
 					<h3>{{character.idSubClasses.name }}</h3>
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 
-			<button class="accordion">Races</button>
+			<button class="accordion">Race</button>
 			<div class="panel-open ">
 				<div class="info-panel">
 					<h3>{{  character.idSubRace.idRace.name }}</h3>
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 
-			<button class="accordion">Sous-races</button>
+			<button class="accordion">Subrace</button>
 			<div class="panel-open ">
 				<div class="info-panel">
 					<h3>{{ character.idSubRace.name }}</h3>
@@ -200,47 +200,41 @@
 				</div>
 			</div>
 
-			<button class="accordion">Sorts disponibles</button>
+			<button class="accordion">Spells available</button>
 			<div class="panel-open ">
 				<div class="info-panel">
 
-					<h3>Sort de Race</h3>
+					<h3>Race spells</h3>
 					<ul>
 						{% for spell in raceSpells %}
 							<li>{{ spell.idSpell.name }}</li>
 						{% else %}
-							<li>Aucun sort pour cette race.</li>
+							<li>No spells with this race.</li>
 						{% endfor %}
 					</ul>
 
 
-					<h3>Sort de Classe</h3>
+					<h3>Class spells</h3>
 					<ul>
 						{% for spell in classSpells %}
 							<li>{{ spell.idSpell.name }}</li>
 						{% else %}
-							<li>Aucun sort pour cette classe.</li>
+							<li>No spells with this class.</li>
 						{% endfor %}
 					</ul>
 					{% if app.user %}
-						{# {% if app.user.id == character.idUsers.id or is_granted('ROLE_ADMIN')%} #}
 						{% if is_granted('edit', character) %}
-
-
-							<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Mettre à jour</a>
-
-
-							<!-- Bouton pour ouvrir la modale -->
+							<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Edit the character</a>
 							<a href="#" class="mybtn-delete" id="deleteBtn">
-								Supprimer</a>
-
+								Delete</a>
 							<!-- Modale -->
 							<div id="myModal" class="modal__modal ">
 								<div class="modal__modal-content">
 									<span class="close">&times;</span>
-									<p>Êtes-vous sûr de vouloir supprimer cet élément ?</p>
+									<p>Are you sure you want to delete this character ?</p>
+									<p>This action is irreversible.</p>
 									<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
-										<button id="confirmDeleteBtn" class="mybtn-modal">Supprimer</button>
+										<button id="confirmDeleteBtn" class="mybtn-modal">Delete this character</button>
 									</a>
 
 								</div>
@@ -255,7 +249,6 @@
 		</div>
 		<section class="likes my-5">
 			{% if app.user %}
-				{# {% if character.getLiked(app.user)|length > 0 %} #}
 				{% if app.user.doesLikes(character) %}
 					<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
 						<i class="fa-solid fa-2xl  fa-thumbs-up"></i>
@@ -281,21 +274,26 @@
 		<!-- Section des commentaires -->
 		<section class="comments-section my-5">
 
-			<h2>Commentaires</h2>
+			<h2>Comments</h2>
 
 			<!-- Afficher les commentaires existants -->
 			<div class="existing-comments">
 
 				{% for commentary in commentaries %}
-					<div class="comment my-5">
+					<div class="comment-container my-5 p-2">
+						<p>Posted by
+							{{commentary.author.username}}
+							on
+							{{ commentary.createdAt|date('d/m/Y') }}</p>
+
 						<p>{{ commentary.text }}
 							{% if app.user %}
 								{% if app.user.id == commentary.author.id %}
-									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="btn btn-danger ms-5">Supprimer votre commentaire</a>
+									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="btn btn-danger ms-5">Delete your comment</a>
 								{% else %}
 									{% if commentary.isFlaged == true %}
 
-										<p class="text-danger">Commentaire signalé</p>
+										<p class="text-danger">Comment flaged</p>
 									{% else %}
 										<a href="{{ path('app_build_commentary_report', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" mx-5">
 											<i class="fa-regular fa-flag"></i>
@@ -307,75 +305,59 @@
 							{% endif %}
 						</p>
 					</p>
-					<p>Posté par
-						{{commentary.author.username}}
-						le
-						{{ commentary.createdAt|date('d/m/Y') }}</p>
 
 
-					<h5>Ajouter une réponse</h5>
+					<div class="responses ms-5">
+						<h5>Add a response</h5>
 
-					<form action="{{ path('app_build_commentary_response', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" method="POST">
-
-
-						<label for="response">Votre réponse :</label>
-						<textarea name="response" id="response" cols="30" rows="1"></textarea>
-
-						<button type="submit" class="">Répondre</button>
-					</form>
+						<form action="{{ path('app_build_commentary_response', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" method="POST">
 
 
-					{% for response in responses %}
-						{% if response.response.id == commentary.id %}
-							<div class="response">
-								<p>{{response.author.username}}
-									a répondu ({{ response.createdAt|date('d/m/Y') }}) :</p>
+							<label for="response">your response :</label>
+							<textarea name="response" id="response" cols="30" rows="1"></textarea>
 
-								<p>{{ response.text }}
-									<a href="{{ path('app_build_commentary_delete', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" ms-5">Supprimer votre réponse</a>
-								</p>
+							<button type="submit" class="">Submit</button>
+						</form>
 
 
-							</div>
+						{% for response in responses %}
+							{% if response.response.id == commentary.id %}
+								<div class="response">
+									<p>{{response.author.username}}
+										responded ({{ response.createdAt|date('d/m/Y') }}) :</p>
+
+									<p>{{ response.text }}
+										<a href="{{ path('app_build_commentary_delete', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" ms-5">Delete your response</a>
+									</p>
+								</div>
+							{% endif %}
 
 
-						{% endif %}
+						{% else %}
+							<p>No responses yet.</p>
+						{% endfor %}
 					</div>
 
-				{% else %}
-					<p>Aucune réponse pour le moment.</p>
-				{% endfor %}
-
-
-			{% else %}
-				<p>Aucun commentaire pour le moment.</p>
-			{% endfor %}
-		</div>
-
-
-		{% if app.user %}
-			<!-- Formulaire pour soumettre un nouveau commentaire -->
-			<div class="comment-form my-5">
-				<h3>Ajouter un commentaire</h3>
-				{# <form method="post" action="{{ path('app_build_commentary', {'characterId': character.id}) }}">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<textarea name="content" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<button type="submit">Envoyer</button>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															</form> #}
-				{{form_start(form)}}
-				{{form_row(form.text)}}
-				{{form_row(form.save)}}
-
-
-				{{form_end(form)}}
+				</div>
 			</div>
 
-		{% endif %}
+		</section>
 
 
-	</section>
+	{% else %}
+		<p>No comments yet.</p>
+	{% endfor %}
 </div>
 
-<script src='{{ asset('js/modal.js') }}'></script>{% endblock %}
+
+{% if app.user %}
+	<!-- Formulaire pour soumettre un nouveau commentaire -->
+	<div class="comment-form">
+		<h3>Add a comment</h3>
+		{{form_start(form)}}
+		{{form_row(form.text)}}
+		{{form_row(form.save)}}
+		{{form_end(form)}}
+	</div>
+
+{% endif %}</section></div><script src='{{ asset('js/modal.js') }}'></script>{% endblock %}
