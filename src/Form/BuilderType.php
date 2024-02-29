@@ -135,7 +135,7 @@ class BuilderType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('name', TextType::class, [
-                'label' => 'Nom de votre personnage',
+                'label' => 'Character\s name',
                 "constraints" => new NotBlank(["message" => "Enter the character's name"]),
             ])
             ->add('isPublic', CheckboxType::class, [

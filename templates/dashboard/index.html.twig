@@ -13,24 +13,24 @@
 
 					<form method="get" action="{{ path('app_dashboard') }}" class="d-flex ">
 						<div class="col-3">
-							<label for="classFilter">Filtrer par classe :</label>
+							<label for="classFilter">Search by classes :</label>
 							<select name="classFilter" id="classFilter">
-								<option value="">Toutes les classes</option>
+								<option value="">All classes</option>
 								{% for classe in classes %}
 									<option value="{{ classe.id }}" {% if classe.id == classFilter %} selected {% endif %}>{{ classe.name }}</option>
 								{% endfor %}
 							</select>
 						</div>
 						<div class="col-3">
-							<label for="raceFilter">Filtrer par race :</label>
+							<label for="raceFilter">Search by races :</label>
 							<select name="raceFilter" id="raceFilter">
-								<option value="">Toutes les races</option>
+								<option value="">All races</option>
 								{% for race in races %}
 									<option value="{{ race.id }}" {% if race.id == raceFilter %} selected {% endif %}>{{ race.name }}</option>
 								{% endfor %}
 							</select>
 						</div>
-						<button type="submit">Filtrer</button>
+						<button type="submit">Search</button>
 					</form>
 
 
@@ -76,7 +76,7 @@
 
 						<div class="card-content">
 							<h2>{{ character.name }}</h2>
-							<p>Classe :
+							<p>Class :
 								{{ character.idSubClasses.name }}</p>
 							<p>Race :
 								{{ character.idSubRace.name }}</p>

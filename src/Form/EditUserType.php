@@ -29,7 +29,7 @@ class EditUserType extends AbstractType
 
 
             ->add('save', SubmitType::class, [
-                'label' => "Enregistrer"
+                'label' => "Save"
             ]);
     }
 

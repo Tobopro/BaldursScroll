@@ -23,21 +23,21 @@ class CreateUserType extends EditUserType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => "Mot de passe"
+                    'label' => "Password"
                 ],
                 'second_options' => [
-                    'label' => "Confirmez mot de passe"
+                    'label' => "Password confirmation"
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 8,
-                        'minMessage' => "Met plus de caractères stp!",
+                        'minMessage' => "You need more than 8 characters for your password",
                     ]),
                 ]
             ])
 
             ->add('save', SubmitType::class, [
-                'label' => "Enregistrer"
+                'label' => "Save"
             ])
         ;
     }
