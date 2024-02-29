@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Characters;
+use App\Form\ResponseType;
 use App\Entity\Commentaries;
 use App\Form\CommentaryType;
-use App\Form\ResponseType;
 use App\Repository\CharactersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RacesSpellsRepository;
@@ -14,11 +14,13 @@ use App\Repository\ClassesSpellsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BuildController extends AbstractController
 {
     #[Route('/build/{characterId}', name: 'app_build')]
+    #[IsGranted('view', subject: 'characterId')]
     public function index(int $characterId, 
     CharactersRepository $charactersRepository,
     RacesSpellsRepository $racesSpellsRepository,
@@ -30,19 +32,11 @@ class BuildController extends AbstractController
         if (!$character) {
             throw $this->createNotFoundException('Character not found');
         }
-        // Récupérer les sorts associés à la race du personnage
-        // $raceId = $character->getIdSubRace()->getId();
-        // $spellsForRace = $racesSpellsRepository->findSpellsByRace($raceId);
 
         $commentary = new Commentaries();
         $form = $this->createForm(CommentaryType::class, $commentary, [
             'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
         ]);
-
-        // $formResponse = $this->createForm(ResponseType::class, $commentary, [
-        //     'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
-        // ]);
-
        
         $commentaries = $commentariesRepository->createQueryBuilder('c')
                         ->where('c.Build = :characterId')
@@ -58,8 +52,6 @@ class BuildController extends AbstractController
                         ->getQuery()
                         ->getResult();
 
-      
-
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
@@ -71,8 +63,6 @@ class BuildController extends AbstractController
             'commentaries' => $commentaries,
             'form' => $form->createView(),
             'responses' => $responses
-            // 'formResponse' => $formResponse->createView()
-
         ]);
     }
 
