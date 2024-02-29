@@ -39,7 +39,7 @@
 						</div>
 					{% endif %}
 					{% if app.user %}
-						<div class="mynav-login col-4 offset-1">
+						<div class="mynav-login col-3 offset-1">
 							<a href="{{ path('app_profile', {'idUser': app.user.id}) }}" class="mx-5 ">
 								{% if app.user.profilePicture %}
 									<img src="{{ app.user.profilePicture }}" alt="Profile Picture" class="user-profile-picture">

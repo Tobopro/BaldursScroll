@@ -20,35 +20,27 @@
 		}
 	</style>
 
-	<div class="example-wrapper">
-		{{modal.createUserModal(createForm)}}
+	<div
+		class="example-wrapper">
+		{# {{modal.createUserModal(createForm)}} #}
 
 		<div class="count">
-			Nombre total :
+			Total of users:
 			{{ users.getTotalItemCount }}
 		</div>
+		<p>
+			See all
+			<a href="{{ path('app_commentary_flaged') }}">flaged comments</a>
 
-		<table
-			class="table">
+		</p>
 
-			{# {{ dump(users) }} #}
-
+		<table class="table">
 			<thead>
 				<tr>
 					<th scope="col">Id</th>
 					<th scope="col">User</th>
 					<th scope="col">Email</th>
 					<th scope="col">Role</th>
-					{# <th {% if users.isSorted('u.username') %} class="sorted" {% endif %}>
-						{{ knp_pagination_sortable(users, "Username", 'u.username') }}
-					</th>
-					<th {% if users.isSorted('u.email') %} class="sorted" {% endif %}>
-						{{ knp_pagination_sortable(users, "Email", 'u.email') }}
-					</th>
-					<th {% if users.isSorted('u.roles') %} class="sorted" {% endif %}>
-						{{ knp_pagination_sortable(users, "roles", 'u.roles') }}
-					</th> #}
-
 					<th scope="col">Actions</th>
 				</tr>
 			</thead>
@@ -58,16 +50,18 @@
 					<tr>
 						<td>{{ u.id }}</td>
 						<td>{{ u.username }}</td>
-						<td>{{u.email}}</td>
+						<td title="{{ u.email }}">{{ u.email|length > 10 ? u.email|slice(0, 10) ~ '...' : u.email }}</td>
+
+
 						<td>
 							{{ modal.editRolesModal(u) }}
 
 						</td>
 						<td>
 							{% if(app.user != u) %}
-								<a href="{{ path('app_user_edit', { id: u.id }) }}" class="btn btn-warning">Modifier</a>
+								<a href="{{ path('app_user_edit', { id: u.id }) }}" class="btn btn-warning">Edit</a>
 								{{ modal.deleteUserModal(u) }}
-								<a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset Mot de passe</a>
+								<a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset password</a>
 							{% endif %}
 						</td>
 					</tr>
