@@ -223,17 +223,10 @@
 						{% endfor %}
 					</ul>
 					{% if app.user %}
-						{# {% if app.user.id == character.idUsers.id or is_granted('ROLE_ADMIN')%} #}
 						{% if is_granted('edit', character) %}
-
-
 							<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Edit the character</a>
-
-
-							<!-- Bouton pour ouvrir la modale -->
 							<a href="#" class="mybtn-delete" id="deleteBtn">
 								Delete</a>
-
 							<!-- Modale -->
 							<div id="myModal" class="modal__modal ">
 								<div class="modal__modal-content">
@@ -256,7 +249,6 @@
 		</div>
 		<section class="likes my-5">
 			{% if app.user %}
-				{# {% if character.getLiked(app.user)|length > 0 %} #}
 				{% if app.user.doesLikes(character) %}
 					<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
 						<i class="fa-solid fa-2xl  fa-thumbs-up"></i>
@@ -288,7 +280,12 @@
 			<div class="existing-comments">
 
 				{% for commentary in commentaries %}
-					<div class="comment my-5">
+					<div class="comment-container my-5 p-2">
+						<p>Posted by
+							{{commentary.author.username}}
+							on
+							{{ commentary.createdAt|date('d/m/Y') }}</p>
+
 						<p>{{ commentary.text }}
 							{% if app.user %}
 								{% if app.user.id == commentary.author.id %}
@@ -308,66 +305,59 @@
 							{% endif %}
 						</p>
 					</p>
-					<p>Posted by
-						{{commentary.author.username}}
-						on
-						{{ commentary.createdAt|date('d/m/Y') }}</p>
 
 
-					<h5>Add a response</h5>
+					<div class="responses ms-5">
+						<h5>Add a response</h5>
 
-					<form action="{{ path('app_build_commentary_response', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" method="POST">
-
-
-						<label for="response">your response :</label>
-						<textarea name="response" id="response" cols="30" rows="1"></textarea>
-
-						<button type="submit" class="">Submit</button>
-					</form>
+						<form action="{{ path('app_build_commentary_response', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" method="POST">
 
 
-					{% for response in responses %}
-						{% if response.response.id == commentary.id %}
-							<div class="response">
-								<p>{{response.author.username}}
-									responded ({{ response.createdAt|date('d/m/Y') }}) :</p>
+							<label for="response">your response :</label>
+							<textarea name="response" id="response" cols="30" rows="1"></textarea>
 
-								<p>{{ response.text }}
-									<a href="{{ path('app_build_commentary_delete', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" ms-5">Delete your response</a>
-								</p>
+							<button type="submit" class="">Submit</button>
+						</form>
 
 
-							</div>
+						{% for response in responses %}
+							{% if response.response.id == commentary.id %}
+								<div class="response">
+									<p>{{response.author.username}}
+										responded ({{ response.createdAt|date('d/m/Y') }}) :</p>
+
+									<p>{{ response.text }}
+										<a href="{{ path('app_build_commentary_delete', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" ms-5">Delete your response</a>
+									</p>
+								</div>
+							{% endif %}
 
 
-						{% endif %}
+						{% else %}
+							<p>No responses yet.</p>
+						{% endfor %}
 					</div>
 
-				{% else %}
-					<p>No responses yet.</p>
-				{% endfor %}
-
-
-			{% else %}
-				<p>No comments yet.</p>
-			{% endfor %}
-		</div>
-
-
-		{% if app.user %}
-			<!-- Formulaire pour soumettre un nouveau commentaire -->
-			<div class="comment-form my-5">
-				<h3>Add a comment</h3>
-				{{form_start(form)}}
-				{{form_row(form.text)}}
-				{{form_row(form.save)}}
-				{{form_end(form)}}
+				</div>
 			</div>
 
-		{% endif %}
+		</section>
 
 
-	</section>
+	{% else %}
+		<p>No comments yet.</p>
+	{% endfor %}
 </div>
 
-<script src='{{ asset('js/modal.js') }}'></script>{% endblock %}
+
+{% if app.user %}
+	<!-- Formulaire pour soumettre un nouveau commentaire -->
+	<div class="comment-form">
+		<h3>Add a comment</h3>
+		{{form_start(form)}}
+		{{form_row(form.text)}}
+		{{form_row(form.save)}}
+		{{form_end(form)}}
+	</div>
+
+{% endif %}</section></div><script src='{{ asset('js/modal.js') }}'></script>{% endblock %}
