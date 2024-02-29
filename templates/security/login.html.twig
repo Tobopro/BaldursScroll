@@ -22,9 +22,10 @@
 
 					<input type="email" value="{{ last_username }}" placeholder="addrese mail" name="email" id="inputEmail" required>
 					<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-					<a href="#">Mot de passe oublié ?</a>
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-					<button type="submit" class="btn">Se Connecter</button>
+					<button type="submit" class="btn btn-primary">Se Connecter</button>
+					<a href="#" class="" >Mot de passe oublié ? </a> 
+					<a href="{{ path('app_login') }}" class="text-white">M'inscrire</a>
 				</form>
 
 			</div>
