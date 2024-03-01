@@ -10,11 +10,15 @@
 
 						</a>
 					</div>
-					<div class="mynav-research col-6 col-md-4">
-						<i class="fa-solid fa-search fa-xl"></i>
+					<div
+						class="mynav-research col-6 col-md-4">
+						{# <i class="fa-solid fa-search fa-xl"></i> #}
 						<form method="get" action="{{ path('app_dashboard') }}">
 							<input type="text" class="h-25" name="search" placeholder="Search...">
-							<button type="submit">Search</button>
+							<button type="submit" class="search-icon">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
+
 						</form>
 
 					</div>
@@ -56,7 +60,7 @@
 							</a>
 						</div>
 					{% else %}
-						<div class="mynav-login col-3 offset-2">
+						<div class="mynav-login col-3 offset-2 d-flex justify-content-end">
 							<a href="{{ path('app_login') }}">
 								<p>
 									<i class="fa-regular fa-user fa-xl"></i>

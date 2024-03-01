@@ -88,7 +88,7 @@
 							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
 
 							<div class="card-content">
-								<h2>{{ character.name }}</h2>
+								<h2 title="{{ character.name }}">{{ character.name|length > 8 ? character.name | slice(0,8) ~ '...':character.name }}</h2>
 								<p>Class :
 									{{ character.idSubClasses.name }}</p>
 								<p>Race :
