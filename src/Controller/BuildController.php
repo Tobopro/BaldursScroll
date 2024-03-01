@@ -123,9 +123,22 @@ class BuildController extends AbstractController
     }
 
     #[Route('/build/{characterId}/commentary/{commentaryId}/delete', name: 'app_build_commentary_delete')]
-    public function deleteCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager): Response
+    public function deleteCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager, Request $request): Response
     {
+        
+        $responseId = $request->query->get('responseId');
+        if ($responseId){
+            $response = $entityManager->getRepository(Commentaries::class)->find($responseId);
+            $response->setResponse(null);
+            $entityManager->remove($response);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+        }
         $commentary = $entityManager->getRepository(Commentaries::class)->find($commentaryId);
+        // dd($commentary);
+        if ($commentary->getIsResponseTo()){
+            $commentary->removeIsResponseTo($commentary);
+        }
         $entityManager->remove($commentary);
         $entityManager->flush();
 
@@ -133,8 +146,16 @@ class BuildController extends AbstractController
     }
 
      #[Route('/build/{characterId}/commentary/{commentaryId}/report', name: 'app_build_commentary_report')]
-    public function reportCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager): Response
+    public function reportCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager, Request $request): Response
     {
+
+        $responseId = $request->query->get('responseId');
+        if ($responseId){
+            $response = $entityManager->getRepository(Commentaries::class)->find($responseId);
+            $response->setIsFlaged(true);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+        }
         $commentary = $entityManager->getRepository(Commentaries::class)->find($commentaryId);
         $commentary->setIsFlaged(true);
         $entityManager->flush();
