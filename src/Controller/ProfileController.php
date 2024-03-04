@@ -120,14 +120,11 @@ class ProfileController extends AbstractController
             $uploadedFile = $request->files->get('profilePicture');
 
             if ($uploadedFile) {
-                // Generate a new file name with 'profile_pic'
                 $newFilename = 'profile_pic_' . md5(uniqid()) . '.' . $uploadedFile->getClientOriginalExtension();
 
-                // Move the uploaded file to the public uploads directory
                 $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads/profile_pictures';
                 $uploadedFile->move($uploadsDirectory, $newFilename);
 
-                // Delete the old profile picture if it exists
                 $oldFilename = $user->getProfilePicture();
                 if ($oldFilename) {
                     $oldFilePath = $uploadsDirectory . '/' . basename($oldFilename);
@@ -136,18 +133,17 @@ class ProfileController extends AbstractController
                     }
                 }
 
-                // Update the user's profile picture field
                 $user->setProfilePicture('/uploads/profile_pictures/' . $newFilename);
 
-                // Save the changes to the database
                 $entityManager->flush();
 
-                // Redirect to the profile page
+                return $this->redirectToRoute('app_profile', ['idUser' => $idUser]);
+            } else {
+                $this->addFlash('error', 'No file uploaded.');
                 return $this->redirectToRoute('app_profile', ['idUser' => $idUser]);
             }
         }
 
-        // Render the upload profile picture form
         return $this->render('profile/upload_profile_picture.html.twig');
     }
 
