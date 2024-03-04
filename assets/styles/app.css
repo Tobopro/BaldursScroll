@@ -148,7 +148,7 @@ h6 {
 
 .mynav-login a {
     color: whitesmoke;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 @media only screen and (max-width: 992px) {
@@ -996,7 +996,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 a {
-    text-decoration: none;
+    /* text-decoration: none; */
+}
+
+nav a:hover {
+    color: #cc8828;
+    transition: 0.2s ease;
 }
 
 .login-form {

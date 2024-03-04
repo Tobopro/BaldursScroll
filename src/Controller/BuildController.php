@@ -184,7 +184,7 @@ class BuildController extends AbstractController
         $entityManager->persist($response);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Réponse envoyée avec succès.');
+        $this->addFlash('success', 'The response has been send successfully');
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
    
