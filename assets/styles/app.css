@@ -997,9 +997,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 a {
     /* text-decoration: none; */
+    color: #ffffff;
 }
 
-nav a:hover {
+a:hover {
     color: #cc8828;
     transition: 0.2s ease;
 }
@@ -1295,6 +1296,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #505050;
     border-radius: 15px;
     width: 50vw;
+
 }
 
 .send-button {
