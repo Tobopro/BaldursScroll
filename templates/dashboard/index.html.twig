@@ -11,43 +11,58 @@
 			<div class="container-fluid">
 				<div class="row">
 
-					<form method="get" action="{{ path('app_dashboard') }}" class="d-flex ">
-						<div class="col-3">
-							<label for="classFilter">Search by classes :</label>
-							<select name="classFilter" id="classFilter">
-								<option value="">All classes</option>
-								{% for classe in classes %}
-									<option value="{{ classe.id }}" {% if classe.id == classFilter %} selected {% endif %}>{{ classe.name }}</option>
-								{% endfor %}
-							</select>
-						</div>
-						<div class="col-3">
-							<label for="raceFilter">Search by races :</label>
-							<select name="raceFilter" id="raceFilter">
-								<option value="">All races</option>
-								{% for race in races %}
-									<option value="{{ race.id }}" {% if race.id == raceFilter %} selected {% endif %}>{{ race.name }}</option>
-								{% endfor %}
-							</select>
-						</div>
-						<button type="submit">Search</button>
-					</form>
+					<div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
 
+						<form method="get" action="{{ path('app_dashboard') }}" class="d-flex justify-content-center align-items-center ">
+							<div class="me-5">
+								<label for="classFilter">Search by classes :</label>
+								<select name="classFilter" id="classFilter">
+									<option value="">All classes</option>
+									{% for classe in classes %}
+										<option value="{{ classe.id }}" {% if classe.id == classFilter %} selected {% endif %}>{{ classe.name }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="">
 
-					<div class="col-3">
+								<label for="raceFilter">Search by races :</label>
+								<select name="raceFilter" id="raceFilter">
+									<option value="">All races</option>
+									{% for race in races %}
+										<option value="{{ race.id }}" {% if race.id == raceFilter %} selected {% endif %}>{{ race.name }}</option>
+									{% endfor %}
+								</select>
+
+								<button type="submit" class="search-icon">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
+
+							</div>
+
+						</form>
+
+					</div>
+
+					<div class="col-6 col-md-3 d-flex align-items-center">
+
 						<form method="get" action="{{ path('app_dashboard') }}">
 							<input type="checkbox" id="mostLiked" name="mostLiked" value="1">
 							<label for="mostLiked">Trending</label>
-							<button type="submit">search</button>
+							<button type="submit" class="search-icon">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
 						</form>
 					</div>
 
 					{% if is_granted( 'ROLE_ADMIN' ) %}
-						<div class="col-3">
+						<div class="col-6 col-md-3 d-flex align-items-center">
+
 							<form method="get" action="{{ path('app_dashboard') }}">
 								<input type="checkbox" id="allCharacters" name="allCharacters" value="1">
 								<label for="allCharacters">See All Characters</label>
-								<button type="submit">search</button>
+								<button type="submit" class="search-icon">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
 							</form>
 						</div>
 					{% endif %}
@@ -77,7 +92,7 @@
 							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
 
 							<div class="card-content">
-								<h2>{{ character.name }}</h2>
+								<h2 title="{{ character.name }}">{{ character.name|length > 8 ? character.name | slice(0,8) ~ '...':character.name }}</h2>
 								<p>Class :
 									{{ character.idSubClasses.name }}</p>
 								<p>Race :

@@ -35,10 +35,10 @@ class Commentaries
     private ?bool $isFlaged = false;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'IsResponseTo')]
-    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    // #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?self $response = null;
 
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'response')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'response', cascade: ['persist'])]
     private Collection $IsResponseTo;
 
     public function __construct()
@@ -164,6 +164,11 @@ class Commentaries
         }
 
         return $this;
+    }
+
+    public function isThisResponseTo(self $commentary): bool
+    {
+        return $this->response === $commentary;
     }
 
 

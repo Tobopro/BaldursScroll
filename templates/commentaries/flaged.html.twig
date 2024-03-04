@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaires
+{% block title %}Comments
 {% endblock %}
 
 {% block body %}
+
+<div class="d-flex justify-content-center align-items-center my-5">
 	<section class="comments-section">
-		<h2>Commentaires signalés</h2>
+		<h2>Flaged comments</h2>
 
 		<!-- Afficher les commentaires existants -->
 		<div class="existing-comments">
@@ -13,9 +15,9 @@
 				<table class="comment-table">
 					<thead>
 						<tr>
-							<th>Commentaire</th>
-							<th>Auteur</th>
-							<th>Date de création</th>
+							<th>Comment</th>
+							<th>Author</th>
+							<th>Posted at</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -38,9 +40,44 @@
 					</tbody>
 				</table>
 			{% else %}
-				<p>Aucun commentaire n'a été signalé.</p>
+				<p>No comments have been flaged.</p>
 
 			{% endif %}
 		</div>
+		<h2> Insulting comments</h2>
+		<div class="existing-comments">
+			{% if commentariesRegex is not empty %}
+				<table class="comment-table">
+					<thead>
+						<tr>
+							<th>Comment</th>
+							<th>Author</th>
+							<th>Posted at</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for commentary in commentariesRegex %}
+							<tr>
+								<td>{{ commentary.text }}</td>
+								<td>{{ commentary.author.username }}</td>
+								<td>{{ commentary.createdAt|date('d/m/Y') }}</td>
+
+								<td>
+									<a href="{{ path('app_commentary_delete', {'idCommentary': commentary.id}) }}" class="mybtn-delete">Delete</a>
+
+								</td>
+							</tr>
+
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>No comments have been flaged.</p>
+
+			{% endif %}
+		</div>
+		
 	</section>
+	</div>
 {% endblock %}

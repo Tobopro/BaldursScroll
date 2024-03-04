@@ -26,10 +26,16 @@ class CommentariesController extends AbstractController
     #[Route('commentariesFlaged/', name: 'app_commentary_flaged')]
     public function indexFlaged(CommentariesRepository $commentariesRepository): Response
     {
+
+         $commentariesRegex = $commentariesRepository->findCommentariesByWords(['dumb', 'fuck', 'shit', 'bitch', 'dumbass', 'ass']);
+
+
+
         $commentaries = $commentariesRepository->findBy(['isFlaged' => true]);
         return $this->render('commentaries/flaged.html.twig', [
             'controller_name' => 'CommentariesController',
             'commentaries' => $commentaries,
+            'commentariesRegex' => $commentariesRegex
         ]);
     }
 
@@ -53,4 +59,6 @@ class CommentariesController extends AbstractController
 
         return $this->redirectToRoute('app_commentary_flaged');
     }
+    
+    
 }
