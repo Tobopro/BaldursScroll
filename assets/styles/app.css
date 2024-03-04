@@ -1315,3 +1315,8 @@ input[type=number]::-webkit-outer-spin-button {
     color: #cc8828;
     transition: ease 0.5s;
 }
+
+.my-link{
+    text-decoration: none;  
+    color: #fff;
+}
