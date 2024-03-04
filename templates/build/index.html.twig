@@ -244,38 +244,39 @@
 
 
 				</div>
+				<section class="likes m-5">
+					{% if app.user %}
+						{% if app.user.doesLikes(character) %}
+							<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+								<i class="fa-solid fa-2xl  fa-thumbs-up" style="color: #591212;"></i>
+
+
+							</a>
+						{% else %}
+							<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+								<i class="fa-regular fa-2xl fa-thumbs-up " style="color: #591212;"></i>
+
+							</a>
+
+
+						{% endif %}
+					{% endif %}
+
+					{% if character.getLikes %}
+						<p>{{ character.getLikes() }}
+							like</p>
+					{% else %}
+						<p>No likes yet</p>
+					{% endif %}
+				</section>
 
 			</div>
 		</div>
-		<section class="likes my-5">
-			{% if app.user %}
-				{% if app.user.doesLikes(character) %}
-					<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-						<i class="fa-solid fa-2xl  fa-thumbs-up"></i>
 
-					</a>
-				{% else %}
-					<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-						<i class="fa-regular fa-2xl fa-thumbs-up"></i>
-					</a>
-
-
-				{% endif %}
-			{% endif %}
-
-			{% if character.getLikes %}
-				<p>{{ character.getLikes() }}
-					like</p>
-			{% else %}
-				<p>No likes yet</p>
-			{% endif %}
-		</section>
 
 		<!-- Section des commentaires -->
-		<section class="comments-section my-5">
-
+		<section class="comments-section my-5 ">
 			<h2>Comments</h2>
-
 			<!-- Afficher les commentaires existants -->
 			<div class="existing-comments">
 
@@ -289,14 +290,20 @@
 						<p>{{ commentary.text }}
 							{% if app.user %}
 								{% if app.user.id == commentary.author.id %}
-									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="btn btn-danger ms-5">Delete your comment</a>
+									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="mx-5 trashcan-icon">
+										<i class="fa-solid fa-trash-can fa-flip-horizontal fa-2xl" style="color: #591212;"></i>
+
+
+									</a>
+
 								{% else %}
 									{% if commentary.isFlaged == true %}
 
 										<p class="text-danger">Comment flaged</p>
 									{% else %}
-										<a href="{{ path('app_build_commentary_report', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" mx-5">
-											<i class="fa-regular fa-flag"></i>
+										<a href="{{ path('app_build_commentary_report', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" mx-5 flag-icon">
+											<i class="fa-regular fa-flag fa-2xl" style="color: #591212;"></i>
+
 										</a>
 									{% endif %}
 
@@ -308,16 +315,6 @@
 
 
 					<div class="responses ms-5">
-						<h5>Add a response</h5>
-
-						<form action="{{ path('app_build_commentary_response', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" method="POST">
-
-
-							<label for="response">your response :</label>
-							<textarea name="response" id="response" cols="30" rows="1"></textarea>
-
-							<button type="submit" class="">Submit</button>
-						</form>
 
 
 						{% for response in responses %}
@@ -327,37 +324,64 @@
 										responded ({{ response.createdAt|date('d/m/Y') }}) :</p>
 
 									<p>{{ response.text }}
-										<a href="{{ path('app_build_commentary_delete', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" ms-5">Delete your response</a>
+										{% if app.user %}
+											{% if app.user.id == response.author.id %}
+												<a href="{{ path('app_build_commentary_delete', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="mx-5 trashcan-icon">
+													<i class="fa-solid fa-trash-can fa-flip-horizontal fa-2xl" style="color: #591212;"></i>
+												</a>
+											{% else %}
+												{% if response.isFlaged == true %}
+													<p class="text-danger">Response flaged</p>
+												{% else %}
+													<a href="{{ path('app_build_commentary_report', {'responseId': response.id, 'commentaryId': commentary.id, 'characterId': character.id} ) }}" class=" mx-5 flag-icon">
+														<i class="fa-regular fa-flag fa-2xl" style="color: #591212;"></i>
+													</a>
+												{% endif %}
+											{% endif %}
+										{% endif %}
 									</p>
-								</div>
-							{% endif %}
+								</p>
+							</div>
+						{% endif %}
 
 
-						{% else %}
-							<p>No responses yet.</p>
-						{% endfor %}
-					</div>
+					{% else %}
+						<p>No responses yet.</p>
+					{% endfor %}
+					<h5>Add a response</h5>
+
+					<form action="{{ path('app_build_commentary_response', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" method="POST">
+
+
+						<label for="response"></label>
+						{# <textarea name="response" id="response" cols="30" rows="1"></textarea> #}
+						<input type="text" id="response" name="response" required>
+
+						<button type="submit" class="send-button">
+							<i class="fa-regular fa-paper-plane"></i>
+						</button>
+
+					</form>
 
 				</div>
+
 			</div>
 
-		</section>
 
+		{% else %}
+			<p>No comments yet.</p>
+		{% endfor %}
 
-	{% else %}
-		<p>No comments yet.</p>
-	{% endfor %}
+		{% if app.user %}
+			<!-- Formulaire pour soumettre un nouveau commentaire -->
+			<div class="comment-form">
+				<h3>Add a comment</h3>
+				{{form_start(form)}}
+				{{form_row(form.text)}}
+				{{form_row(form.save)}}
+				{{form_end(form)}}
+			</div>
+		{% endif %}
+	</section>
 </div>
-
-
-{% if app.user %}
-	<!-- Formulaire pour soumettre un nouveau commentaire -->
-	<div class="comment-form">
-		<h3>Add a comment</h3>
-		{{form_start(form)}}
-		{{form_row(form.text)}}
-		{{form_row(form.save)}}
-		{{form_end(form)}}
-	</div>
-
-{% endif %}</section></div><script src='{{ asset('js/modal.js') }}'></script>{% endblock %}
+<script src='{{ asset('js/modal.js') }}'></script>{% endblock %}
