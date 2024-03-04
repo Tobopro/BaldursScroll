@@ -13,6 +13,7 @@
 			<h2 class="build-pannel-header">Info</h2>
 			<section class="build-pannel-info">
 				<p>Name : <span class="text-orange">{{ character.name }}</span></p>
+				<p>Level : <span class="text-orange">{{ character.idLevel.level }}</span></p>
 				<p>Race : <span class="text-orange">{{ character.idSubRace.name }}</span></p>
 				<p>Class : <span class="text-orange">{{ character.idSubClasses.idClass.name }}</span></p>
 				{% if character.idLevel.level >= character.idSubClasses.idClass.subclassUnlock.level %}
