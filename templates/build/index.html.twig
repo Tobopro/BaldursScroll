@@ -1,252 +1,193 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BuilderController!
+{% block title %}{{ character.name }}'s Character Sheet
 {% endblock %}
 
 {% block body %}
 	<div class="myform-container">
-		<h1>{{ character.name }}</h1>
+		<h1>Character Sheet</h1>
 
-		<div class="myform">
+		<div class="character-sheet">
 
-			<button class="accordion first-section-builder">Class</button>
-			<div class="panel-open">
-				<div class="info-panel">
-					<h3>{{ character.idSubClasses.idClass.name }}</h3>
+			{# INFO #}
+			<h2 class="build-pannel-header">Info</h2>
+			<section class="build-pannel-info">
+				<p>Name : <span class="text-orange">{{ character.name }}</span></p>
+				<p>Race : <span class="text-orange">{{ character.idSubRace.name }}</span></p>
+				<p>Class : <span class="text-orange">{{ character.idSubClasses.idClass.name }}</span></p>
+				{% if character.idLevel.level >= character.idSubClasses.idClass.subclassUnlock.level %}
+					<p>Subclass : <span class="text-orange">{{ character.idSubClasses.name }}</span></p>
+				{% endif %}
+			</section>
 
-					<p>startingHp:
-						{{ character.idSubClasses.idClass.startingHp }}</p>
-					<p>onLevelUpHp:
-						{{ character.idSubClasses.idClass.onLevelUpHp }}</p>
-					<p>savingThrowProficency1:
-						{{ character.idSubClasses.idClass.savingThrowProficency1 }}</p>
-					<p>savingThrowProficency2:
-						{{ character.idSubClasses.idClass.savingThrowProficency2 }}</p>
+			{# STATS #}
+			<h2 class="build-pannel-header">Stats</h2>
+			<section class="build-pannel-info">
+				<p>Max Health Points : <span class="text-orange">{{ character.idSubClasses.idClass.startingHp + character.idSubClasses.idClass.onLevelUpHp * character.idLevel.level }} hp</span></p>
+				<p>Saving Throw Proficency 1 : <span class="text-orange">{{ character.idSubClasses.idClass.savingThrowProficency1 }}</span></p>
+				<p>Saving Throw Proficency 2 : <span class="text-orange">{{ character.idSubClasses.idClass.savingThrowProficency2 }}</span></p>
+				<p>Movement Speed : <span class="text-orange">{{ character.idSubRace.speed }} m</span></p>
+			</section>
 
+			{# ABILITIES #}
+			<h2 class="build-pannel-header">Abilities</h2>
+			<section class="build-pannel-info">
+				<h3>Character Ability Points :</h3>
 
-				</div>
-			</div>
-
-			<button class="accordion">Subclass</button>
-			<div class="panel-open ">
-				<div class="info-panel">
-					<h3>{{character.idSubClasses.name }}</h3>
-
-				</div>
-			</div>
-
-			<button class="accordion">Race</button>
-			<div class="panel-open ">
-				<div class="info-panel">
-					<h3>{{  character.idSubRace.idRace.name }}</h3>
-
-				</div>
-			</div>
-
-			<button class="accordion">Subrace</button>
-			<div class="panel-open ">
-				<div class="info-panel">
-					<h3>{{ character.idSubRace.name }}</h3>
-
-					<p>Speed :
-						{{character.idSubRace.speed }}</p>
-
-				</div>
-			</div>
-
-			<button class="accordion">Abilities</button>
-			<div class="panel-open">
-				<div class="form-group-panel">
-					<section class="ability-container ">
-						<div class='row_ability'>
-							<h2>Characters Ability Points.</h2>
-						</div>
-
-						<div class='row_ability'>
-							<h3>Ability Point</h3>
-							<h3>Bonus</h3>
-						</div>
-						<div class='row_ability'>
-							<h4 class='ability_point'></h4>
-							<div class='ability_bonus'>
-								<h4>+2</h4>
-								<h4>+1</h4>
-							</div>
-						</div>
-
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Strength">Strength:</label>
-
-								<div class="number-input">
-									<p class="" id="Strength" name="Strength">{{ character.strength }}</p>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Strength" {% if character.abilityScoreBonus1 == 'STR' %} checked {% endif %} disabled/>
-
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Strength" {% if character.abilityScoreBonus2 == 'STR' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Dexterity">Dexterity:</label>
-
-								<div class="number-input">
-									<p class="" id="Dexterity" name="Dexterity">{{ character.dexterity }}</p>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Dexterity" {% if character.abilityScoreBonus1 == 'DEX' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Dexterity" {% if character.abilityScoreBonus2 == 'DEX' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Constitution">Constitution:</label>
-								<div class="number-input">
-									<p class="" id="Constitution" name="Constitution">{{ character.constitution }}</p>
-								</div>
-
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Constitution" {% if character.abilityScoreBonus1 == 'CON' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Constitution" {% if character.abilityScoreBonus2 == 'CON' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Intelligence">Intelligence:</label>
-
-								<div class="number-input">
-									<p class="" id="Intelligence" name="Intelligence">{{ character.intelligence }}</p>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Intelligence" {% if character.abilityScoreBonus1 == 'INT' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Intelligence" {% if character.abilityScoreBonus2 == 'INT' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Wisdom">Wisdom:</label>
-
-								<div class="number-input">
-									<p class="" id="Wisdom" name="Wisdom">{{ character.wisdom }}</p>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Wisdom" {% if character.abilityScoreBonus1 == 'WIS' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Wisdom" {% if character.abilityScoreBonus2 == 'WIS' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-						<div class='row_ability'>
-							<div class='ability_choice'>
-								<label for="Charisma">Charisma:</label>
-
-								<div class="number">
-									<p class="" id="Charisma" name="Charisma">{{ character.charisma }}</p>
-								</div>
-							</div>
-							<div class='ability_bonus'>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability1" name="Ability1" value="Charisma" {% if character.abilityScoreBonus1 == 'CHA' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-								<label class="container-checkbox">
-									<input type="radio" id="Ability2" name="Ability2" value="Charisma" {% if character.abilityScoreBonus2 == 'CHA' %} checked {% endif %} disabled/>
-									<span class="checkmark"></span>
-								</label>
-							</div>
-
-						</div>
-
-					</section>
-				</div>
-			</div>
-
-			<button class="accordion">Spells available</button>
-			<div class="panel-open ">
-				<div class="info-panel">
-
-					<h3>Race spells</h3>
-					<ul>
-						{% for spell in raceSpells %}
-							<li>{{ spell.idSpell.name }}</li>
-						{% else %}
-							<li>No spells with this race.</li>
-						{% endfor %}
-					</ul>
-
-
-					<h3>Class spells</h3>
-					<ul>
-						{% for spell in classSpells %}
-							<li>{{ spell.idSpell.name }}</li>
-						{% else %}
-							<li>No spells with this class.</li>
-						{% endfor %}
-					</ul>
-					{% if app.user %}
-						{% if is_granted('edit', character) %}
-							<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Edit the character</a>
-							<a href="#" class="mybtn-delete" id="deleteBtn">
-								Delete</a>
-							<!-- Modale -->
-							<div id="myModal" class="modal__modal ">
-								<div class="modal__modal-content">
-									<span class="close">&times;</span>
-									<p>Are you sure you want to delete this character ?</p>
-									<p>This action is irreversible.</p>
-									<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
-										<button id="confirmDeleteBtn" class="mybtn-modal">Delete this character</button>
-									</a>
-
-								</div>
-							</div>
-						{% endif %}
+				<div class="build-row-ability">
+					<p class="m-0">Strength:</p>
+					<span class="build-ability-point">{{ character.strength }}</span>
+					{% if character.abilityScoreBonus1 == "STR" %}
+						<span class="text-orange">+2</span>
+					{% elseif character.abilityScoreBonus2 == "STR" %}
+						<span class="text-orange">+1</span>
 					{% endif %}
-
-
 				</div>
 
-			</div>
+				<div class="build-row-ability">
+					<p class="m-0">Dexterity:</p>
+					<span class="build-ability-point">{{ character.dexterity }}</span>
+					{% if character.abilityScoreBonus1 == "DEX" %}
+						<span class="text-orange">+2</span>
+					{% elseif character.abilityScoreBonus2 == "DEX" %}
+						<span class="text-orange">+1</span>
+					{% endif %}
+				</div>
+
+				<div class="build-row-ability">
+					<p class="m-0">Constitution:</p>
+					<span class="build-ability-point">{{ character.constitution }}</span>
+					{% if character.abilityScoreBonus1 == "CON" %}
+						<span class="text-orange">+2</span>
+					{% elseif character.abilityScoreBonus2 == "CON" %}
+						<span class="text-orange">+1</span>
+					{% endif %}
+				</div>
+
+				<div class="build-row-ability">
+					<p class="m-0">Intelligence:</p>
+					<span class="build-ability-point">{{ character.intelligence }}</span>
+					{% if character.abilityScoreBonus1 == "INT" %}
+						<span class="text-orange">+2</span>
+					{% elseif character.abilityScoreBonus2 == "INT" %}
+						<span class="text-orange">+1</span>
+					{% endif %}
+				</div>
+
+				<div class="build-row-ability">
+					<p class="m-0">Wisdom:</p>
+					<span class="build-ability-point">{{ character.wisdom }}</span>
+					{% if character.abilityScoreBonus1 == "WIS" %}
+						<span class="text-orange">+2</span>
+					{% elseif character.abilityScoreBonus2 == "WIS" %}
+						<span class="text-orange">+1</span>
+					{% endif %}
+				</div>
+
+				<div class="build-row-ability">
+					<p class="m-0">Charisma:</p>
+					<span class="build-ability-point">{{ character.charisma }}</span>
+					{% if character.abilityScoreBonus1 == "CHA" %}
+						<span class="text-orange">+2</span>
+					{% elseif character.abilityScoreBonus2 == "CHA" %}
+						<span class="text-orange">+1</span>
+					{% endif %}
+				</div>
+			</section>
+
+			{# SPELLS #}
+			<h2 class="build-pannel-header">Spells</h2>
+			<section class="build-pannel-info">
+
+				{% if raceSpells %}
+				<div class="accordion bg-transparent p-0 mb-4" id="race_spells">
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+								<span class="accordion-title">Race Spells</span>
+							</button>
+						</h3>
+						<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#race_spells">
+							<div class="accordion-body">
+								<div class="list-group">
+									{% for spell in raceSpells %}
+										<a href="" class="build-spell-slot">
+											<h4>Name : <span class="text-orange">{{ spell.idSpell.name }}</span></h4>
+											<p>Description : <span class="text-orange">{{ spell.idSpell.description }}</span></p>
+											<p>Type : <span class="text-orange">{{ spell.idSpell.damageType }}</span></p>
+											<p>Damage : <span class="text-orange">{{ spell.idSpell.damageRoll }}</span></p>
+										</a>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% else %}
+				<h3>Race Spells</h3>
+				<div class="list-group mb-4">
+					<p class="text-orange">No spells available for this race.</p>
+				</div>
+				{% endif %}
+
+				{% if classSpells %}
+				<div class="accordion bg-transparent p-0 mb-2" id="class_spells">
+					<div class="accordion-item">
+						<h3 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+								<span class="accordion-title">Class spells</span>
+							</button>
+						</h3>
+						<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#class_spells">
+							<div class="accordion-body">
+								<div class="list-group">
+									{% for spell in classSpells %}
+										<a href="" class="build-spell-slot">
+											<h4>Name : <span class="text-orange">{{ spell.idSpell.name }}</span></h4>
+											<p>Description : <span class="text-orange">{{ spell.idSpell.description }}</span></p>
+											<p>Type : <span class="text-orange">{{ spell.idSpell.damageType }}</span></p>
+											<p>Damage : <span class="text-orange">{{ spell.idSpell.damageRoll }}</span></p>
+										</a>
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% else %}
+				<h3>Class spells</h3>
+				<div class="list-group mb-2">
+					<p class="text-orange">No spells available for this class.</p>
+				</div>
+				{% endif %}
+				
+			</section>
+
+			{# ACTIONS #}
+			<!-- Update/Delete -->
+			{% if app.user and is_granted('edit', character) %}
+			<h2 class="build-pannel-header">Actions</h2>
+			<section class="build-pannel-info d-flex justify-content-between">
+				<a href="{{ path('app_builder_update', {'id': character.id}) }}" class="mybtn">Edit the character</a>
+				<a href="#" class="mybtn-delete" id="deleteBtn">
+					Delete</a>
+				<!-- Modale -->
+				<div id="myModal" class="modal__modal ">
+					<div class="modal__modal-content">
+						<span class="close">&times;</span>
+						<p>Are you sure you want to delete this character ?</p>
+						<p>This action is irreversible.</p>
+						<a href="{{ path('app_builder_delete', {'id': character.id}) }}">
+							<button id="confirmDeleteBtn" class="mybtn-modal">Delete this character</button>
+						</a>
+
+					</div>
+				</div>
+			</section>
+			{% endif %}
 		</div>
+
+		<!-- Likes -->
 		<section class="likes my-5">
 			{% if app.user %}
 				{% if app.user.doesLikes(character) %}
