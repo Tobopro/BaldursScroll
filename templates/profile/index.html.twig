@@ -33,10 +33,24 @@
 					{% endif %}
 				</p>
 				{% if app.user %}
-					<a href="{{ path('app_profile_edit', { idUser: app.user.id }) }}" class="btn btn-warning">Edit</a>
-					{{ modal.deleteProfileModal(app.user) }}
-					{% if app.user.id == user.id %}
-						{{ modal.uploadProfilePictureModal(app.user) }}
+				{% if app.user.id == user.id %}
+				{{ modal.deleteProfileModal(app.user) }}
+					
+							{{ modal.uploadProfilePictureModal(app.user) }}
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+							More
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<li>
+							<a class="dropdown-item" href="{{ path('app_profile_edit', { idUser: app.user.id }) }}" class="">Edit</a>
+							</li>
+							<li>
+							<a class="dropdown-item" href="{{ path('delete_profile_picture', { idUser: app.user.id }) }}">Delete profile picture</a>
+							</li>
+						</ul>
+						</div>
+
 					{% endif %}
 				{% endif %}
 			</div>

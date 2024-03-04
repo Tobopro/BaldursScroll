@@ -99,7 +99,7 @@ class ProfileController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'L\'utilisateur a bien été modifié');
+            $this->addFlash('success', 'The user has been updated successfully.');
             return $this->redirectToRoute('app_profile', ['idUser' => $user->getId()]);
         }
 
@@ -149,5 +149,30 @@ class ProfileController extends AbstractController
 
         // Render the upload profile picture form
         return $this->render('profile/upload_profile_picture.html.twig');
+    }
+
+    #[Route('/profile/{idUser}/delete-profile-picture', name: 'delete_profile_picture')]
+    public function deleteProfilePicture(int $idUser, EntityManagerInterface $entityManager): Response
+    {
+        // Find the user by id
+        $user = $entityManager->getRepository(User::class)->find($idUser);
+        $profilePictureRand = rand(1, 1000);
+
+        // Delete the old profile picture if it exists
+        $oldFilename = $user->getProfilePicture();
+        if ($oldFilename) {
+            $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/uploads/profile_pictures';
+            $oldFilePath = $uploadsDirectory . '/' . basename($oldFilename);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+            // Update the user's profile picture field
+            $user->setProfilePicture('https://picsum.photos/seed/' . $profilePictureRand . '/200/300');
+            // Save the changes to the database
+            $entityManager->flush();
+        }
+
+        // Redirect to the profile page
+        return $this->redirectToRoute('app_profile', ['idUser' => $idUser]);
     }
 }
