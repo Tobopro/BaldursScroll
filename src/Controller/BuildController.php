@@ -21,12 +21,13 @@ class BuildController extends AbstractController
 {
     #[Route('/build/{characterId}', name: 'app_build')]
     #[IsGranted('view', subject: 'characterId')]
-    public function index(int $characterId, 
-    CharactersRepository $charactersRepository,
-    RacesSpellsRepository $racesSpellsRepository,
-    ClassesSpellsRepository $classesSpellsRepository,
-    CommentariesRepository $commentariesRepository): Response
-    {
+    public function index(
+        int $characterId,
+        CharactersRepository $charactersRepository,
+        RacesSpellsRepository $racesSpellsRepository,
+        ClassesSpellsRepository $classesSpellsRepository,
+        CommentariesRepository $commentariesRepository
+    ): Response {
         $character = $charactersRepository->find($characterId);
 
         if (!$character) {
@@ -37,20 +38,20 @@ class BuildController extends AbstractController
         $form = $this->createForm(CommentaryType::class, $commentary, [
             'action' => $this->generateUrl('app_build_commentary', ['characterId' => $characterId])
         ]);
-       
+
         $commentaries = $commentariesRepository->createQueryBuilder('c')
-                        ->where('c.Build = :characterId')
-                        ->andWhere('c.response IS NULL')
-                        ->setParameter('characterId', $characterId)
-                        ->getQuery()
-                        ->getResult();
+            ->where('c.Build = :characterId')
+            ->andWhere('c.response IS NULL')
+            ->setParameter('characterId', $characterId)
+            ->getQuery()
+            ->getResult();
 
         $responses = $commentariesRepository->createQueryBuilder('c')
-                        ->where('c.Build = :characterId')
-                        ->andWhere('c.response IS NOT NULL')
-                        ->setParameter('characterId', $characterId)
-                        ->getQuery()
-                        ->getResult();
+            ->where('c.Build = :characterId')
+            ->andWhere('c.response IS NOT NULL')
+            ->setParameter('characterId', $characterId)
+            ->getQuery()
+            ->getResult();
 
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
@@ -125,9 +126,9 @@ class BuildController extends AbstractController
     #[Route('/build/{characterId}/commentary/{commentaryId}/delete', name: 'app_build_commentary_delete')]
     public function deleteCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager, Request $request): Response
     {
-        
+
         $responseId = $request->query->get('responseId');
-        if ($responseId){
+        if ($responseId) {
             $response = $entityManager->getRepository(Commentaries::class)->find($responseId);
             $response->setResponse(null);
             $entityManager->remove($response);
@@ -136,7 +137,7 @@ class BuildController extends AbstractController
         }
         $commentary = $entityManager->getRepository(Commentaries::class)->find($commentaryId);
         // dd($commentary);
-        if ($commentary->getIsResponseTo()){
+        if ($commentary->getIsResponseTo()) {
             $commentary->removeIsResponseTo($commentary);
         }
         $entityManager->remove($commentary);
@@ -145,12 +146,12 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
-     #[Route('/build/{characterId}/commentary/{commentaryId}/report', name: 'app_build_commentary_report')]
+    #[Route('/build/{characterId}/commentary/{commentaryId}/report', name: 'app_build_commentary_report')]
     public function reportCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager, Request $request): Response
     {
 
         $responseId = $request->query->get('responseId');
-        if ($responseId){
+        if ($responseId) {
             $response = $entityManager->getRepository(Commentaries::class)->find($responseId);
             $response->setIsFlaged(true);
             $entityManager->flush();
@@ -187,5 +188,36 @@ class BuildController extends AbstractController
         $this->addFlash('success', 'Réponse envoyée avec succès.');
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
-   
+
+    // Report a build
+    #[Route('/build/{characterId}/report', name: 'app_build_report')]
+    public function flagBuild(int $characterId, EntityManagerInterface $entityManager): Response
+    {
+        $character = $entityManager->getRepository(Characters::class)->find($characterId);
+
+        if (!$character) {
+            throw $this->createNotFoundException('Character not found');
+        }
+
+        $character->setIsFlaged(true);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+    }
+
+    // Undo the Report of a build
+    #[Route('/build/{characterId}/report', name: 'app_build_undo_report')]
+    public function unFlagBuild(int $characterId, EntityManagerInterface $entityManager): Response
+    {
+        $character = $entityManager->getRepository(Characters::class)->find($characterId);
+
+        if (!$character) {
+            throw $this->createNotFoundException('Character not found');
+        }
+
+        $character->setIsFlaged(false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+    }
 }

@@ -70,6 +70,9 @@ class Characters
     #[ORM\Column]
     private ?bool $isPublic = null;
 
+    #[ORM\Column(options: ["default" => 0])]
+    private ?bool $IsFlaged = false;
+
     public function __construct()
     {
         $this->strength = 8;
@@ -392,5 +395,16 @@ class Characters
 
         return $this;
     }
-    
+
+    public function isIsFlaged(): ?bool
+    {
+        return $this->IsFlaged;
+    }
+
+    public function setIsFlaged(bool $IsFlaged): static
+    {
+        $this->IsFlaged = $IsFlaged;
+
+        return $this;
+    }
 }
