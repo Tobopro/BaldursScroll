@@ -101,7 +101,7 @@ class UserController extends AbstractController
                     dd($e->getMessage());
                 }
 
-            $this->addFlash('success', 'L\'utilisateur a bien été créé');
+            $this->addFlash('success', 'The user has been modified successfully');
             return $this->redirectToRoute('app_user');
         }
 
@@ -122,7 +122,7 @@ class UserController extends AbstractController
 
 
 
-            $this->addFlash('success', 'L\'utilisateur a bien été modifié');
+            $this->addFlash('success', 'The user has been modified successfully');
             return $this->redirectToRoute('app_user');
         }
 
@@ -192,7 +192,7 @@ class UserController extends AbstractController
             }
         // $mailer->send($email);
 
-        $this->addFlash('success', 'un mail de réinitialisation de mot de passe a été envoyé à l\'utilisateur');
+        $this->addFlash('success', 'An email has been sent to ' . $user->getEmail() . ' with a link to reset your password');
         return $this->redirectToRoute('app_user');
     }
 
@@ -210,7 +210,7 @@ class UserController extends AbstractController
         // dd($tokenTest);
         if (!$tokenTest) {
 
-            $this->addFlash('error', 'le jeton csrf est invalide. Veuillez rafraichir la page et réessayer.');
+            $this->addFlash('error', 'The token is invalid. Please refresh the page and try again.');
             return $this->redirectToRoute('app_user');
             // throw new BadRequestException("le jeton csrf est invalide. Veuillez rafraichir la page et réessayer.");
         }
@@ -236,7 +236,7 @@ class UserController extends AbstractController
 
         $entityManager->flush();
 
-        $this->addFlash('success', 'les role de ' . $user->getEmail() . ' ont bien été modifiés');
+        $this->addFlash('success', ' Roles of ' . $user->getEmail() . ' have been modified successfully');
         return $this->redirectToRoute('app_user');
     }
 }

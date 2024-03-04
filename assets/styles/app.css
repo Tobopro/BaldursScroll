@@ -148,7 +148,7 @@ h6 {
 
 .mynav-login a {
     color: whitesmoke;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 @media only screen and (max-width: 992px) {
@@ -419,10 +419,14 @@ h6 {
     border: none;
     padding: 4px 8px;
     border-radius: 15px;
-    margin: 2vw;
+    margin-left: 1vw;
     text-align: center;
     text-decoration: none;
 
+}
+
+.search-icon i {
+    color: #1D1D1D
 }
 
 @media only screen and (max-width: 992px) {
@@ -448,6 +452,7 @@ h6 {
     background-color: #1D1D1D;
     /* width: calc(33.33% - 150px); */
     min-width: 250px;
+    max-width: 302px;
     color: #CC8828;
     /* color: white */
     /* 3 cards per row with 20px gap */
@@ -956,12 +961,13 @@ input[type=number]::-webkit-outer-spin-button {
     /* Green */
     border: none;
     color: #1d1d1d;
-    padding: 15px 32px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 12px;
+    margin: 5px;
 }
 
 .pagination .current {
@@ -970,12 +976,13 @@ input[type=number]::-webkit-outer-spin-button {
     /* Green */
     border: none;
     color: #1d1d1d;
-    padding: 15px 32px;
+    padding: 5px 10px;
     border-radius: 12px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin: 5px;
     /* Couleur du texte de chaque élément de pagination */
 }
 
@@ -989,7 +996,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 a {
-    text-decoration: none;
+    /* text-decoration: none; */
+}
+
+nav a:hover {
+    color: #cc8828;
+    transition: 0.2s ease;
 }
 
 .login-form {
