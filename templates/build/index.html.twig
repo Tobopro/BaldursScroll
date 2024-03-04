@@ -269,9 +269,9 @@
 						<p>No likes yet</p>
 					{% endif %}
 					{% if character.IsFlaged == false %}
-						<a class="link" href="{{ path('app_build_report', {'characterId': character.id}) }}">Report this build</a>
+						<a class="text-light" href="{{ path('app_build_report', {'characterId': character.id}) }}">Report this build</a>
 					{% else %}
-						<p class="text-danger">This build is reported</p>
+						<p class="text-danger bold">This build is reported</p>
 					{% endif %}
 				</section>
 

@@ -205,9 +205,31 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
+    // all reported build
+    #[Route('/reported_builds', name: 'app_build_flaged')]
+    public function indexFlaged(CharactersRepository $charRepository): Response
+    {
+        $character = $charRepository->findBy(['isFlaged' => true]);
+        return $this->render('build/flaged.html.twig', [
+            'characters' => $character,
+        ]);
+    }
+
     // Undo the Report of a build
-    #[Route('/build/{characterId}/report', name: 'app_build_undo_report')]
+    #[Route('/reported_builds/unflag/{characterId}', name: 'undo_report')]
     public function unFlagBuild(int $characterId, EntityManagerInterface $entityManager): Response
+    {
+
+        $character = $entityManager->getRepository(Characters::class)->find($characterId);
+        $character->setIsFlaged(false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_build_flaged');
+    }
+
+    // Delete a build after report
+    #[Route('/build/delete/{characterId}', name: 'app_character_delete')]
+    public function deleteBuild(int $characterId, EntityManagerInterface $entityManager): Response
     {
         $character = $entityManager->getRepository(Characters::class)->find($characterId);
 
@@ -215,9 +237,11 @@ class BuildController extends AbstractController
             throw $this->createNotFoundException('Character not found');
         }
 
-        $character->setIsFlaged(false);
+        $entityManager->remove($character);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
+        $this->addFlash('success', 'Build deleted successfully.');
+
+        return $this->redirectToRoute('app_dashboard');
     }
 }
