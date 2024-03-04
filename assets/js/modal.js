@@ -1,9 +1,11 @@
 // Récupérer la référence vers la modale et le bouton pour ouvrir la modale
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("deleteBtn");
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("deleteBtn");
 
 // Récupérer la référence vers le bouton de fermeture de la modale
-var span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close")[0];
+
+if (modal && btn && span) {
 
 btn.addEventListener("click", function (event) {
     event.preventDefault(); // Empêcher le comportement de redirection par défaut du lien
@@ -35,3 +37,5 @@ document.getElementById("confirmDeleteBtn").addEventListener("click", function (
 
     modal.style.display = "none"; // Fermer la modale après la suppression
 });
+
+}
