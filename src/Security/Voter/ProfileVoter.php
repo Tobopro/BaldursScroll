@@ -2,12 +2,21 @@
 
 namespace App\Security\Voter;
 
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ProfileVoter extends Voter
 {
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public const EDIT = 'edit_profile';
     public const VIEW = 'view_profile';
 
@@ -16,16 +25,15 @@ class ProfileVoter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::EDIT, self::VIEW]);
-            // && $subject instanceof \App\Entity\User;
+            // && $subject instanceof \App\Entity\User; 
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+
+        $userProfile = $this->userRepository->find($subject);
+
         $user = $token->getUser();
-        // dd($user);
-        // dd($subject);
-        // return false;
-        // dd($attribute);
 
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
@@ -42,7 +50,7 @@ class ProfileVoter extends Voter
                 break;
 
             case self::VIEW:
-                if (intval($subject)=== $user->getId()) {
+                if (intval($subject)=== $user->getId()|| $userProfile->isIsPublic()===true || $user->getRoles()[0]==='ROLE_ADMIN') {
                     return true;
                 }
                 break;

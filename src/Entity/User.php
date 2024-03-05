@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: characters::class, inversedBy: 'liked')]
     private Collection $liked;
 
+    #[ORM\Column]
+    private ?bool $isPublic = null;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
@@ -293,6 +296,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeLiked(characters $liked): static
     {
         $this->liked->removeElement($liked);
+
+        return $this;
+    }
+
+    public function isIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
 
         return $this;
     }
