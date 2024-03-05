@@ -19,6 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 
@@ -95,13 +96,13 @@ class UserController extends AbstractController
                 ->context([
                     'name' => $user->getUsername()
                 ]);
-                // try {
-                //     $mailer->send($email);
-                // } catch (\Exception $e) {
-                //     dd($e->getMessage());
-                // }
+            try {
                 $mailer->send($email);
-            $this->addFlash('success', 'L\'utilisateur a bien été créé');
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+            }
+
+            $this->addFlash('success', 'The user has been modified successfully');
             return $this->redirectToRoute('app_user');
         }
 
@@ -122,7 +123,7 @@ class UserController extends AbstractController
 
 
 
-            $this->addFlash('success', 'L\'utilisateur a bien été modifié');
+            $this->addFlash('success', 'The user has been modified successfully');
             return $this->redirectToRoute('app_user');
         }
 
@@ -186,15 +187,14 @@ class UserController extends AbstractController
             ->context([
                 'resetToken' => $resetToken,
             ]);
-            // try {
-            //     $mailer->send($email);
-            // } catch (\Exception $e) {
-            //     dd($e->getMessage());
-            // }
-            // dd($email);
-         $mailer->send($email);
+        try {
+            $mailer->send($email);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+        // $mailer->send($email);
 
-        $this->addFlash('success', 'un mail de réinitialisation de mot de passe a été envoyé à l\'utilisateur');
+        $this->addFlash('success', 'An email has been sent to ' . $user->getEmail() . ' with a link to reset your password');
         return $this->redirectToRoute('app_user');
     }
 
@@ -212,7 +212,7 @@ class UserController extends AbstractController
         // dd($tokenTest);
         if (!$tokenTest) {
 
-            $this->addFlash('error', 'le jeton csrf est invalide. Veuillez rafraichir la page et réessayer.');
+            $this->addFlash('error', 'The token is invalid. Please refresh the page and try again.');
             return $this->redirectToRoute('app_user');
             // throw new BadRequestException("le jeton csrf est invalide. Veuillez rafraichir la page et réessayer.");
         }
@@ -238,7 +238,70 @@ class UserController extends AbstractController
 
         $entityManager->flush();
 
-        $this->addFlash('success', 'les role de ' . $user->getEmail() . ' ont bien été modifiés');
+        $this->addFlash('success', ' Roles of ' . $user->getEmail() . ' have been modified successfully');
+        return $this->redirectToRoute('app_user');
+    }
+
+
+    // Report a user
+    #[Route('/{userId}/report', name: 'app_user_report')]
+    public function reportUser(User $userId, EntityManagerInterface $entityManager): Response
+    {
+        $user = $entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('The User is not found');
+        }
+
+        $user->setIsFlaged(true);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+    // list of all reported user
+    #[Route('/BlockedUser', name: 'app_user_flaged')]
+    public function indexFlaged(UserRepository $userRepository): Response
+    {
+        $user = $userRepository->findBy(['isFlaged' => true]);
+        return $this->render('user/flaged.html.twig', [
+            'users' => $user,
+        ]);
+    }
+
+    // Undo the Report of a user
+    #[Route('/{userId}/unflag', name: 'user_undo_report')]
+    public function unFlageUser(User $userId, EntityManagerInterface $entityManager): Response
+    {
+        $user = $entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('The User is not found');
+        }
+
+        $user->setIsFlaged(false);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+    // Block a user
+    #[Route('/{id<\d*>}/block', name: 'app_user_block')]
+    public function blockUser(User $user, EntityManagerInterface $entityManager, $id, Request $request): Response
+    {
+        // Check if the current user has the required ROLE_ADMIN role
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException('You are not authorized to perform this action.');
+        }
+
+        $roles = $user->getRoles();
+        $roles[] = 'ROLE_IS_BANNED';
+        $user->setRoles($roles);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'User ' . $user->getEmail() . ' has been blocked successfully');
         return $this->redirectToRoute('app_user');
     }
 }

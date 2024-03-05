@@ -18,6 +18,12 @@ h6 {
     font-family: "Aldrich", sans-serif;
 }
 
+:root {
+    --color-orange: #cc8828;
+    --color-black: #1D1D1D;
+    --color-grey: #2c2c2c;
+}
+
 .mycontainer {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -144,11 +150,14 @@ h6 {
 
 .mynav-login i {
     color: whitesmoke;
+    margin-right: 1vw;
+    justify-content: end;
 }
 
 .mynav-login a {
     color: whitesmoke;
     text-decoration: none;
+    margin-right: 0vw;
 }
 
 @media only screen and (max-width: 992px) {
@@ -159,15 +168,6 @@ h6 {
 
 .mynav a {
     color: #ffffff;
-}
-
-.mynav-login a {
-    margin-right: 0vw;
-}
-
-.mynav-login i {
-    margin-right: 1vw;
-    justify-content: end;
 }
 
 .mynav a:hover {
@@ -419,10 +419,14 @@ h6 {
     border: none;
     padding: 4px 8px;
     border-radius: 15px;
-    margin: 2vw;
+    margin-left: 1vw;
     text-align: center;
     text-decoration: none;
 
+}
+
+.search-icon i {
+    color: #1D1D1D
 }
 
 @media only screen and (max-width: 992px) {
@@ -448,6 +452,7 @@ h6 {
     background-color: #1D1D1D;
     /* width: calc(33.33% - 150px); */
     min-width: 250px;
+    max-width: 302px;
     color: #CC8828;
     /* color: white */
     /* 3 cards per row with 20px gap */
@@ -868,8 +873,6 @@ input[type=number]::-webkit-outer-spin-button {
     /* align-items: end; */
 }
 
-/* #builder_idSubRace label {} */
-
 /* SCROLL */
 
 /* Style de la barre de défilement */
@@ -905,11 +908,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /*PROFILE*/
-
-/* .profile-pic-container {
-    grid-column: 2/2;
-    grid-row: 2;
-} */
 
 .profile-text-container {
     /* grid-column: 4/8;
@@ -956,12 +954,13 @@ input[type=number]::-webkit-outer-spin-button {
     /* Green */
     border: none;
     color: #1d1d1d;
-    padding: 15px 32px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 12px;
+    margin: 5px;
 }
 
 .pagination .current {
@@ -970,12 +969,13 @@ input[type=number]::-webkit-outer-spin-button {
     /* Green */
     border: none;
     color: #1d1d1d;
-    padding: 15px 32px;
+    padding: 5px 10px;
     border-radius: 12px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin: 5px;
     /* Couleur du texte de chaque élément de pagination */
 }
 
@@ -989,7 +989,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 a {
-    text-decoration: none;
+    /* text-decoration: none; */
+    color: #ffffff;
+}
+
+a:hover {
+    color: #cc8828;
+    transition: 0.2s ease;
 }
 
 .login-form {
@@ -1154,102 +1160,6 @@ form .btn {
 
 /*section ability*/
 
-.row_ability h2 {
-    width: 100%;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-}
-
-.row_ability {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    /* gap: 3px;  */
-    /* text-align: center; */
-    margin: 3px 0;
-    padding: 0;
-}
-
-.ability_bonus {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-between;
-    /* gap: 1px;  */
-}
-
-.ability_choice {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    /* gap: 3px;  */
-}
-
-/* input type number */
-input[type="number"] {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    pointer-events: none;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
-
-.number-input {
-    border: 0;
-    display: inline-flex;
-}
-
-.number-input,
-.number-input * {
-    box-sizing: border-box;
-}
-
-.number-input button {
-    outline: none;
-    -webkit-appearance: none;
-    background-color: transparent;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
-    margin: 0px;
-    position: relative;
-    box-shadow: 0px 0px 1px #474747;
-    border-radius: 50%;
-}
-
-.number-input button:before,
-.number-input button:after {
-    display: inline-block;
-    position: absolute;
-    content: '';
-    width: 1rem;
-    height: 2px;
-    background-color: #CC8828;
-    transform: translate(-50%, -50%);
-}
-
-.number-input button.plus:after {
-    transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.number-input input[type=number] {
-    font-family: sans-serif;
-    max-width: 2.5rem;
-    padding: .5rem;
-    border: none;
-    border-width: 0 1px;
-    font-size: 1rem;
-    height: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    color: #CC8828;
-}
-
 .user-profile-picture {
     width: 40px;
     height: 40px;
@@ -1268,6 +1178,100 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .comment-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    background-color: #1D1D1D;
+    border-radius: 15px;
+
+}
+
+/* Builder */
+.character-sheet {
+    background-color: var(--color-grey);
+    width: 50vw;
+    margin-top: 2vw;
+    min-height: 75vh;
+    border-radius: 15px;
+}
+
+.character-sheet .build-pannel-header:first-child {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.character-sheet .build-pannel-info:last-child {
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.build-pannel-header {
+    color: #ffffff;
+    background-color: var(--color-black);
+    padding: 15px 15px;
+    box-sizing: border-box;
+    font-family: "Aldrich", sans-serif;
+    font-size: 24px;
+    margin: 0;
+}
+
+.text-orange {
+    color: var(--color-orange);
+}
+
+.build-pannel-info {
+    color: #ffffff;
+    background-color: var(--color-grey);
+    padding: 15px 15px;
+    box-sizing: border-box;
+    font-family: "Aldrich", sans-serif;
+    font-size: 18px;
+}
+
+.build-pannel-info p:last-child {
+    margin: 0;
+}
+
+.build-row-ability {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    margin: 15px 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+.build-ability-point {
+    background-color: var(--color-black);
+    color: var(--color-orange);
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    max-width: 3.5rem;
+    height: 1.5rem;
+}
+
+.build-spell-slot {
+    border: var(--color-orange) 3px solid;
+    background-color: var(--color-black);
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.build-spell-slot:hover {
+    background-color: var(--color-grey);
+}
+
+.accordion-title {
+    font-size: 24px;
+}
+  
+.comment-container {
     /* display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1283,6 +1287,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #505050;
     border-radius: 15px;
     width: 50vw;
+
 }
 
 .send-button {
@@ -1302,4 +1307,27 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #1d1d1d;
     color: #cc8828;
     transition: ease 0.5s;
+}
+
+.my-link{
+    text-decoration: none;  
+    color: #fff;
+}
+
+/* Spell Book */
+.spell-book {
+    background-color: var(--color-grey);
+    width: 50vw;
+    margin-top: 2vw;
+    border-radius: 15px;
+}
+
+.spell-book .build-pannel-header:first-child {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.spell-book .build-pannel-info:last-child {
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }

@@ -21,6 +21,23 @@ class CommentariesRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaries::class);
     }
 
+    // CommentariesRepository.php
+
+    public function findCommentariesByWords(array $words): array
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        // Créez une condition WHERE pour chaque mot spécifié
+        foreach ($words as $key => $word) {
+            $qb->orWhere('c.text LIKE :word_' . $key)
+            ->setParameter('word_' . $key, '%' . $word . '%');
+        }
+
+        // Exécutez la requête et retournez les résultats
+        return $qb->getQuery()->getResult();
+    }
+
+
 //    /**
 //     * @return Commentaries[] Returns an array of Commentaries objects
 //     */

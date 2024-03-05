@@ -10,8 +10,7 @@
 	<div class="myform-container">
 		{{ form_start(form) }}
 
-			<div
-				class="accordion p-0" id="accordionCreateBuild">
+			<div class="accordion p-0" id="accordionCreateBuild">
 				{# CLASSES #}
 				<div class="accordion-item">
 					<h2 class="accordion-header">
@@ -77,111 +76,113 @@
 					</h2>
 					<div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionCreateBuild">
 						<div class="accordion-body">
-							<section class="ability-container ">
+							<section class="ability-container">
 								<h2>Choose your characters Ability Points.</h2>
 								<div class='row_ability'>
 									<h3 class="m-0">Points available :</h3>
 									<input type="number" readonly class="ability_point" name="total_points" value="27" min="0" max="27"></input>
-							</div>
-
-							<div class='row_ability'>
-								<label for="strength">Strength:</label>
-
-								<div class="number-input">
-									<button type="button" class="minus" name="strength"></button>
-									{{ form_widget(form.strength) }}
-
-									<button type="button" class="plus" name="strength"></button>
 								</div>
-							</div>
 
-							<div class='row_ability'>
-								<label for="dexterity">Dexterity:</label>
+								<div class='row_ability'>
+									<label for="strength">Strength:</label>
 
-								<div class="number-input">
-									<button type="button" class="minus" name="dexterity"></button>
-									{{ form_widget(form.dexterity) }}
+									<div class="number-input">
+										<button type="button" class="minus" name="strength"></button>
+										{{ form_widget(form.strength) }}
 
-									<button type="button" class="plus" name="dexterity"></button>
+										<button type="button" class="plus" name="strength"></button>
+									</div>
 								</div>
-							</div>
 
-							<div class='row_ability'>
-								<label for="constitution">Constitution:</label>
+								<div class='row_ability'>
+									<label for="dexterity">Dexterity:</label>
 
-								<div class="number-input">
-									<button type="button" class="minus" name="constitution"></button>
-									{{ form_widget(form.constitution) }}
+									<div class="number-input">
+										<button type="button" class="minus" name="dexterity"></button>
+										{{ form_widget(form.dexterity) }}
 
-									<button type="button" class="plus" name="constitution"></button>
+										<button type="button" class="plus" name="dexterity"></button>
+									</div>
 								</div>
-							</div>
 
-							<div class='row_ability'>
-								<label for="intelligence">Intelligence:</label>
+								<div class='row_ability'>
+									<label for="constitution">Constitution:</label>
 
-								<div class="number-input">
-									<button type="button" class="minus" name="intelligence"></button>
-									{{ form_widget(form.intelligence) }}
+									<div class="number-input">
+										<button type="button" class="minus" name="constitution"></button>
+										{{ form_widget(form.constitution) }}
 
-									<button type="button" class="plus" name="intelligence"></button>
+										<button type="button" class="plus" name="constitution"></button>
+									</div>
 								</div>
-							</div>
 
-							<div class='row_ability'>
-								<label for="wisdom">Wisdom:</label>
+								<div class='row_ability'>
+									<label for="intelligence">Intelligence:</label>
 
-								<div class="number-input">
-									<button type="button" class="minus" name="wisdom"></button>
-									{{ form_widget(form.wisdom) }}
+									<div class="number-input">
+										<button type="button" class="minus" name="intelligence"></button>
+										{{ form_widget(form.intelligence) }}
 
-									<button type="button" class="plus" name="wisdom"></button>
+										<button type="button" class="plus" name="intelligence"></button>
+									</div>
 								</div>
-							</div>
 
-							<div class='row_ability'>
-								<label for="charisma">Charisma:</label>
+								<div class='row_ability'>
+									<label for="wisdom">Wisdom:</label>
 
-								<div class="number-input">
-									<button type="button" class="minus" name="charisma"></button>
-									{{ form_widget(form.charisma) }}
+									<div class="number-input">
+										<button type="button" class="minus" name="wisdom"></button>
+										{{ form_widget(form.wisdom) }}
 
-									<button type="button" class="plus" name="charisma"></button>
+										<button type="button" class="plus" name="wisdom"></button>
+									</div>
 								</div>
-							</div>
 
-							<div class='row_ability'>
-								{{form_row(form.abilityScoreBonus1)}}
-								{{form_row(form.abilityScoreBonus2)}}
-							</div>
+								<div class='row_ability'>
+									<label for="charisma">Charisma:</label>
 
-							<div><input type="button" class="clear-button" value="Clear" name="clear"></div>
-						</section>
+									<div class="number-input">
+										<button type="button" class="minus" name="charisma"></button>
+										{{ form_widget(form.charisma) }}
+
+										<button type="button" class="plus" name="charisma"></button>
+									</div>
+								</div>
+
+								<div class='row_ability'>
+									{{form_row(form.abilityScoreBonus1)}}
+									{{form_row(form.abilityScoreBonus2)}}
+								</div>
+
+								<div>
+									<input type="button" class="clear-button" value="Clear" name="clear">
+								</div>
+							</section>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			{# SAVE #}
-			<div class="accordion-item">
-				<h2 class="accordion-header">
-					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-						Save my character
-					</button>
-				</h2>
-				<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionCreateBuild">
-					<div class="accordion-body">
-						{{ form_row(form.idLevel) }}
-						{{ form_row(form.name) }}
-						{{ form_row(form.isPublic) }}
-						{{ form_row(form.save) }}
+				{# SAVE #}
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+							Save my character
+						</button>
+					</h2>
+					<div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionCreateBuild">
+						<div class="accordion-body">
+							{{ form_row(form.idLevel) }}
+							{{ form_row(form.name) }}
+							{{ form_row(form.isPublic) }}
+							{{ form_row(form.save) }}
+						</div>
 					</div>
 				</div>
+				{{ form_row(form._token) }}
+
 			</div>
-			{{ form_row(form._token) }}
 
-		</div>
-
-    {{ form_end(form) }}
-</div>
+		{{ form_end(form) }}
+	</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>{% endblock %}

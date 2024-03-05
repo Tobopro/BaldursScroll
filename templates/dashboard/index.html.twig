@@ -48,7 +48,9 @@
 						<form method="get" action="{{ path('app_dashboard') }}">
 							<input type="checkbox" id="mostLiked" name="mostLiked" value="1">
 							<label for="mostLiked">Trending</label>
-							<button type="submit">search</button>
+							<button type="submit" class="search-icon">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
 						</form>
 					</div>
 
@@ -58,7 +60,9 @@
 							<form method="get" action="{{ path('app_dashboard') }}">
 								<input type="checkbox" id="allCharacters" name="allCharacters" value="1">
 								<label for="allCharacters">See All Characters</label>
-								<button type="submit">search</button>
+								<button type="submit" class="search-icon">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
 							</form>
 						</div>
 					{% endif %}
@@ -88,7 +92,7 @@
 							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
 
 							<div class="card-content">
-								<h2>{{ character.name }}</h2>
+								<h2 title="{{ character.name }}">{{ character.name|length > 8 ? character.name | slice(0,8) ~ '...':character.name }}</h2>
 								<p>Class :
 									{{ character.idSubClasses.name }}</p>
 								<p>Race :

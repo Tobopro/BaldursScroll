@@ -33,6 +33,10 @@ class Classes
     #[ORM\OneToMany(targetEntity: SubClasses::class, mappedBy: 'idClass')]
     private Collection $subClasses;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Levels $subclassUnlock = null;
+
     public function __construct()
     {
         $this->subClasses = new ArrayCollection();
@@ -129,6 +133,18 @@ class Classes
                 $subClass->setIdClass(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubclassUnlock(): ?Levels
+    {
+        return $this->subclassUnlock;
+    }
+
+    public function setSubclassUnlock(?Levels $subclassUnlock): static
+    {
+        $this->subclassUnlock = $subclassUnlock;
 
         return $this;
     }

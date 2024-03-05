@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reported Builds{% endblock %}
+
+{% block body %}
+
+   <h2 class="text-center m-5">Reported builds</h2>
+    <div class="existing-comments">
+        {% if characters is not empty %}
+        <div class="container-fluid">
+            <div class="table-responsive">
+                <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name of the build</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for character in characters %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ character.name }}</td>
+                            <td>
+                                <a href="{{ path('app_character_delete', {'characterId': character.id}) }}" class="btn btn-danger">Delete the build</a>
+								<a href="{{ path('undo_report', {'characterId': character.id}) }}" class="btn btn-success">Reject the report</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center">No comments have been reported.</p>
+        {% endif %}
+    </div>
+{% endblock %}
