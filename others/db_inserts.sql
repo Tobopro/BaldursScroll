@@ -1,3 +1,8 @@
+-- Insert data into Levels table
+INSERT INTO levels (`id`, `level`) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
 -- Insert data into Races table
 INSERT INTO races (`id`, `name`) VALUES
@@ -59,19 +64,19 @@ INSERT INTO sub_races (`id`, `name`, speed, id_race_id) VALUES
 (31, 'White Dragonborn', 9, 11);
 
 -- Insert data into Classes table
-INSERT INTO classes (`id`, `name`, starting_hp, on_level_up_hp, saving_throw_proficency1, saving_throw_proficency2) VALUES
-(1, 'Barbarian', 12, 7, 'STR', 'CON'),
-(2, 'Bard', 8, 5, 'DEX', 'CHA'),
-(3, 'Cleric', 8, 5, 'WIS', 'CHA'),
-(4, 'Druid', 8, 5, 'INT', 'WIS'),
-(5, 'Fighter', 10, 6, 'STR', 'CON'),
-(6, 'Monk', 8, 5, 'STR', 'DEX'),
-(7, 'Paladin', 10, 6, 'WIS', 'CHA'),
-(8, 'Ranger', 10, 6, 'STR', 'DEX'),
-(9, 'Rogue', 8, 5, 'DEX', 'INT'),
-(10, 'Sorcerer', 6, 4, 'CON', 'CHA'),
-(11, 'Warlock', 8, 5, 'WIS', 'CHA'),
-(12, 'Wizard', 6, 4, 'INT', 'WIS');
+INSERT INTO classes (`id`, `name`, starting_hp, on_level_up_hp, saving_throw_proficency1, saving_throw_proficency2, subclass_unlock_id) VALUES
+(1, 'Barbarian', 12, 7, 'STR', 'CON', 3),
+(2, 'Bard', 8, 5, 'DEX', 'CHA', 3),
+(3, 'Cleric', 8, 5, 'WIS', 'CHA', 1),
+(4, 'Druid', 8, 5, 'INT', 'WIS', 2),
+(5, 'Fighter', 10, 6, 'STR', 'CON', 3),
+(6, 'Monk', 8, 5, 'STR', 'DEX', 3),
+(7, 'Paladin', 10, 6, 'WIS', 'CHA', 1),
+(8, 'Ranger', 10, 6, 'STR', 'DEX', 3),
+(9, 'Rogue', 8, 5, 'DEX', 'INT', 3),
+(10, 'Sorcerer', 6, 4, 'CON', 'CHA', 1),
+(11, 'Warlock', 8, 5, 'WIS', 'CHA', 1),
+(12, 'Wizard', 6, 4, 'INT', 'WIS', 2);
 
 -- Insert data into SubClasses table
 INSERT INTO sub_classes (`id`, `name`, `id_class_id`, icon) VALUES
@@ -133,12 +138,6 @@ INSERT INTO sub_classes (`id`, `name`, `id_class_id`, icon) VALUES
 (44, 'Illusion School', 12, "Wizard.jpg"),
 (45, 'Necromancy School', 12, "Wizard.jpg"),
 (46, 'Transmutation School', 12, "Wizard.jpg");
-
--- Insert data into Levels table
-INSERT INTO levels (`id`, `level`) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
 
 -- Insert data into Spells table-- Insert data into Spells table for Barbarian actions
 INSERT INTO spells (`id`, `name`, `description`, damage_type, damage_roll) VALUES
@@ -227,14 +226,14 @@ INSERT INTO `user` (`id`, roles, username, email, `password`, sign_in_date, prof
 (2, "[]", 'dungeonmaster', 'dm@example.com', 'dmpassword', Now(), '', 0);
 
 -- Insert data into Characters table
-INSERT INTO `characters` (`id`, `name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id) VALUES
-(1, "Astarion", 8, 15, 14, 12, 13, 10, "DEX", "INT", 2, 30, 1, 1),
-(2, "Gale", 8, 13, 14, 10, 12, 8, "INT", "CON", 1, 39, 1, 1),
-(3, "Karlach", 15, 13, 14, 8, 12, 10, "STR", "CON", 20, 1, 1, 1),
-(4, "Lae'zel", 15, 13, 14, 10, 12, 8, "STR", "CON", 21, 17, 1, 1),
-(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "DEX", 6, 12, 1, 1),
-(6, "Wyll", 8, 13, 14, 12, 10, 15, "CHA", "INT", 1, 37, 1, 1),
-(7, "Dark Urge", 8, 13, 14, 12, 10, 15, "CHA", "CON", 31, 33, 1, 1);
+INSERT INTO `characters` (`id`, `name`, strength, dexterity, constitution, intelligence, wisdom, charisma, ability_score_bonus1, ability_score_bonus2, id_sub_race_id, id_sub_classes_id, id_users_id, id_level_id, is_public) VALUES
+(1, "Astarion", 8, 15, 14, 12, 13, 10, "DEX", "INT", 2, 30, 1, 1, 1),
+(2, "Gale", 8, 13, 14, 10, 12, 8, "INT", "CON", 1, 39, 1, 1, 1),
+(3, "Karlach", 15, 13, 14, 8, 12, 10, "STR", "CON", 20, 1, 1, 1, 1),
+(4, "Lae'zel", 15, 13, 14, 10, 12, 8, "STR", "CON", 21, 17, 1, 1, 1),
+(5, "Shadowheart", 13, 12, 14, 10, 17, 8, "WIS", "DEX", 6, 12, 1, 1, 1),
+(6, "Wyll", 8, 13, 14, 12, 10, 15, "CHA", "INT", 1, 37, 1, 1, 1),
+(7, "Dark Urge", 8, 13, 14, 12, 10, 15, "CHA", "CON", 31, 33, 1, 1, 1);
 
 
 -- Insert data into ClassesSpells table

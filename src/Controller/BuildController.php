@@ -56,8 +56,9 @@ class BuildController extends AbstractController
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
+        // dd($character);
+
         return $this->render('build/index.html.twig', [
-            'controller_name' => 'BuildController',
             'character' => $character,
             'raceSpells' => $raceSpells,
             'classSpells' => $classSpells,
