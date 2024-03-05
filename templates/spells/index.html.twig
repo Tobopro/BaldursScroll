@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ spell }}{% endblock %}
+
+{% block body %}
+
+<div class="myform-container">
+    <h1>Spell Book</h1>
+
+    <div class="spell-book">
+
+        {# INFO #}
+        {% if fallback %}
+        <h2 class="build-pannel-header">{{ spell }}</h2>
+        <section class="build-pannel-info">
+            <p>Description : <span class="text-orange">{{ output.description }}</span></p>
+            <p>Damage Type : <span class="text-orange">{{ output.damageType }}</span></p>
+            <p>Damage Roll : <span class="text-orange">{{ output.damageRoll }}</span></p>
+        </section>
+        {% else %}
+        <h2 class="build-pannel-header">{{ output.name }}</h2>
+        <section class="build-pannel-info">
+            <p>Description : <span class="text-orange">
+            {% for item in output.desc %}
+                {{ item }}
+                <br>
+            {% endfor %}
+            </span></p>
+            <p>Range : <span class="text-orange">{{ output.range }}</span></p>
+            {% if output.ritual %}
+            <p>Ritual : <span class="text-orange">True</span></p>
+            {% endif %}
+            <p>Duration : <span class="text-orange">{{ output.duration }}</span></p>
+            <p>Damage Type : <span class="text-orange">{{ output.damage.damage_type.name }}</span></p>
+        </section>
+        {% endif %}
+    </div>
+
+    <a href="{{ origin }}" class="mybtn btn">Go back</a>
+</div>
+
+{% endblock %}
