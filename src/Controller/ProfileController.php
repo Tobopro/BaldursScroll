@@ -48,13 +48,13 @@ class ProfileController extends AbstractController
 
     // delete profile
     #[Route('profile/{id<\d*>}/delete', name: 'app_profile_delete')]
-    #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+    #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete this profile.')]
     public function delete(EntityManagerInterface $entityManager, User $user): Response
     {
         $userPublic = $entityManager->getRepository(User::class)->find(1);
 
         if (!$userPublic) {
-            throw $this->createNotFoundException("Utilisateur de remplacement non trouvé avec l\'id 1");
+            throw $this->createNotFoundException("User not found");
         }
 
         $characters = $user->getCharacters();
@@ -76,7 +76,7 @@ class ProfileController extends AbstractController
 
 
     #[Route('/profile/{idUser}/edit', name: 'app_profile_edit')]
-     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot edit this profile.')]
     public function edit(EntityManagerInterface $entityManager, Request $request, int $idUser, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $userRepository->find($idUser);
@@ -117,7 +117,7 @@ class ProfileController extends AbstractController
 
 
     #[Route('/profile/{idUser}/upload-profile-picture', name: 'upload_profile_picture')]
-     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot change the picture for this profile.')]
     public function uploadProfilePicture(Request $request, int $idUser, EntityManagerInterface $entityManager): Response
     {
         // Find the user by id
@@ -155,7 +155,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{idUser}/delete-profile-picture', name: 'delete_profile_picture')]
-     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete the profile picture of this profile.')]
     public function deleteProfilePicture(int $idUser, EntityManagerInterface $entityManager): Response
     {
         // Find the user by id

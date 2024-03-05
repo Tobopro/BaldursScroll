@@ -44,7 +44,7 @@ class ProfileVoter extends Voter
         switch ($attribute) {
             case self::EDIT:
 
-                if (intval($subject)=== $user->getId()) {
+                if (intval($subject)=== $user->getId() || $user->getRoles()[0]==='ROLE_ADMIN') {
                     return true;
                 }
                 break;
