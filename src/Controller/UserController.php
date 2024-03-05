@@ -27,7 +27,9 @@ use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user')]
-    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(UserRepository $userRepository,
+    PaginatorInterface $paginator, 
+    Request $request): Response
     {
         $users = $userRepository->createQueryBuilder('u');
 
@@ -143,7 +145,7 @@ class UserController extends AbstractController
 
         // Vérifier si l'utilisateur à attacher existe
         if (!$userToAttachTo) {
-            throw $this->createNotFoundException('Utilisateur de remplacement non trouvé avec l\'id 1');
+            throw $this->createNotFoundException('User remplacement not found with the id 1');
         }
 
         // Récupérer les relations
