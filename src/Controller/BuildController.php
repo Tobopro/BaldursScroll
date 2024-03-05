@@ -206,7 +206,7 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
-    // all reported build
+    // list of all reported build
     #[Route('/reported_builds', name: 'app_build_flaged')]
     public function indexFlaged(CharactersRepository $charRepository): Response
     {
