@@ -143,7 +143,7 @@
 							<div class="accordion-body">
 								<div class="list-group">
 									{% for spell in classSpells %}
-										<a href="" class="build-spell-slot">
+										<a href="{{ path('app_spells', { 'name': spell.idSpell.name }) }}" class="build-spell-slot">
 											<h4>Name : <span class="text-orange">{{ spell.idSpell.name }}</span></h4>
 											<p>Description : <span class="text-orange">{{ spell.idSpell.description }}</span></p>
 											<p>Type : <span class="text-orange">{{ spell.idSpell.damageType }}</span></p>
