@@ -160,43 +160,6 @@
 				<div class="list-group mb-2">
 					<p class="text-orange">No spells available for this class.</p>
 				</div>
-        
-				<section class="likes m-5">
-					{% if app.user %}
-						{% if app.user.doesLikes(character) %}
-							<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-								<i class="fa-solid fa-2xl fa-thumbs-up" style="color: #591212;"></i>
-							</a>
-						{% else %}
-							<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-								<i class="fa-regular fa-2xl fa-thumbs-up" style="color: #591212;"></i>
-							</a>
-						{% endif %}
-					{% endif %}
-
-					{% if character.getLikes %}
-						<p>{{ character.getLikes() }} like</p>
-					{% else %}
-						<p>No likes yet</p>
-					{% endif %}
-					<div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
-						<div>
-							<a class="my-link" href="{{ path('app_profile', { 'idUser': character.getIdUsers().getId() }) }}">
-								<p class="text-light pt-2 bold mb-0">Created by: {{ character.getIdUsers().getUsername() }}</p>
-							</a>
-						</div>
-						<div class="mt-2 mt-sm-0">
-							<a class="my-link" href="{{ path('app_user_report', {'userId': character.getIdUsers().getId()}) }}">
-								Report this user
-							</a>
-						</div>
-						<div class="mt-2 mt-sm-0">
-							{% if character.IsFlaged == false %}
-								<a class="my-link" href="{{ path('app_build_report', {'characterId': character.id}) }}">Report this build</a>
-							{% else %}
-								<p class="text-danger bold mb-0">This build is reported</p>
-							{% endif %}
-						</div>
 				{% endif %}
 				
 			{# ACTIONS #}
@@ -220,34 +183,58 @@
 				</div>
 			</section>
 			{% endif %}
+
+			<!-- report user, report a build and see the profile of of a user -->
+			<h2 class="build-pannel-header">Detials about this build</h2>
+			<section class="build-pannel-info">
+				{% if app.user %}
+					<div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+						<div>
+							<a class="my-link" href="{{ path('app_profile', { 'idUser': character.getIdUsers().getId() }) }}"> 
+								<p>Created by: <span class="text-orange">{{ character.getIdUsers().getUsername() }}</span></p>
+							</a>
+
+							<a class="my-link" href="{{ path('app_user_report', {'userId': character.getIdUsers().getId()}) }}"> 
+								<p>Report this user </p>
+							</a>
+
+							<a class="my-link" href=""> 
+								<p>Report this character sheet</p>
+							</a>
+							{# <a class="my-link" href=""></a>
+							{% if character.IsFlaged == false %}
+								<a class="my-link" href=""></a>
+							{% else %}
+								<p class="text-danger bold mb-0">This build is reported</p>
+							{% endif %} #}
+						</div>
+					</div>    
+				{% endif %}	
+			</section>
 		</div>
     
 		<!-- Section des likes -->
-    <section class="likes m-5">
-      {% if app.user %}
-        {% if app.user.doesLikes(character) %}
-          <a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-            <i class="fa-solid fa-2xl fa-thumbs-up" style="color: #591212;"></i>
-          </a>
-        {% else %}
-          <a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-            <i class="fa-regular fa-2xl fa-thumbs-up" style="color: #591212;"></i>
-          </a>
-        {% endif %}
-      {% endif %}
+		<section class="likes m-5">
+			{% if app.user %}
+				{% if app.user.doesLikes(character) %}
+				<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+					<i class="fa-solid fa-2xl fa-thumbs-up" style="color: #591212;"></i>
+				</a>
+				{% else %}
+				<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+					<i class="fa-regular fa-2xl fa-thumbs-up" style="color: #591212;"></i>
+				</a>
+				{% endif %}
+			{% endif %}
 
-      {% if character.getLikes %}
-        <p>{{ character.getLikes() }}
-          like</p>
-      {% else %}
-        <p>No likes yet</p>
-      {% endif %}
-      {% if character.IsFlaged == false %}
-        <a class="text-light" href="{{ path('app_build_report', {'characterId': character.id}) }}">Report this build</a>
-      {% else %}
-        <p class="text-danger bold">This build is reported</p>
-      {% endif %}
-    </section>
+			{% if character.getLikes %}
+				<p>{{ character.getLikes() }}
+				like</p>
+			{% else %}
+				<p>No likes yet</p>
+			{% endif %}
+		</section>
+		
 
 
 		<!-- Section des commentaires -->
