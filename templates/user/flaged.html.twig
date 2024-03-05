@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comments
+{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center my-5">
+	<section class="comments-section">
+		<h2>Flaged Users</h2>
+
+		<!-- Afficher les commentaires existants -->
+		<div class="existing-comments">
+			{% if users is not empty %}
+            <div class="container-fluid">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name of the build</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>{{ user.username }}</td>
+                                <td>
+                                    <a href="{{ path('app_user_block', {'id': user.id}) }}" class="btn btn-danger">Block this user</a>
+                                    <a href="{{ path('user_undo_report', {'userId': user.id}) }}" class="btn btn-success">Reject the report</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <p class="text-center">No comments have been reported.</p>
+            {% endif %}
+		</div>	
+	</section>
+	</div>
+{% endblock %}

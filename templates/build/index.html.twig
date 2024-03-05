@@ -13,6 +13,7 @@
 			<h2 class="build-pannel-header">Info</h2>
 			<section class="build-pannel-info">
 				<p>Name : <span class="text-orange">{{ character.name }}</span></p>
+				<p>Level : <span class="text-orange">{{ character.idLevel.level }}</span></p>
 				<p>Race : <span class="text-orange">{{ character.idSubRace.name }}</span></p>
 				<p>Class : <span class="text-orange">{{ character.idSubClasses.idClass.name }}</span></p>
 				{% if character.idLevel.level >= character.idSubClasses.idClass.subclassUnlock.level %}
@@ -142,7 +143,7 @@
 							<div class="accordion-body">
 								<div class="list-group">
 									{% for spell in classSpells %}
-										<a href="" class="build-spell-slot">
+										<a href="{{ path('app_spells', { 'name': spell.idSpell.name }) }}" class="build-spell-slot">
 											<h4>Name : <span class="text-orange">{{ spell.idSpell.name }}</span></h4>
 											<p>Description : <span class="text-orange">{{ spell.idSpell.description }}</span></p>
 											<p>Type : <span class="text-orange">{{ spell.idSpell.damageType }}</span></p>
@@ -161,8 +162,6 @@
 				</div>
 				{% endif %}
 				
-			</section>
-
 			{# ACTIONS #}
 			<!-- Update/Delete -->
 			{% if app.user and is_granted('edit', character) %}
@@ -184,34 +183,58 @@
 				</div>
 			</section>
 			{% endif %}
+
+			<!-- report user, report a build and see the profile of of a user -->
+			<h2 class="build-pannel-header">Detials about this build</h2>
+			<section class="build-pannel-info">
+				{% if app.user %}
+					<div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+						<div>
+							<a class="my-link" href="{{ path('app_profile', { 'idUser': character.getIdUsers().getId() }) }}"> 
+								<p>Created by: <span class="text-orange">{{ character.getIdUsers().getUsername() }}</span></p>
+							</a>
+
+							<a class="my-link" href="{{ path('app_user_report', {'userId': character.getIdUsers().getId()}) }}"> 
+								<p>Report this user </p>
+							</a>
+
+							<a class="my-link" href=""> 
+								<p>Report this character sheet</p>
+							</a>
+							{# <a class="my-link" href=""></a>
+							{% if character.IsFlaged == false %}
+								<a class="my-link" href=""></a>
+							{% else %}
+								<p class="text-danger bold mb-0">This build is reported</p>
+							{% endif %} #}
+						</div>
+					</div>    
+				{% endif %}	
+			</section>
 		</div>
     
 		<!-- Section des likes -->
-    <section class="likes m-5">
-      {% if app.user %}
-        {% if app.user.doesLikes(character) %}
-          <a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-            <i class="fa-solid fa-2xl fa-thumbs-up" style="color: #591212;"></i>
-          </a>
-        {% else %}
-          <a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
-            <i class="fa-regular fa-2xl fa-thumbs-up" style="color: #591212;"></i>
-          </a>
-        {% endif %}
-      {% endif %}
+		<section class="likes m-5">
+			{% if app.user %}
+				{% if app.user.doesLikes(character) %}
+				<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+					<i class="fa-solid fa-2xl fa-thumbs-up" style="color: #591212;"></i>
+				</a>
+				{% else %}
+				<a href="{{ path('app_build_liked', {'characterId': character.id}) }}">
+					<i class="fa-regular fa-2xl fa-thumbs-up" style="color: #591212;"></i>
+				</a>
+				{% endif %}
+			{% endif %}
 
-      {% if character.getLikes %}
-        <p>{{ character.getLikes() }}
-          like</p>
-      {% else %}
-        <p>No likes yet</p>
-      {% endif %}
-      {% if character.IsFlaged == false %}
-        <a class="text-light" href="{{ path('app_build_report', {'characterId': character.id}) }}">Report this build</a>
-      {% else %}
-        <p class="text-danger bold">This build is reported</p>
-      {% endif %}
-    </section>
+			{% if character.getLikes %}
+				<p>{{ character.getLikes() }}
+				like</p>
+			{% else %}
+				<p>No likes yet</p>
+			{% endif %}
+		</section>
+		
 
 
 		<!-- Section des commentaires -->

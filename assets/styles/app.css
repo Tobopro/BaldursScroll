@@ -1313,3 +1313,21 @@ form .btn {
     text-decoration: none;  
     color: #fff;
 }
+
+/* Spell Book */
+.spell-book {
+    background-color: var(--color-grey);
+    width: 50vw;
+    margin-top: 2vw;
+    border-radius: 15px;
+}
+
+.spell-book .build-pannel-header:first-child {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.spell-book .build-pannel-info:last-child {
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
