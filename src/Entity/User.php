@@ -311,10 +311,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isFlaged;
     }
 
-    public function setIsFlaged(bool $isFlaged): static
+    public function setIsFlaged(bool $isFlaged): void
     {
         $this->isFlaged = $isFlaged;
-
+    }
     public function isIsPublic(): ?bool
     {
         return $this->isPublic;
