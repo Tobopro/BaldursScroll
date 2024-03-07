@@ -17,6 +17,18 @@ use App\Repository\SubRacesRepository;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'app_dashboard')]
+    /**
+     * This function is used to display all the characters in a paginated way. 
+     *
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @param CharactersRepository $charactersRepository
+     * @param ClassesRepository $classesRepository
+     * @param SubClassesRepository $subClassesRepository
+     * @param RacesRepository $racesRepository
+     * @param SubRacesRepository $subRacesRepository
+     * @return Response
+     */
     public function index(PaginatorInterface $paginator,
      Request $request,
      CharactersRepository $charactersRepository,
@@ -34,16 +46,16 @@ class DashboardController extends AbstractController
         
         $mostLiked = $request->query->get('mostLiked');
         if ($mostLiked) {
-            // Créer un tableau pour stocker les nombres de likes pour chaque personnage
+            // Create an array to store the number of likes for each character
             $likesCount = [];
             foreach ($characters as $character) {
-                // Calculer le nombre total de likes pour chaque personnage
+                // Calculate the total number of likes for each character
                 $totalLikes = $character->getLikes();
-                // Stocker le nombre total de likes dans le tableau
+                // Store the total number of likes in the array
                 $likesCount[$character->getId()] = $totalLikes;
             }
 
-            // Trier le tableau $characters en fonction du nombre total de likes
+            // Sort the $characters array based on the total number of likes
             usort($characters, function($a, $b) use ($likesCount) {
                 return $likesCount[$b->getId()] - $likesCount[$a->getId()];
             });
@@ -54,34 +66,34 @@ class DashboardController extends AbstractController
         $searchTerm = $request->query->get('search'); 
 
         if ($searchTerm) {            
-               // Récupérez les personnages en fonction du terme de recherche
+               // Get characters based on the search term
             $characters = $charactersRepository->search($searchTerm);
         }
 
         $classes= $classesRepository->findAll();
         $races= $racesRepository->findAll();
 
-        // Récupérer la valeur du filtre de classe depuis la requête GET
+        // Get the value of the class filter from
         $classFilter = $request->query->get('classFilter');
         $raceFilter = $request->query->get('raceFilter');
 
         if ($classFilter || $raceFilter) {
-            // Initialisez le tableau de critères de filtrage
+            //  Initialize the filtering criteria array
             $criteria = [];
 
-            // Si le filtre de classe est défini, ajoutez-le aux critères de filtrage
+            // If the class filter is set, add it to the filtering criteria
             if ($classFilter) {
                 $charactersBySubClasses = $subClassesRepository->findByidClass($classFilter);
                 $criteria['idSubClasses'] = $charactersBySubClasses;
             }
 
-            // Si le filtre de race est défini, ajoutez-le aux critères de filtrage
+            // If the race filter is set, add it to the filtering criteria
             if ($raceFilter) {
                 $charactersBySubRaces = $subRacesRepository->findByidRace($raceFilter);
                 $criteria['idSubRace'] = $charactersBySubRaces;
             }
 
-            // Utilisez les critères de filtrage pour récupérer les personnages
+            // Use the filtering criteria to get the characters
             $characters = $charactersRepository->findBy($criteria);
         }
      
@@ -97,8 +109,8 @@ class DashboardController extends AbstractController
 
         $pagination = $paginator->paginate(
             $characters,
-            $request->query->getInt('page', 1), // Le numéro de la page actuelle
-            8 // Nombre d'éléments par page
+            $request->query->getInt('page', 1), // The current page number
+            8 // The number of items per page
         );
 
         return $this->render('dashboard/index.html.twig', [
@@ -108,7 +120,7 @@ class DashboardController extends AbstractController
             'races' => $races,
             'classFilter' => $classFilter,
             'raceFilter' => $raceFilter,
-            // 'characters' => $characters 
+            
         ]);
     }
 }
