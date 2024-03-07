@@ -110,7 +110,7 @@ class DashboardController extends AbstractController
         $pagination = $paginator->paginate(
             $characters,
             $request->query->getInt('page', 1), // The current page number
-            8 // The number of items per page
+            6 // The number of items per page
         );
 
         return $this->render('dashboard/index.html.twig', [
