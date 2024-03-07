@@ -38,6 +38,7 @@ class RegisterController extends AbstractController
             $user->setSignInDate(new \DateTime());
             $user->setRoles(['ROLE_USER']);
             $user->setProfilePicture('https://picsum.photos/seed/'.$profilePictureRand.'/200/300');
+            $user->setIsPublic(true);
             $entityManager->persist($user);
             $entityManager->flush();
 
