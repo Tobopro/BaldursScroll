@@ -2,7 +2,7 @@
 {% import 'inc/modal.macro.twig' as modal %}
 
 
-{% block title %}Admin 
+{% block title %}Admin
 {% endblock %}
 
 
@@ -20,26 +20,17 @@
 		}
 	</style>
 
-	<div
-		class="example-wrapper">
+	<div class="example-wrapper">
 		{# {{modal.createUserModal(createForm)}} #}
 
-		<div class="count">
+		<div class="count text-white">
 			Total of users:
 			{{ users.getTotalItemCount }}
 		</div>
-		<p>
-			See all
-			<a href="{{ path('app_commentary_flaged') }}">flaged comments</a>
-		</p>
-		<p>
-			See all
-			<a href="{{ path('app_build_flaged') }}">flaged builds</a>
-		</p>
-		<p>
-			See all
-			<a href="{{ path('app_user_flaged') }}">flaged Users</a>
-		</p>
+
+		<a class="btn my-btn" href="{{ path('app_commentary_flaged') }}">Manage the flaged comments</a>
+		<a class="btn my-btn" href="{{ path('app_build_flaged') }}">Manage the flaged builds</a>
+		<a class="btn my-btn" href="{{ path('app_user_flaged') }}">Manage the flaged User</a>
 		<table class="table">
 			<thead>
 				<tr>
@@ -57,11 +48,8 @@
 						<td>{{ u.id }}</td>
 						<td>{{ u.username }}</td>
 						<td title="{{ u.email }}">{{ u.email|length > 10 ? u.email|slice(0, 10) ~ '...' : u.email }}</td>
-
-
 						<td>
 							{{ modal.editRolesModal(u) }}
-
 						</td>
 						<td>
 							{% if(app.user != u) %}
@@ -75,11 +63,8 @@
 			</tbody>
 		</table>
 
-
 		<div class="navigation">
 			{{ knp_pagination_render(users) }}
 		</div>
-
 	</div>
-
 {% endblock %}

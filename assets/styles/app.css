@@ -1331,3 +1331,15 @@ form .btn {
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
 }
+
+.my-btn {
+ background-color: #cc8828;
+ color: #000; 
+ margin-bottom: 1vh;    
+}
+
+.my-btn:hover{
+ background-color: #000;
+ color: #cc8828; 
+ margin-bottom: 1vh;    
+}
