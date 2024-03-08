@@ -43,14 +43,8 @@ class BuildVoter extends Voter
         $idCharacter = $subject;
         $authorId = $this->findCharachter($idCharacter)->getIdUsers()->getId();
         $character = $this->findCharachter($idCharacter);
-        // dd($authorId);
-        
 
-        // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
-            return false;
-            
-        }
+        
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
