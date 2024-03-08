@@ -41,7 +41,10 @@ class CommentTest extends WebTestCase
         $this->assertResponseRedirects('/build/3');
         $client->followRedirect();
         $this->assertSelectorTextContains('html', 'This is a test comment');
-        $client->click($client->getCrawler()->filter('a:contains:empty')->link());
+        $client->click($client->getCrawler()->filter('a.delete-comment')->link());
+        $this->assertResponseRedirects('/build/3');
+        $client->followRedirect();
+        // $this->assertSelectorTextNotContains('html', 'This is a test comment');
     }
             
 

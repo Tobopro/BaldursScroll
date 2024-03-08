@@ -8,7 +8,8 @@
 	<div class="myform-container">
 		<h1>Character Sheet</h1>
 
-		<div class="character-sheet">
+		<div
+			class="character-sheet">
 
 			{# INFO #}
 			<h2 class="build-pannel-header">Info</h2>
@@ -288,7 +289,7 @@
 						<p>{{ commentary.text }}
 							{% if app.user %}
 								{% if app.user.id == commentary.author.id %}
-									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="mx-5 trashcan-icon">
+									<a href="{{ path('app_build_commentary_delete', {'commentaryId': commentary.id, 'characterId': character.id} ) }}" class="mx-5 trashcan-icon delete-comment">
 										<i class="fa-solid fa-trash-can fa-flip-horizontal fa-2xl" style="color: #591212;"></i>
 
 
@@ -366,21 +367,20 @@
 			</div>
 
 
-			{% else %}
-				<p>No comments yet.</p>
-			{% endfor %}
+		{% else %}
+			<p>No comments yet.</p>
+		{% endfor %}
 
-			{% if app.user %}
-				<!-- Formulaire pour soumettre un nouveau commentaire -->
-				<div class="comment-form">
-					<h3>Add a comment</h3>
-					{{form_start(form)}}
-					{{form_row(form.text)}}
-					{{form_row(form.save)}}
-					{{form_end(form)}}
-				</div>
-			{% endif %}
-		</section>
-	</div>
-	<script src='{{ asset('js/modal.js') }}'></script>
-{% endblock %}
+		{% if app.user %}
+			<!-- Formulaire pour soumettre un nouveau commentaire -->
+			<div class="comment-form">
+				<h3>Add a comment</h3>
+				{{form_start(form)}}
+				{{form_row(form.text)}}
+				{{form_row(form.save)}}
+				{{form_end(form)}}
+			</div>
+		{% endif %}
+	</section>
+</div>
+<script src='{{ asset('js/modal.js') }}'></script>{% endblock %}

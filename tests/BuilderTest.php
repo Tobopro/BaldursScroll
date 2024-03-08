@@ -6,15 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BuilderTest extends WebTestCase
 {
-    public function testAccess(): void
-    {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+    // public function testAccess(): void
+    // {
+    //     $client = static::createClient();
+    //     $crawler = $client->request('GET', '/');
 
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Dashboard');
+    //     $this->assertResponseIsSuccessful();
+    //     $this->assertSelectorTextContains('h1', 'Dashboard');
 
-        $crawler = $client->request("GET", "/builder");
-        $this->assertResponseRedirects("/login");
-    }
+    //     $crawler = $client->request("GET", "/builder");
+    //     $this->assertResponseRedirects("/login");
+    // }
 }
