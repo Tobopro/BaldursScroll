@@ -66,7 +66,6 @@ class BuildController extends AbstractController
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
-        // dd($character);
 
         return $this->render('build/index.html.twig', [
             'character' => $character,
@@ -295,6 +294,7 @@ class BuildController extends AbstractController
     }
 
     #[Route('/build/delete/{characterId}', name: 'app_character_delete')]
+    #[IsGranted('edit', subject: 'characterId')]
     /**
      * This function is used to delete a build
      *
@@ -302,6 +302,7 @@ class BuildController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
+
     public function deleteBuild(int $characterId, EntityManagerInterface $entityManager): Response
     {
         $character = $entityManager->getRepository(Characters::class)->find($characterId);

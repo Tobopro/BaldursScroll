@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Form\BuilderType;
 use App\Entity\Characters;
-use App\Repository\ClassesRepository;
 use App\Repository\RacesRepository;
+use App\Repository\ClassesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BuilderController extends AbstractController
@@ -115,6 +116,7 @@ class BuilderController extends AbstractController
 
 
     #[Route('/builder/update/{id}', name: 'app_builder_update')]
+    #[IsGranted('edit', subject: 'id', message: 'You can only edit your own characters.')]
     /**
      * This function is used to update a character.
      *
