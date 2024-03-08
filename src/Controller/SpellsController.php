@@ -10,11 +10,17 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SpellsController extends AbstractController
 {
-    #[Route('/spells/{name}', name: 'app_spells')]
-    public function index(string $name, Request $request, SpellsRepository $spellsRepository): Response
+    #[Route('/spells/{id}', name: 'app_spells')]
+    /**
+     * Get the spell information through a python script connecting to DnD5e API
+     * falls back to the database informations if the API fails
+     */
+    public function index(int $id, Request $request, SpellsRepository $spellsRepository): Response
     {
-        $transformedName = strtolower(str_replace(" ", "-", $name));
-        $command = escapeshellcmd("python C:\Users\sacri\Documents\Git_folder\spellbook-cli\get_spell.py " . $transformedName);
+        $spell = $spellsRepository->find($id);
+        $transformedName = strtolower(str_replace(" ", "-", $spell->getName()));
+        $path = str_replace("src\Controller", "others\get_spell.py" ,__DIR__);
+        $command = escapeshellcmd("python ".$path." ".$transformedName);
         $output = shell_exec($command);
         $output = json_decode($output);
         $fallback = false;
@@ -23,7 +29,7 @@ class SpellsController extends AbstractController
 
         if (!$output) {
             $fallback = true;
-            $output = $spellsRepository->findOneBy(["name" => $name]);
+            $output = $spell;
             if (!$output) {
                 return $this->redirectToRoute('app_dashboard');
             }
@@ -31,7 +37,7 @@ class SpellsController extends AbstractController
 
         return $this->render('spells/index.html.twig', [
             'controller_name' => 'SpellsController',
-            "spell" => $name,
+            "spell" => $spell->getName(),
             "fallback" => $fallback,
             "output" => $output,
             "origin" => $origin,
