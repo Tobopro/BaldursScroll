@@ -22,79 +22,82 @@
 					<p>{{ numberOfCharacters }}
 						Builds</p>
 					<p>
-					{% if app.user.id == user.id %}
-						{% if numberOfComments != 0 %}
-							<a href="{{ path('app_commentaries_user', {'userId': app.user.id} ) }}">See my {{ numberOfComments }} comments</a>
-						{% else %}
-							<p>You haven't commented yet.</p>
+						{% if app.user.id == user.id %}
+							{% if numberOfComments != 0 %}
+								<a href="{{ path('app_commentaries_user', {'userId': app.user.id} ) }}">See my
+									{{ numberOfComments }}
+									comments</a>
+							{% else %}
+								<p>You haven't commented yet.</p>
+							{% endif %}
+						{% endif %}
+					</p>
+					{% if app.user %}
+						{% if app.user.id == user.id %}
+							{{ modal.deleteProfileModal(app.user) }}
+							{{ modal.uploadProfilePictureModal(app.user) }}
+							<div class="dropdown">
+								<button class="btn mt-1 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+									More
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li>
+										<a class="dropdown-item" href="{{ path('app_profile_edit', { idUser: app.user.id }) }}" class="">Edit</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ path('delete_profile_picture', { idUser: app.user.id }) }}">Delete profile picture</a>
+									</li>
+								</ul>
+							</div>
+
 						{% endif %}
 					{% endif %}
-				</p>
-				{% if app.user %}
-				{% if app.user.id == user.id %}
-				{{ modal.deleteProfileModal(app.user) }}
-							{{ modal.uploadProfilePictureModal(app.user) }}
-					<div class="dropdown">
-						<button class="btn mt-1 btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-							More
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li>
-							<a class="dropdown-item" href="{{ path('app_profile_edit', { idUser: app.user.id }) }}" class="">Edit</a>
-							</li>
-							<li>
-							<a class="dropdown-item" href="{{ path('delete_profile_picture', { idUser: app.user.id }) }}">Delete profile picture</a>
-							</li>
-						</ul>
-						</div>
-
-					{% endif %}
-				{% endif %}
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class='profile-showcase-title'>
-		<h2>My builds</h2>
-
-
-	</div>
-	<div class="dashboard-cards">
-		{% if numberOfCharacters != 0 %}
-			{% for character in userCharacters %}
+		<div class='profile-showcase-title'>
+			<h2>My builds</h2>
 
 
-				<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
-					<div class="card">
+		</div>
+		<div class="dashboard-cards">
+			{% if numberOfCharacters != 0 %}
+				{% for character in userCharacters %}
 
-						<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
 
-						<div class="card-content">
-							<h2>{{ character.name }}</h2>
-							<p>Classe :
-								{{ character.idSubClasses.name }}</p>
-							<p>Race :
-								{{ character.idSubRace.name }}</p>
-							<p>
-								<i class="fa-solid fa-arrow-trend-up"></i>
-								{{character.getLikes()}}</p>
-							<p>
-								{% if character.isIsPublic() %}
-									<p>
-										<i class="fa-solid fa-globe"></i>
-										Public</p>
-								{% else %}
-									<p>
-										<i class="fa-solid fa-lock"></i>
-										Private</p>
-								{% endif %}
-							</p>
+					<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+						<div class="card">
+
+							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
+
+							<div class="card-content">
+								<h2>{{ character.name }}</h2>
+								<p>Classe :
+									{{ character.idSubClasses.name }}</p>
+								<p>Race :
+									{{ character.idSubRace.name }}</p>
+								<p>
+									<i class="fa-solid fa-arrow-trend-up"></i>
+									{{character.getLikes()}}</p>
+								<p>
+									{% if character.isIsPublic() %}
+										<p>
+											<i class="fa-solid fa-globe"></i>
+											Public</p>
+									{% else %}
+										<p>
+											<i class="fa-solid fa-lock"></i>
+											Private</p>
+									{% endif %}
+								</p>
+							</div>
 						</div>
-					</div>
-				</a>
-			{% endfor %}
-		{% else %}
-			<p class="mx-5">You haven't created any characters yet</p>
-		{% endif %}
+					</a>
+				{% endfor %}
+			{% else %}
+				<p class="mx-5">You haven't created any characters yet</p>
+			{% endif %}
+		</div>
 	</div>
-</div></div>{% endblock %}
+</div>{% endblock %}

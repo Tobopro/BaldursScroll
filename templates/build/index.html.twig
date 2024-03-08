@@ -8,7 +8,8 @@
 	<div class="myform-container">
 		<h1>Character Sheet</h1>
 
-		<div class="character-sheet">
+		<div
+			class="character-sheet">
 
 			{# INFO #}
 			<h2 class="build-pannel-header">Info</h2>
@@ -235,8 +236,7 @@
 							</a>
 
 							<a class="my-link" href="{{ path('app_user_report', {'userId': character.getIdUsers().getId()}) }}">
-								<p>Report this user
-								</p>
+								<p>Report this user</p>
 							</a>
 
 							<a class="my-link" href="{{ path('app_build_report', {'characterId': character.id}) }}">
@@ -366,21 +366,20 @@
 			</div>
 
 
-			{% else %}
-				<p>No comments yet.</p>
-			{% endfor %}
+		{% else %}
+			<p>No comments yet.</p>
+		{% endfor %}
 
-			{% if app.user %}
-				<!-- Formulaire pour soumettre un nouveau commentaire -->
-				<div class="comment-form">
-					<h3>Add a comment</h3>
-					{{form_start(form)}}
-					{{form_row(form.text)}}
-					{{form_row(form.save)}}
-					{{form_end(form)}}
-				</div>
-			{% endif %}
-		</section>
-	</div>
-	<script src='{{ asset('js/modal.js') }}'></script>
-{% endblock %}
+		{% if app.user %}
+			<!-- Formulaire pour soumettre un nouveau commentaire -->
+			<div class="comment-form">
+				<h3>Add a comment</h3>
+				{{form_start(form)}}
+				{{form_row(form.text)}}
+				{{form_row(form.save)}}
+				{{form_end(form)}}
+			</div>
+		{% endif %}
+	</section>
+</div>
+<script src='{{ asset('js/modal.js') }}'></script>{% endblock %}

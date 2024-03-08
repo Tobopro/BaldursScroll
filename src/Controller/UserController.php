@@ -27,10 +27,11 @@ use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user')]
-    public function index(UserRepository $userRepository,
-    PaginatorInterface $paginator, 
-    Request $request): Response
-    {
+    public function index(
+        UserRepository $userRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
         $users = $userRepository->createQueryBuilder('u');
 
         $sortBy = $request->query->get('sort');
@@ -50,7 +51,6 @@ class UserController extends AbstractController
         $form = $this->createForm(CreateUserType::class, $newUser, [
             'action' => $this->generateUrl('app_user_handleCreate'),
         ]);
-
 
         return $this->render('user/index.html.twig', [
             'users' => $pagination,
@@ -83,6 +83,7 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setSignInDate(new \DateTime());
             $user->setRoles(['ROLE_USER']);
+            $user->setIsPublic(true);
             $user->setProfilePicture('https://picsum.photos/seed/' . $profilePictureRand . '/200/300');
             $entityManager->persist($user);
             $entityManager->flush();
