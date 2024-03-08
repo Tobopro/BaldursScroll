@@ -20,18 +20,30 @@
         {% else %}
         <h2 class="build-pannel-header">{{ output.name }}</h2>
         <section class="build-pannel-info">
+            {% if output.desc is defined %}
             <p>Description : <span class="text-orange">
             {% for item in output.desc %}
                 {{ item }}
                 <br>
             {% endfor %}
             </span></p>
+            {% endif %}
+
+            {% if output.range is defined %}
             <p>Range : <span class="text-orange">{{ output.range }}</span></p>
-            {% if output.ritual %}
+            {% endif %}
+
+            {% if output.ritual is defined %}
             <p>Ritual : <span class="text-orange">True</span></p>
             {% endif %}
-            <p>Duration : <span class="text-orange">{{ output.duration }}</span></p>
-            <p>Damage Type : <span class="text-orange">{{ output.damage.damage_type.name }}</span></p>
+
+            {% if output.duration is defined %}
+                <p>Duration : <span class="text-orange">{{ output.duration }}</span></p>
+            {% endif %}
+
+            {% if output.damage is defined %}
+                <p>Damage Type : <span class="text-orange">{{ output.damage.damage_type.name }}</span></p>
+            {% endif %}
         </section>
         {% endif %}
     </div>
