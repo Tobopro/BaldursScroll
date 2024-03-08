@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RegisterController!
+{% block title %}Register!
 {% endblock %}
 
 {% block body %}
 	<div class="container login-form">
 		<div class="form-container">
 			<div class="singup-section">
-				<header>S’inscrire</header>
+				<header>Register</header>
 				{{form(userForm)}}
-				<a href="{{ path('app_login') }}" class="text-white">Me Connecter</a>
+					<a href="{{ path('app_login') }}" class="text-white">Sign in</a>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 {% endblock %}

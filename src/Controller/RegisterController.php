@@ -17,13 +17,6 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class RegisterController extends AbstractController
 {
-    // private EmailVerifier $emailVerifier;
-
-    // public function __construct(EmailVerifier $emailVerifier)
-    // {
-    //     $this->emailVerifier = $emailVerifier;
-    // }
-
     #[Route('/register', name: 'app_register')]
     /**
      * This function is used to register a new user.
