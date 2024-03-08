@@ -2,6 +2,7 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\User;
 use App\Entity\Characters;
 use App\Repository\CharactersRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,7 +22,7 @@ class BuildVoter extends Voter
         $this->charactersRepository = $charactersRepository;
     }
 
-    public function findCharachter($id){
+    public function findCharacter($id){
         $character = $this->charactersRepository->find($id);
         return $character;
     }
@@ -36,28 +37,27 @@ class BuildVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-        // return false;
+        /** @var User $user */
         $user = $token->getUser();
         if($user){ $userId = $user->getId();}
    
         $idCharacter = $subject;
-        $authorId = $this->findCharachter($idCharacter)->getIdUsers()->getId();
-        $character = $this->findCharachter($idCharacter);
+        $authorId = $this->findCharacter($idCharacter)->getIdUsers()->getId();
+        $character = $this->findCharacter($idCharacter);
 
         
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case self::EDIT:
-               if( $userId == $authorId || in_array('ROLE_ADMIN', $user->getRoles()) ){
+                if( $userId == $authorId || in_array('ROLE_ADMIN', $user->getRoles()) ){
                    return true; }
                    
                 break;
 
             case self::VIEW:
-               
-                   if( $character->isIsPublic() || $userId == $authorId || in_array('ROLE_ADMIN', $user->getRoles()) ){
-                       return true; }
+                if( $character->isIsPublic() || $userId == $authorId || in_array('ROLE_ADMIN', $user->getRoles()) ){
+                    return true; }
                  
                 break;
         }
