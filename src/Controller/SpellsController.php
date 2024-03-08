@@ -11,6 +11,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class SpellsController extends AbstractController
 {
     #[Route('/spells/{name}', name: 'app_spells')]
+    /**
+     * This function is used to display the details of a spell.
+     *
+     * @param string $name
+     * @param Request $request
+     * @param SpellsRepository $spellsRepository
+     * @return Response
+     */
     public function index(string $name, Request $request, SpellsRepository $spellsRepository): Response
     {
         $transformedName = strtolower(str_replace(" ", "-", $name));
