@@ -59,7 +59,6 @@ class UserController extends AbstractController
             'action' => $this->generateUrl('app_user_handleCreate'),
         ]);
 
-
         return $this->render('user/index.html.twig', [
             'users' => $pagination,
             'createForm' => $form
@@ -106,6 +105,7 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setSignInDate(new \DateTime());
             $user->setRoles(['ROLE_USER']);
+            $user->setIsPublic(true);
             $user->setProfilePicture('https://picsum.photos/seed/' . $profilePictureRand . '/200/300');
             $entityManager->persist($user);
             $entityManager->flush();
