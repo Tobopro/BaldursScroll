@@ -1,0 +1,118 @@
+\doxysection{Builder\+Controller Class Reference}
+\hypertarget{class_app_1_1_controller_1_1_builder_controller}{}\label{class_app_1_1_controller_1_1_builder_controller}\index{BuilderController@{BuilderController}}
+
+
+Inherits Abstract\+Controller.
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_builder_controller_a62fbd619c4fe350dd8ba7d21f0d6111e}{get\+Builder\+Info\+Classes}} (Classes\+Repository \$classes\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_builder_controller_a4328b093065bc1928167ca608fadc2be}{get\+Builder\+Info\+Races}} (Races\+Repository \$races\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_builder_controller_a9c2c85483e7785b9b8e741204a202d3a}{create}} (Entity\+Manager\+Interface \$entity\+Manager, Request \$request)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_builder_controller_a81d583a92172315c767f5a68725abaa2}{update}} (Entity\+Manager\+Interface \$entity\+Manager, \$id, Request \$request)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_builder_controller_a76df8af87cb9b87ad7dfe3e547d99a4a}{delete}} (Entity\+Manager\+Interface \$entity\+Manager, \$id)
+\item 
+\Hypertarget{class_app_1_1_controller_1_1_builder_controller_a2b8e3779f5bd8c38f70307574859bd36}\label{class_app_1_1_controller_1_1_builder_controller_a2b8e3779f5bd8c38f70307574859bd36} 
+{\bfseries show} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_controller_1_1_builder_controller_a9c2c85483e7785b9b8e741204a202d3a}\label{class_app_1_1_controller_1_1_builder_controller_a9c2c85483e7785b9b8e741204a202d3a} 
+\index{BuilderController@{BuilderController}!create@{create}}
+\index{create@{create}!BuilderController@{BuilderController}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily create (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to create a new character.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_builder_controller_a76df8af87cb9b87ad7dfe3e547d99a4a}\label{class_app_1_1_controller_1_1_builder_controller_a76df8af87cb9b87ad7dfe3e547d99a4a} 
+\index{BuilderController@{BuilderController}!delete@{delete}}
+\index{delete@{delete}!BuilderController@{BuilderController}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily delete (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{}]{\$id }\end{DoxyParamCaption})}
+
+This function is used to delete a character.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+ & {\em \mbox{[}type\mbox{]}} & \$id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_builder_controller_a62fbd619c4fe350dd8ba7d21f0d6111e}\label{class_app_1_1_controller_1_1_builder_controller_a62fbd619c4fe350dd8ba7d21f0d6111e} 
+\index{BuilderController@{BuilderController}!getBuilderInfoClasses@{getBuilderInfoClasses}}
+\index{getBuilderInfoClasses@{getBuilderInfoClasses}!BuilderController@{BuilderController}}
+\doxysubsubsection{\texorpdfstring{getBuilderInfoClasses()}{getBuilderInfoClasses()}}
+{\footnotesize\ttfamily get\+Builder\+Info\+Classes (\begin{DoxyParamCaption}\item[{Classes\+Repository}]{\$classes\+Repository }\end{DoxyParamCaption})}
+
+This function is used to get all the classes and subclasses from the database
+
+
+\begin{DoxyParams}[1]{Parameters}
+Classes\+Repository & {\em \$classes\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_builder_controller_a4328b093065bc1928167ca608fadc2be}\label{class_app_1_1_controller_1_1_builder_controller_a4328b093065bc1928167ca608fadc2be} 
+\index{BuilderController@{BuilderController}!getBuilderInfoRaces@{getBuilderInfoRaces}}
+\index{getBuilderInfoRaces@{getBuilderInfoRaces}!BuilderController@{BuilderController}}
+\doxysubsubsection{\texorpdfstring{getBuilderInfoRaces()}{getBuilderInfoRaces()}}
+{\footnotesize\ttfamily get\+Builder\+Info\+Races (\begin{DoxyParamCaption}\item[{Races\+Repository}]{\$races\+Repository }\end{DoxyParamCaption})}
+
+This function is used to get all races from the database. It will be called by the front-\/end when a class has been selected in order to display This function returns a JSON object with information about each race in the game.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Races\+Repository & {\em \$races\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_builder_controller_a81d583a92172315c767f5a68725abaa2}\label{class_app_1_1_controller_1_1_builder_controller_a81d583a92172315c767f5a68725abaa2} 
+\index{BuilderController@{BuilderController}!update@{update}}
+\index{update@{update}!BuilderController@{BuilderController}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily update (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{}]{\$id,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to update a character.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+ & {\em \mbox{[}type\mbox{]}} & \$id \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Builder\+Controller.\+php\end{DoxyCompactItemize}

@@ -17,15 +17,18 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class RegisterController extends AbstractController
 {
-    // private EmailVerifier $emailVerifier;
-
-    // public function __construct(EmailVerifier $emailVerifier)
-    // {
-    //     $this->emailVerifier = $emailVerifier;
-    // }
-
     #[Route('/register', name: 'app_register')]
-    public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    /**
+     * This function is used to register a new user.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
+    public function index(Request $request, 
+    EntityManagerInterface $entityManager, 
+    UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $profilePictureRand=rand(1, 1000);

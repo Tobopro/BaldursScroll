@@ -21,6 +21,14 @@ class ProfileController extends AbstractController
 {
     #[Route('/profile/{idUser}', name: 'app_profile')]
     // #[IsGranted('view_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+    /**
+     * This function is used to display the profile of a user.
+     *
+     * @param integer $idUser
+     * @param UserRepository $userRepository
+     * @param CharactersRepository $charactersRepository
+     * @return Response
+     */
     public function show(
         int $idUser,
         UserRepository $userRepository,
@@ -47,9 +55,15 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    // delete profile
     #[Route('profile/{id<\d*>}/delete', name: 'app_profile_delete')]
     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete this profile.')]
+    /**
+     * This function is used to delete a user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param User $user
+     * @return Response
+     */
     public function delete(EntityManagerInterface $entityManager, User $user): Response
     {
         $userPublic = $entityManager->getRepository(User::class)->find(1);
@@ -78,6 +92,16 @@ class ProfileController extends AbstractController
 
     #[Route('/profile/{idUser}/edit', name: 'app_profile_edit')]
     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot edit this profile.')]
+    /**
+     * This function is used to edit an user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param integer $idUser
+     * @param UserRepository $userRepository
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     public function edit(EntityManagerInterface $entityManager, Request $request, int $idUser, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $userRepository->find($idUser);
@@ -119,6 +143,14 @@ class ProfileController extends AbstractController
 
     #[Route('/profile/{idUser}/upload-profile-picture', name: 'upload_profile_picture')]
     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot change the picture for this profile.')]
+    /**
+     * This function is used to upload a profile picture for a user.
+     *
+     * @param Request $request
+     * @param integer $idUser
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function uploadProfilePicture(Request $request, int $idUser, EntityManagerInterface $entityManager): Response
     {
         // Find the user by id
@@ -157,6 +189,13 @@ class ProfileController extends AbstractController
 
     #[Route('/profile/{idUser}/delete-profile-picture', name: 'delete_profile_picture')]
     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete the profile picture of this profile.')]
+    /**
+     * This function is used to delete the profile picture of a user.
+     *
+     * @param integer $idUser
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function deleteProfilePicture(int $idUser, EntityManagerInterface $entityManager): Response
     {
         // Find the user by id

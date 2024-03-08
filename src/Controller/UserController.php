@@ -27,6 +27,14 @@ use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user')]
+    /**
+     * This function is used to display all the users in a paginated way.
+     *
+     * @param UserRepository $userRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     */
     public function index(UserRepository $userRepository,
     PaginatorInterface $paginator, 
     Request $request): Response
@@ -59,6 +67,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id<\d*>}', name: 'app_user_show')]
+    /**
+     * This function is used to display the profile of a user.
+     *
+     * @param User $user
+     * @return Response
+     */
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -67,6 +81,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/handlecreate', name: 'app_user_handleCreate')]
+    /**
+     * This function is used to create a new user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param MailerInterface $mailer
+     * @param Request $request
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     public function handleCreate(
         EntityManagerInterface $entityManager,
         MailerInterface $mailer,
@@ -112,6 +135,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id<\d*>}/edit', name: 'app_user_edit')]
+    /**
+     * This function is used to edit the profile of a user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     */
     public function edit(EntityManagerInterface $entityManager, Request $request, User $user): Response
     {
         $form = $this->createForm(EditUserType::class, $user);
@@ -138,6 +169,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id<\d*>}/delete', name: 'app_user_delete')]
+    /**
+     * This function is used to delete a user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param User $user
+     * @return Response
+     */
     public function delete(EntityManagerInterface $entityManager, User $user): Response
     {
         // Récupérer l'utilisateur avec l'id 1
@@ -169,6 +207,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id<\d*>}/reset-password', name: 'app_user_reset_pwd')]
+    /**
+     * This function is used to reset the password of a user.
+     *
+     * @param User $user
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
+     * @param ResetPasswordHelperInterface $resetPasswordHelper
+     * @return Response
+     */
     public function resetPassword(User $user,  MailerInterface $mailer, TranslatorInterface $translator, ResetPasswordHelperInterface $resetPasswordHelper): Response
     {
         try {
@@ -200,6 +247,15 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id<\d*>}/setRoles', name: 'app_user_set_roles')]
+    /**
+     * This function is used to set the roles of a user.
+     *
+     * @param User $user
+     * @param EntityManagerInterface $entityManager
+     * @param [type] $id
+     * @param Request $request
+     * @return Response
+     */
     public function setRole(User $user, EntityManagerInterface $entityManager, $id, Request $request): Response
     {
         //activer le csrf_protection: true dans le fichier framework.yaml
@@ -244,8 +300,14 @@ class UserController extends AbstractController
     }
 
 
-    // Report a user
     #[Route('/{userId}/report', name: 'app_user_report')]
+    /**
+     * This function is used to report a user.
+     *
+     * @param User $userId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function reportUser(User $userId, EntityManagerInterface $entityManager): Response
     {
         $user = $entityManager->getRepository(User::class)->find($userId);
@@ -271,8 +333,15 @@ class UserController extends AbstractController
         ]);
     }
 
-    // Undo the Report of a user
+
     #[Route('/{userId}/unflag', name: 'user_undo_report')]
+    /**
+     * This function is used to unreport a user.
+     *
+     * @param User $userId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function unFlageUser(User $userId, EntityManagerInterface $entityManager): Response
     {
         $user = $entityManager->getRepository(User::class)->find($userId);
@@ -288,8 +357,17 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_dashboard');
     }
 
-    // Block a user
+
     #[Route('/{id<\d*>}/block', name: 'app_user_block')]
+    /**
+     * This function is used to block a user.
+     *
+     * @param User $user
+     * @param EntityManagerInterface $entityManager
+     * @param [type] $id
+     * @param Request $request
+     * @return Response
+     */
     public function blockUser(User $user, EntityManagerInterface $entityManager, $id, Request $request): Response
     {
         // Check if the current user has the required ROLE_ADMIN role

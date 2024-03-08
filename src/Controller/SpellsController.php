@@ -12,10 +12,16 @@ class SpellsController extends AbstractController
 {
     #[Route('/spells/{id}', name: 'app_spells')]
     /**
+     * This function is used to display the details of a spell.
      * Get the spell information through a python script connecting to DnD5e API
      * falls back to the database informations if the API fails
+     *
+     * @param string $name
+     * @param Request $request
+     * @param SpellsRepository $spellsRepository
+     * @return Response
      */
-    public function index(int $id, Request $request, SpellsRepository $spellsRepository): Response
+    public function index(string $name, Request $request, SpellsRepository $spellsRepository): Response
     {
         $spell = $spellsRepository->find($id);
         $transformedName = strtolower(str_replace(" ", "-", $spell->getName()));
