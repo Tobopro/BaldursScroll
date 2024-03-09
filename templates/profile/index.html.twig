@@ -3,18 +3,23 @@
 
 {% block title %}
 	Profile page of
-	{{user.username}}
+	{{ user.username }}
 {% endblock %}
 
 {% block body %}
-	<div class='container-fluid'>
-		<div class="row my-5">
+	<div
+		class='container-fluid'>
+		<!-- Profile header -->
+		<div
+			class="row my-5">
+			<!-- Profile picture -->
 			<div class="col-5 offset-1 col-md-3 offset-md-1 d-flex justify-content-center align-items-center">
 				<div class="profile-pic-container text-center">
 					<img src="{{ user.profilePicture }}" class="img-profile">
 				</div>
 			</div>
-			<div class="col-6 col-md-8  mt-5">
+			<!-- Profile information -->
+			<div class="col-6 col-md-8 mt-5">
 				<div class='profile-text-container'>
 					<h1>{{ user.username }}</h1>
 					<p>Member since
@@ -32,6 +37,7 @@
 							{% endif %}
 						{% endif %}
 					</p>
+					<!-- More options for the user's own profile -->
 					{% if app.user %}
 						{% if app.user.id == user.id %}
 							{{ modal.deleteProfileModal(app.user) }}
@@ -49,55 +55,53 @@
 									</li>
 								</ul>
 							</div>
-
 						{% endif %}
 					{% endif %}
 				</div>
 			</div>
 		</div>
 
+		<!-- Profile showcase -->
 		<div class='profile-showcase-title'>
-			<h2>My builds</h2>
-
-
+			<h2>
+				{{user.username}}'s builds
+			</h2>
 		</div>
 		<div class="dashboard-cards">
 			{% if numberOfCharacters != 0 %}
 				{% for character in userCharacters %}
-
-
-					<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
-						<div class="card">
-
-							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
-
-							<div class="card-content">
-								<h2>{{ character.name }}</h2>
-								<p>Classe :
-									{{ character.idSubClasses.name }}</p>
-								<p>Race :
-									{{ character.idSubRace.name }}</p>
-								<p>
-									<i class="fa-solid fa-arrow-trend-up"></i>
-									{{character.getLikes()}}</p>
-								<p>
-									{% if character.isIsPublic() %}
-										<p>
+					<!-- Only show public characters or user's own characters -->
+					{% if character.isIsPublic() or app.user.id == user.id %}
+						<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+							<div class="card">
+								<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">
+								<div class="card-content">
+									<h2>{{ character.name }}</h2>
+									<p>Classe:
+										{{ character.idSubClasses.name }}</p>
+									<p>Race:
+										{{ character.idSubRace.name }}</p>
+									<p>
+										<i class="fa-solid fa-arrow-trend-up"></i>
+										{{ character.getLikes() }}</p>
+									<!-- Display privacy status -->
+									<p>
+										{% if character.isIsPublic() %}
 											<i class="fa-solid fa-globe"></i>
-											Public</p>
-									{% else %}
-										<p>
+											Public
+										{% else %}
 											<i class="fa-solid fa-lock"></i>
-											Private</p>
-									{% endif %}
-								</p>
+											Private
+										{% endif %}
+									</p>
+								</div>
 							</div>
-						</div>
-					</a>
+						</a>
+					{% endif %}
 				{% endfor %}
 			{% else %}
 				<p class="mx-5">You haven't created any characters yet</p>
 			{% endif %}
 		</div>
 	</div>
-</div>{% endblock %}
+{% endblock %}
