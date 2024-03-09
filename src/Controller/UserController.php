@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 
@@ -35,14 +36,19 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(UserRepository $userRepository,
-    PaginatorInterface $paginator, 
-    Request $request): Response
-    {
+    public function index(
+        UserRepository $userRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
         $users = $userRepository->createQueryBuilder('u');
 
         $sortBy = $request->query->get('sort');
         $sortDir = $request->query->get('direction');
+
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access Denied');
+        }
 
         if ($sortBy && $sortDir) {
             $users->orderBy($sortBy, $sortDir);
