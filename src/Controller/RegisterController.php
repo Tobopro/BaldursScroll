@@ -36,6 +36,14 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+
+            if ($existingUser) {
+                // Add flash message for email already exists
+                $this->addFlash('error', 'This email address is already registered.');
+
+                return $this->redirectToRoute('app_register');
+            }
             $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
             $user->setSignInDate(new \DateTime());
