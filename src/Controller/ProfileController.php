@@ -219,4 +219,27 @@ class ProfileController extends AbstractController
         // Redirect to the profile page
         return $this->redirectToRoute('app_profile', ['idUser' => $idUser]);
     }
+
+    #[Route('profile/{userId}/report', name: 'app_user_report')]
+    /**
+     * This function is used to report a user.
+     *
+     * @param User $userId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function reportUser(User $userId, EntityManagerInterface $entityManager): Response
+    {
+        $user = $entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('The User is not found');
+        }
+
+        $user->setIsFlaged(true);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
+    }
 }

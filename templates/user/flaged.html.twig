@@ -24,7 +24,7 @@
 									<th scope="row">{{ loop.index }}</th>
 									<td>{{ user.username }}</td>
 									<td>
-										<a href="{{ path('app_user_block', {'id': user.id}) }}" class="btn btn-danger">Block this user</a>
+										<a href="{{ path('app_user_block', {'id': user.id}) }}" class="btn btn-danger">Ban this user</a>
 										<a href="{{ path('user_undo_report', {'userId': user.id}) }}" class="btn btn-success">Reject the report</a>
 									</td>
 								</tr>
