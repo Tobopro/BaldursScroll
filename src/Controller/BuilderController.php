@@ -155,6 +155,7 @@ class BuilderController extends AbstractController
     }
 
     #[Route('/builder/delete/{id}', name: 'app_builder_delete')]
+    #[IsGranted('edit', subject: 'id', message: 'You can only edit your own characters.')]
     /**
      * This function is used to delete a character.
      *
