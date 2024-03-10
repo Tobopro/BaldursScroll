@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 
@@ -35,14 +36,19 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(UserRepository $userRepository,
-    PaginatorInterface $paginator, 
-    Request $request): Response
-    {
+    public function index(
+        UserRepository $userRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
         $users = $userRepository->createQueryBuilder('u');
 
         $sortBy = $request->query->get('sort');
         $sortDir = $request->query->get('direction');
+
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException('Access Denied');
+        }
 
         if ($sortBy && $sortDir) {
             $users->orderBy($sortBy, $sortDir);
@@ -58,7 +64,6 @@ class UserController extends AbstractController
         $form = $this->createForm(CreateUserType::class, $newUser, [
             'action' => $this->generateUrl('app_user_handleCreate'),
         ]);
-
 
         return $this->render('user/index.html.twig', [
             'users' => $pagination,
@@ -106,6 +111,7 @@ class UserController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setSignInDate(new \DateTime());
             $user->setRoles(['ROLE_USER']);
+            $user->setIsPublic(true);
             $user->setProfilePicture('https://picsum.photos/seed/' . $profilePictureRand . '/200/300');
             $entityManager->persist($user);
             $entityManager->flush();
@@ -300,29 +306,6 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/{userId}/report', name: 'app_user_report')]
-    /**
-     * This function is used to report a user.
-     *
-     * @param User $userId
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function reportUser(User $userId, EntityManagerInterface $entityManager): Response
-    {
-        $user = $entityManager->getRepository(User::class)->find($userId);
-
-        if (!$user) {
-            throw $this->createNotFoundException('The User is not found');
-        }
-
-        $user->setIsFlaged(true);
-
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_dashboard');
-    }
-
     // list of all reported user
     #[Route('/BlockedUser', name: 'app_user_flaged')]
     public function indexFlaged(UserRepository $userRepository): Response
@@ -368,19 +351,19 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function blockUser(User $user, EntityManagerInterface $entityManager, $id, Request $request): Response
+    public function banUser(User $user, EntityManagerInterface $entityManager, $id, Request $request): Response
     {
         // Check if the current user has the required ROLE_ADMIN role
         if (!$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException('You are not authorized to perform this action.');
         }
 
-        $roles = $user->getRoles();
-        $roles[] = 'ROLE_IS_BANNED';
+        // Clear all existing roles and add ROLE_IS_BANNED
+        $roles = ['ROLE_IS_BANNED'];
         $user->setRoles($roles);
         $entityManager->flush();
 
-        $this->addFlash('success', 'User ' . $user->getEmail() . ' has been blocked successfully');
+        $this->addFlash('success', 'User ' . $user->getEmail() . ' has been banned successfully');
         return $this->redirectToRoute('app_user');
     }
 }
