@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit an user!
+{% endblock %}
+
+{% block body %}
+
+	{# {{ dump(form) }} #}
+	<div>
+		{{ form(editForm) }}
+		</div>
+		<p>
+			<a href="{{ path('app_user') }}" class="btn btn-primary">Back to the list</a>
+		</p>
+
+	{% endblock %}

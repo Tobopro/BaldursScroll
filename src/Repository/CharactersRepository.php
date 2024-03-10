@@ -21,6 +21,28 @@ class CharactersRepository extends ServiceEntityRepository
         parent::__construct($registry, Characters::class);
     }
 
+    public function findAllPublicCharacters(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.isPublic = :isPublic')
+            ->setParameter('isPublic', 1)
+            ->getQuery()
+            ->getResult();
+    }
+    
+
+    public function search($term)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        if (!empty($term)) {
+            $qb->andWhere('c.name LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Characteres[] Returns an array of Characteres objects
 //     */

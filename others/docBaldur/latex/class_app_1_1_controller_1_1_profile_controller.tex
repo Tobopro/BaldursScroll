@@ -1,0 +1,127 @@
+\doxysection{Profile\+Controller Class Reference}
+\hypertarget{class_app_1_1_controller_1_1_profile_controller}{}\label{class_app_1_1_controller_1_1_profile_controller}\index{ProfileController@{ProfileController}}
+
+
+Inherits Abstract\+Controller.
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_profile_controller_aa3d9db33c813956e21c222abd2f9f2d2}{show}} (int \$id\+User, User\+Repository \$user\+Repository, Characters\+Repository \$characters\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_profile_controller_a833275f79ff4266cf77546ab4db61c08}{delete}} (Entity\+Manager\+Interface \$entity\+Manager, User \$user)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_profile_controller_aae01c05041d7cfaa94a99211846433aa}{edit}} (Entity\+Manager\+Interface \$entity\+Manager, Request \$request, int \$id\+User, User\+Repository \$user\+Repository, User\+Password\+Hasher\+Interface \$password\+Hasher)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_profile_controller_ad1babbef14fabf146e5bae1a7276284f}{upload\+Profile\+Picture}} (Request \$request, int \$id\+User, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_profile_controller_a806de20567043a126893a17fdd2b9759}{delete\+Profile\+Picture}} (int \$id\+User, Entity\+Manager\+Interface \$entity\+Manager)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_controller_1_1_profile_controller_a833275f79ff4266cf77546ab4db61c08}\label{class_app_1_1_controller_1_1_profile_controller_a833275f79ff4266cf77546ab4db61c08} 
+\index{ProfileController@{ProfileController}!delete@{delete}}
+\index{delete@{delete}!ProfileController@{ProfileController}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily delete (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+This function is used to delete a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+User & {\em \$user} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_profile_controller_a806de20567043a126893a17fdd2b9759}\label{class_app_1_1_controller_1_1_profile_controller_a806de20567043a126893a17fdd2b9759} 
+\index{ProfileController@{ProfileController}!deleteProfilePicture@{deleteProfilePicture}}
+\index{deleteProfilePicture@{deleteProfilePicture}!ProfileController@{ProfileController}}
+\doxysubsubsection{\texorpdfstring{deleteProfilePicture()}{deleteProfilePicture()}}
+{\footnotesize\ttfamily delete\+Profile\+Picture (\begin{DoxyParamCaption}\item[{int}]{\$id\+User,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to delete the profile picture of a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$id\+User} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_profile_controller_aae01c05041d7cfaa94a99211846433aa}\label{class_app_1_1_controller_1_1_profile_controller_aae01c05041d7cfaa94a99211846433aa} 
+\index{ProfileController@{ProfileController}!edit@{edit}}
+\index{edit@{edit}!ProfileController@{ProfileController}}
+\doxysubsubsection{\texorpdfstring{edit()}{edit()}}
+{\footnotesize\ttfamily edit (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{Request}]{\$request,  }\item[{int}]{\$id\+User,  }\item[{User\+Repository}]{\$user\+Repository,  }\item[{User\+Password\+Hasher\+Interface}]{\$password\+Hasher }\end{DoxyParamCaption})}
+
+This function is used to edit an user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+integer & {\em \$id\+User} & \\
+\hline
+User\+Repository & {\em \$user\+Repository} & \\
+\hline
+User\+Password\+Hasher\+Interface & {\em \$password\+Hasher} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_profile_controller_aa3d9db33c813956e21c222abd2f9f2d2}\label{class_app_1_1_controller_1_1_profile_controller_aa3d9db33c813956e21c222abd2f9f2d2} 
+\index{ProfileController@{ProfileController}!show@{show}}
+\index{show@{show}!ProfileController@{ProfileController}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily show (\begin{DoxyParamCaption}\item[{int}]{\$id\+User,  }\item[{User\+Repository}]{\$user\+Repository,  }\item[{Characters\+Repository}]{\$characters\+Repository }\end{DoxyParamCaption})}
+
+This function is used to display the profile of a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$id\+User} & \\
+\hline
+User\+Repository & {\em \$user\+Repository} & \\
+\hline
+Characters\+Repository & {\em \$characters\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_profile_controller_ad1babbef14fabf146e5bae1a7276284f}\label{class_app_1_1_controller_1_1_profile_controller_ad1babbef14fabf146e5bae1a7276284f} 
+\index{ProfileController@{ProfileController}!uploadProfilePicture@{uploadProfilePicture}}
+\index{uploadProfilePicture@{uploadProfilePicture}!ProfileController@{ProfileController}}
+\doxysubsubsection{\texorpdfstring{uploadProfilePicture()}{uploadProfilePicture()}}
+{\footnotesize\ttfamily upload\+Profile\+Picture (\begin{DoxyParamCaption}\item[{Request}]{\$request,  }\item[{int}]{\$id\+User,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to upload a profile picture for a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Request & {\em \$request} & \\
+\hline
+integer & {\em \$id\+User} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Profile\+Controller.\+php\end{DoxyCompactItemize}

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% import 'inc/modal.macro.twig' as modal %}
+
+
+{% block title %}Admin
+{% endblock %}
+
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>
+			Admin page
+		</h1>
+
+		<div class="count text-white">
+			Total of users:
+			{{ users.getTotalItemCount }}
+		</div>
+		<div class="text-white my-2">
+			{{modal.createUserModal(createForm)}}
+		</div>
+		<a class="btn my-btn" href="{{ path('app_commentary_flaged') }}">Manage the flaged comments</a>
+		<a class="btn my-btn" href="{{ path('app_build_flaged') }}">Manage the flaged builds</a>
+		<a class="btn my-btn" href="{{ path('app_user_flaged') }}">Manage the flaged User</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">User</th>
+					<th scope="col">Email</th>
+					<th scope="col">Role</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for u in users %}
+					<tr>
+						<td>{{ u.id }}</td>
+						<td>{{ u.username }}</td>
+						<td title="{{ u.email }}">{{ u.email|length > 10 ? u.email|slice(0, 10) ~ '...' : u.email }}</td>
+						<td>
+							{{ modal.editRolesModal(u) }}
+						</td>
+						<td>
+							{% if(app.user != u) %}
+								<a href="{{ path('app_user_edit', { id: u.id }) }}" class="btn btn-warning">Edit</a>
+								{{ modal.deleteUserModal(u) }}
+								<a href="{{ path('app_user_reset_pwd',{id: u.id}) }}" class="btn btn-primary">Reset password</a>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="navigation">
+			{{ knp_pagination_render(users) }}
+		</div>
+	</div>
+{% endblock %}

@@ -25,15 +25,15 @@ class SubClasses
     #[ORM\JoinColumn(nullable: false)]
     private ?Classes $idClass = null;
 
-    #[ORM\OneToMany(targetEntity: Characteres::class, mappedBy: 'idSubClasses')]
-    private Collection $characteres;
+    #[ORM\OneToMany(targetEntity: Characters::class, mappedBy: 'idSubClasses')]
+    private Collection $characters;
 
     #[ORM\OneToOne(mappedBy: 'idSubClasses', cascade: ['persist', 'remove'])]
     private ?ClassesSpells $classesSpells = null;
 
     public function __construct()
     {
-        $this->characteres = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -55,6 +55,7 @@ class SubClasses
 
     public function getIcon(): ?string
     {
+       
         return $this->icon;
     }
 
@@ -78,29 +79,29 @@ class SubClasses
     }
 
     /**
-     * @return Collection<int, Characteres>
+     * @return Collection<int, characters>
      */
-    public function getCharacteres(): Collection
+    public function getcharacters(): Collection
     {
-        return $this->characteres;
+        return $this->characters;
     }
 
-    public function addCharactere(Characteres $charactere): static
+    public function addcharacter(Characters $character): static
     {
-        if (!$this->characteres->contains($charactere)) {
-            $this->characteres->add($charactere);
-            $charactere->setIdSubClasses($this);
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+            $character->setIdSubClasses($this);
         }
 
         return $this;
     }
 
-    public function removeCharactere(Characteres $charactere): static
+    public function removecharacter(Characters $character): static
     {
-        if ($this->characteres->removeElement($charactere)) {
+        if ($this->characters->removeElement($character)) {
             // set the owning side to null (unless already changed)
-            if ($charactere->getIdSubClasses() === $this) {
-                $charactere->setIdSubClasses(null);
+            if ($character->getIdSubClasses() === $this) {
+                $character->setIdSubClasses(null);
             }
         }
 

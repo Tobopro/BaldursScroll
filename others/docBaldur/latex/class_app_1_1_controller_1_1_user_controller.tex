@@ -1,0 +1,238 @@
+\doxysection{User\+Controller Class Reference}
+\hypertarget{class_app_1_1_controller_1_1_user_controller}{}\label{class_app_1_1_controller_1_1_user_controller}\index{UserController@{UserController}}
+
+
+Inherits Abstract\+Controller.
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_aa36604a6cc8896c70c465f8e3a5c8663}{index}} (User\+Repository \$user\+Repository, Paginator\+Interface \$paginator, Request \$request)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_a6a4964eb0b83cafb88c6bd02f9e71020}{show}} (User \$user)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_adc492d148e4c1442f476f3e4dc30ff42}{handle\+Create}} (Entity\+Manager\+Interface \$entity\+Manager, Mailer\+Interface \$mailer, Request \$request, User\+Password\+Hasher\+Interface \$password\+Hasher)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_adc4fb5fb6801f5f89393dd493059b6cd}{edit}} (Entity\+Manager\+Interface \$entity\+Manager, Request \$request, User \$user)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_a833275f79ff4266cf77546ab4db61c08}{delete}} (Entity\+Manager\+Interface \$entity\+Manager, User \$user)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_af9cc5a96b9b23b78fc937d4c910e2944}{reset\+Password}} (User \$user, Mailer\+Interface \$mailer, Translator\+Interface \$translator, Reset\+Password\+Helper\+Interface \$reset\+Password\+Helper)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_a308a002336a82ad84d3de77c3d260e6d}{set\+Role}} (User \$user, Entity\+Manager\+Interface \$entity\+Manager, \$id, Request \$request)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_a21dd9a388819aa56cf54adaf77eedd2a}{report\+User}} (User \$user\+Id, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_ac5f691717775f208aca9e064dbcf9df4}\label{class_app_1_1_controller_1_1_user_controller_ac5f691717775f208aca9e064dbcf9df4} 
+{\bfseries index\+Flaged} (User\+Repository \$user\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_af5642c4b3c9b49735d503b782cbead72}{un\+Flage\+User}} (User \$user\+Id, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_user_controller_ad49b991882bd0f50dcc15575480eb79f}{block\+User}} (User \$user, Entity\+Manager\+Interface \$entity\+Manager, \$id, Request \$request)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_ad49b991882bd0f50dcc15575480eb79f}\label{class_app_1_1_controller_1_1_user_controller_ad49b991882bd0f50dcc15575480eb79f} 
+\index{UserController@{UserController}!blockUser@{blockUser}}
+\index{blockUser@{blockUser}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{blockUser()}{blockUser()}}
+{\footnotesize\ttfamily block\+User (\begin{DoxyParamCaption}\item[{User}]{\$user,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{}]{\$id,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to block a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+ & {\em \mbox{[}type\mbox{]}} & \$id \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_a833275f79ff4266cf77546ab4db61c08}\label{class_app_1_1_controller_1_1_user_controller_a833275f79ff4266cf77546ab4db61c08} 
+\index{UserController@{UserController}!delete@{delete}}
+\index{delete@{delete}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{delete()}{delete()}}
+{\footnotesize\ttfamily delete (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+This function is used to delete a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+User & {\em \$user} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_adc4fb5fb6801f5f89393dd493059b6cd}\label{class_app_1_1_controller_1_1_user_controller_adc4fb5fb6801f5f89393dd493059b6cd} 
+\index{UserController@{UserController}!edit@{edit}}
+\index{edit@{edit}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{edit()}{edit()}}
+{\footnotesize\ttfamily edit (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{Request}]{\$request,  }\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+This function is used to edit the profile of a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+User & {\em \$user} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_adc492d148e4c1442f476f3e4dc30ff42}\label{class_app_1_1_controller_1_1_user_controller_adc492d148e4c1442f476f3e4dc30ff42} 
+\index{UserController@{UserController}!handleCreate@{handleCreate}}
+\index{handleCreate@{handleCreate}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{handleCreate()}{handleCreate()}}
+{\footnotesize\ttfamily handle\+Create (\begin{DoxyParamCaption}\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{Mailer\+Interface}]{\$mailer,  }\item[{Request}]{\$request,  }\item[{User\+Password\+Hasher\+Interface}]{\$password\+Hasher }\end{DoxyParamCaption})}
+
+This function is used to create a new user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+Mailer\+Interface & {\em \$mailer} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+User\+Password\+Hasher\+Interface & {\em \$password\+Hasher} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_aa36604a6cc8896c70c465f8e3a5c8663}\label{class_app_1_1_controller_1_1_user_controller_aa36604a6cc8896c70c465f8e3a5c8663} 
+\index{UserController@{UserController}!index@{index}}
+\index{index@{index}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily index (\begin{DoxyParamCaption}\item[{User\+Repository}]{\$user\+Repository,  }\item[{Paginator\+Interface}]{\$paginator,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to display all the users in a paginated way.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User\+Repository & {\em \$user\+Repository} & \\
+\hline
+Paginator\+Interface & {\em \$paginator} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_a21dd9a388819aa56cf54adaf77eedd2a}\label{class_app_1_1_controller_1_1_user_controller_a21dd9a388819aa56cf54adaf77eedd2a} 
+\index{UserController@{UserController}!reportUser@{reportUser}}
+\index{reportUser@{reportUser}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{reportUser()}{reportUser()}}
+{\footnotesize\ttfamily report\+User (\begin{DoxyParamCaption}\item[{User}]{\$user\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to report a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_af9cc5a96b9b23b78fc937d4c910e2944}\label{class_app_1_1_controller_1_1_user_controller_af9cc5a96b9b23b78fc937d4c910e2944} 
+\index{UserController@{UserController}!resetPassword@{resetPassword}}
+\index{resetPassword@{resetPassword}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{resetPassword()}{resetPassword()}}
+{\footnotesize\ttfamily reset\+Password (\begin{DoxyParamCaption}\item[{User}]{\$user,  }\item[{Mailer\+Interface}]{\$mailer,  }\item[{Translator\+Interface}]{\$translator,  }\item[{Reset\+Password\+Helper\+Interface}]{\$reset\+Password\+Helper }\end{DoxyParamCaption})}
+
+This function is used to reset the password of a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & \\
+\hline
+Mailer\+Interface & {\em \$mailer} & \\
+\hline
+Translator\+Interface & {\em \$translator} & \\
+\hline
+Reset\+Password\+Helper\+Interface & {\em \$reset\+Password\+Helper} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_a308a002336a82ad84d3de77c3d260e6d}\label{class_app_1_1_controller_1_1_user_controller_a308a002336a82ad84d3de77c3d260e6d} 
+\index{UserController@{UserController}!setRole@{setRole}}
+\index{setRole@{setRole}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{setRole()}{setRole()}}
+{\footnotesize\ttfamily set\+Role (\begin{DoxyParamCaption}\item[{User}]{\$user,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{}]{\$id,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to set the roles of a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+ & {\em \mbox{[}type\mbox{]}} & \$id \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_a6a4964eb0b83cafb88c6bd02f9e71020}\label{class_app_1_1_controller_1_1_user_controller_a6a4964eb0b83cafb88c6bd02f9e71020} 
+\index{UserController@{UserController}!show@{show}}
+\index{show@{show}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily show (\begin{DoxyParamCaption}\item[{User}]{\$user }\end{DoxyParamCaption})}
+
+This function is used to display the profile of a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_user_controller_af5642c4b3c9b49735d503b782cbead72}\label{class_app_1_1_controller_1_1_user_controller_af5642c4b3c9b49735d503b782cbead72} 
+\index{UserController@{UserController}!unFlageUser@{unFlageUser}}
+\index{unFlageUser@{unFlageUser}!UserController@{UserController}}
+\doxysubsubsection{\texorpdfstring{unFlageUser()}{unFlageUser()}}
+{\footnotesize\ttfamily un\+Flage\+User (\begin{DoxyParamCaption}\item[{User}]{\$user\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to unreport a user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+User & {\em \$user\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+User\+Controller.\+php\end{DoxyCompactItemize}

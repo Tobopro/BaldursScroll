@@ -17,9 +17,13 @@ class ClassesSpells
     #[ORM\JoinColumn(nullable: false)]
     private ?SubClasses $idSubClasses = null;
 
-    #[ORM\OneToOne(inversedBy: 'classesSpells', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'classesSpells')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Spells $idSpell = null;
+
+    #[ORM\ManyToOne(inversedBy: 'classesSpells')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Levels $idLevel = null;
 
     public function getId(): ?int
     {
@@ -46,6 +50,18 @@ class ClassesSpells
     public function setIdSpell(Spells $idSpell): static
     {
         $this->idSpell = $idSpell;
+
+        return $this;
+    }
+
+    public function getIdLevel(): ?Levels
+    {
+        return $this->idLevel;
+    }
+
+    public function setIdLevel(?Levels $idLevel): static
+    {
+        $this->idLevel = $idLevel;
 
         return $this;
     }

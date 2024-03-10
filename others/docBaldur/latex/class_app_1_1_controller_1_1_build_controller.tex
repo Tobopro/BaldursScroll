@@ -1,0 +1,235 @@
+\doxysection{Build\+Controller Class Reference}
+\hypertarget{class_app_1_1_controller_1_1_build_controller}{}\label{class_app_1_1_controller_1_1_build_controller}\index{BuildController@{BuildController}}
+
+
+Inherits Abstract\+Controller.
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_a3394f0b776739f6d99b0d01fd5f3f280}{index}} (int \$character\+Id, Characters\+Repository \$characters\+Repository, Races\+Spells\+Repository \$races\+Spells\+Repository, Classes\+Spells\+Repository \$classes\+Spells\+Repository, Commentaries\+Repository \$commentaries\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_a63abc419dd13c0fefbd3a3b00bae56d8}{liked}} (int \$character\+Id, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_a3532bc2eb33a88ac99829d271fc9920b}{create\+Commentary}} (int \$character\+Id, Request \$request, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_ab1e932253cb0d05ec7b96fa0a6a0105b}{delete\+Commentary}} (int \$character\+Id, int \$commentary\+Id, Entity\+Manager\+Interface \$entity\+Manager, Request \$request)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_ab3df7755682b7a37adb330e70bd7a264}{report\+Commentary}} (int \$character\+Id, int \$commentary\+Id, Entity\+Manager\+Interface \$entity\+Manager, Request \$request)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_a0a12a289eb0ab4c84715a97a35a882f8}{handle\+Response}} (int \$character\+Id, int \$commentary\+Id, Request \$request, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_aa2841bffc231137a407a0238511e9919}{flag\+Build}} (int \$character\+Id, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_af740ad1e8b581777f87d3d1d6ddd6a1b}{index\+Flaged}} (Characters\+Repository \$char\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_a5f5b9fe245cf0bd013961bb093c9d6b8}{un\+Flag\+Build}} (int \$character\+Id, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_build_controller_aa5d44db55fabe5ab5a0444a4d6b3a82f}{delete\+Build}} (int \$character\+Id, Entity\+Manager\+Interface \$entity\+Manager)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_a3532bc2eb33a88ac99829d271fc9920b}\label{class_app_1_1_controller_1_1_build_controller_a3532bc2eb33a88ac99829d271fc9920b} 
+\index{BuildController@{BuildController}!createCommentary@{createCommentary}}
+\index{createCommentary@{createCommentary}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{createCommentary()}{createCommentary()}}
+{\footnotesize\ttfamily create\+Commentary (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{Request}]{\$request,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to create a commentary
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_aa5d44db55fabe5ab5a0444a4d6b3a82f}\label{class_app_1_1_controller_1_1_build_controller_aa5d44db55fabe5ab5a0444a4d6b3a82f} 
+\index{BuildController@{BuildController}!deleteBuild@{deleteBuild}}
+\index{deleteBuild@{deleteBuild}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{deleteBuild()}{deleteBuild()}}
+{\footnotesize\ttfamily delete\+Build (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to delete a build
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_ab1e932253cb0d05ec7b96fa0a6a0105b}\label{class_app_1_1_controller_1_1_build_controller_ab1e932253cb0d05ec7b96fa0a6a0105b} 
+\index{BuildController@{BuildController}!deleteCommentary@{deleteCommentary}}
+\index{deleteCommentary@{deleteCommentary}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{deleteCommentary()}{deleteCommentary()}}
+{\footnotesize\ttfamily delete\+Commentary (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{int}]{\$commentary\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to delete a commentary
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+integer & {\em \$commentary\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_aa2841bffc231137a407a0238511e9919}\label{class_app_1_1_controller_1_1_build_controller_aa2841bffc231137a407a0238511e9919} 
+\index{BuildController@{BuildController}!flagBuild@{flagBuild}}
+\index{flagBuild@{flagBuild}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{flagBuild()}{flagBuild()}}
+{\footnotesize\ttfamily flag\+Build (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to report a build
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_a0a12a289eb0ab4c84715a97a35a882f8}\label{class_app_1_1_controller_1_1_build_controller_a0a12a289eb0ab4c84715a97a35a882f8} 
+\index{BuildController@{BuildController}!handleResponse@{handleResponse}}
+\index{handleResponse@{handleResponse}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{handleResponse()}{handleResponse()}}
+{\footnotesize\ttfamily handle\+Response (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{int}]{\$commentary\+Id,  }\item[{Request}]{\$request,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to respond to a commentary
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+integer & {\em \$commentary\+Id} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_a3394f0b776739f6d99b0d01fd5f3f280}\label{class_app_1_1_controller_1_1_build_controller_a3394f0b776739f6d99b0d01fd5f3f280} 
+\index{BuildController@{BuildController}!index@{index}}
+\index{index@{index}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily index (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{Characters\+Repository}]{\$characters\+Repository,  }\item[{Races\+Spells\+Repository}]{\$races\+Spells\+Repository,  }\item[{Classes\+Spells\+Repository}]{\$classes\+Spells\+Repository,  }\item[{Commentaries\+Repository}]{\$commentaries\+Repository }\end{DoxyParamCaption})}
+
+This function is used to display a build
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+Characters\+Repository & {\em \$characters\+Repository} & \\
+\hline
+Races\+Spells\+Repository & {\em \$races\+Spells\+Repository} & \\
+\hline
+Classes\+Spells\+Repository & {\em \$classes\+Spells\+Repository} & \\
+\hline
+Commentaries\+Repository & {\em \$commentaries\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_af740ad1e8b581777f87d3d1d6ddd6a1b}\label{class_app_1_1_controller_1_1_build_controller_af740ad1e8b581777f87d3d1d6ddd6a1b} 
+\index{BuildController@{BuildController}!indexFlaged@{indexFlaged}}
+\index{indexFlaged@{indexFlaged}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{indexFlaged()}{indexFlaged()}}
+{\footnotesize\ttfamily index\+Flaged (\begin{DoxyParamCaption}\item[{Characters\+Repository}]{\$char\+Repository }\end{DoxyParamCaption})}
+
+This function is used to display all the builds that are flaged
+
+
+\begin{DoxyParams}[1]{Parameters}
+Characters\+Repository & {\em \$char\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_a63abc419dd13c0fefbd3a3b00bae56d8}\label{class_app_1_1_controller_1_1_build_controller_a63abc419dd13c0fefbd3a3b00bae56d8} 
+\index{BuildController@{BuildController}!liked@{liked}}
+\index{liked@{liked}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{liked()}{liked()}}
+{\footnotesize\ttfamily liked (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to like a build by the user connected.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_ab3df7755682b7a37adb330e70bd7a264}\label{class_app_1_1_controller_1_1_build_controller_ab3df7755682b7a37adb330e70bd7a264} 
+\index{BuildController@{BuildController}!reportCommentary@{reportCommentary}}
+\index{reportCommentary@{reportCommentary}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{reportCommentary()}{reportCommentary()}}
+{\footnotesize\ttfamily report\+Commentary (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{int}]{\$commentary\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager,  }\item[{Request}]{\$request }\end{DoxyParamCaption})}
+
+This function is used to report a commentary
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+integer & {\em \$commentary\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+Request & {\em \$request} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_build_controller_a5f5b9fe245cf0bd013961bb093c9d6b8}\label{class_app_1_1_controller_1_1_build_controller_a5f5b9fe245cf0bd013961bb093c9d6b8} 
+\index{BuildController@{BuildController}!unFlagBuild@{unFlagBuild}}
+\index{unFlagBuild@{unFlagBuild}!BuildController@{BuildController}}
+\doxysubsubsection{\texorpdfstring{unFlagBuild()}{unFlagBuild()}}
+{\footnotesize\ttfamily un\+Flag\+Build (\begin{DoxyParamCaption}\item[{int}]{\$character\+Id,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function is used to unflag a build
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$character\+Id} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Build\+Controller.\+php\end{DoxyCompactItemize}
