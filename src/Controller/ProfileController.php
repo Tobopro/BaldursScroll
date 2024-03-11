@@ -20,7 +20,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProfileController extends AbstractController
 {
     #[Route('/profile/{idUser}', name: 'app_profile')]
-    // #[IsGranted('view_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+    #[IsGranted('view_profile', subject: 'idUser', message: 'You cannot view this profile.')]
     /**
      * This function is used to display the profile of a user.
      *
