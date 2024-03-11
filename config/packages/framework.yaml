@@ -4,7 +4,7 @@ framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: true
     session: true
-    error_controller: 'App\Controller\ExceptionController::showAccessDenied'
+    # error_controller: 'App\Controller\ExceptionController::showAccessDenied'
 
     #esi: true
     #fragments: true
