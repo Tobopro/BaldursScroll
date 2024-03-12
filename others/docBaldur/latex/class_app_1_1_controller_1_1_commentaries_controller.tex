@@ -1,0 +1,95 @@
+\doxysection{Commentaries\+Controller Class Reference}
+\hypertarget{class_app_1_1_controller_1_1_commentaries_controller}{}\label{class_app_1_1_controller_1_1_commentaries_controller}\index{CommentariesController@{CommentariesController}}
+
+
+Inherits Abstract\+Controller.
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_commentaries_controller_a5d02b0abe1c05bdbd996f13402665e8d}{index}} (int \$user\+Id, Commentaries\+Repository \$commentaries\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_commentaries_controller_aed94a479e85c6dbbbe11f93cb6447004}{index\+Flaged}} (Commentaries\+Repository \$commentaries\+Repository)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_commentaries_controller_a753246e06286d21b0084fb611da42fea}{unflag\+Commentary}} (int \$id\+Commentary, Entity\+Manager\+Interface \$entity\+Manager)
+\item 
+\mbox{\hyperlink{class_app_1_1_controller_1_1_commentaries_controller_aca2331b9337f6d97c9f981cb01094158}{delete\+Commentary}} (int \$id\+Commentary, Entity\+Manager\+Interface \$entity\+Manager)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_app_1_1_controller_1_1_commentaries_controller_aca2331b9337f6d97c9f981cb01094158}\label{class_app_1_1_controller_1_1_commentaries_controller_aca2331b9337f6d97c9f981cb01094158} 
+\index{CommentariesController@{CommentariesController}!deleteCommentary@{deleteCommentary}}
+\index{deleteCommentary@{deleteCommentary}!CommentariesController@{CommentariesController}}
+\doxysubsubsection{\texorpdfstring{deleteCommentary()}{deleteCommentary()}}
+{\footnotesize\ttfamily delete\+Commentary (\begin{DoxyParamCaption}\item[{int}]{\$id\+Commentary,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function allows you to delete a commentary
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$id\+Commentary} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_commentaries_controller_a5d02b0abe1c05bdbd996f13402665e8d}\label{class_app_1_1_controller_1_1_commentaries_controller_a5d02b0abe1c05bdbd996f13402665e8d} 
+\index{CommentariesController@{CommentariesController}!index@{index}}
+\index{index@{index}!CommentariesController@{CommentariesController}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily index (\begin{DoxyParamCaption}\item[{int}]{\$user\+Id,  }\item[{Commentaries\+Repository}]{\$commentaries\+Repository }\end{DoxyParamCaption})}
+
+This function is used to display all the commentaries of a user
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$user\+Id} & \\
+\hline
+Commentaries\+Repository & {\em \$commentaries\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_commentaries_controller_aed94a479e85c6dbbbe11f93cb6447004}\label{class_app_1_1_controller_1_1_commentaries_controller_aed94a479e85c6dbbbe11f93cb6447004} 
+\index{CommentariesController@{CommentariesController}!indexFlaged@{indexFlaged}}
+\index{indexFlaged@{indexFlaged}!CommentariesController@{CommentariesController}}
+\doxysubsubsection{\texorpdfstring{indexFlaged()}{indexFlaged()}}
+{\footnotesize\ttfamily index\+Flaged (\begin{DoxyParamCaption}\item[{Commentaries\+Repository}]{\$commentaries\+Repository }\end{DoxyParamCaption})}
+
+This function is used to display all the commentaries that are flaged
+
+
+\begin{DoxyParams}[1]{Parameters}
+Commentaries\+Repository & {\em \$commentaries\+Repository} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+\Hypertarget{class_app_1_1_controller_1_1_commentaries_controller_a753246e06286d21b0084fb611da42fea}\label{class_app_1_1_controller_1_1_commentaries_controller_a753246e06286d21b0084fb611da42fea} 
+\index{CommentariesController@{CommentariesController}!unflagCommentary@{unflagCommentary}}
+\index{unflagCommentary@{unflagCommentary}!CommentariesController@{CommentariesController}}
+\doxysubsubsection{\texorpdfstring{unflagCommentary()}{unflagCommentary()}}
+{\footnotesize\ttfamily unflag\+Commentary (\begin{DoxyParamCaption}\item[{int}]{\$id\+Commentary,  }\item[{Entity\+Manager\+Interface}]{\$entity\+Manager }\end{DoxyParamCaption})}
+
+This function allows you to unflag a commentary
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$id\+Commentary} & \\
+\hline
+Entity\+Manager\+Interface & {\em \$entity\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Response 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Commentaries\+Controller.\+php\end{DoxyCompactItemize}

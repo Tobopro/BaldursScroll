@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+	<h1 class="text-center">Dashboard</h1>
 
 	<div class="container-dashboard">
 		<div class="dashboard-filter">
@@ -49,8 +50,8 @@
 							<input type="checkbox" id="mostLiked" name="mostLiked" value="1">
 							<label for="mostLiked">Trending</label>
 							<button type="submit" class="search-icon">
-									<i class="fa-solid fa-magnifying-glass"></i>
-								</button>
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
 						</form>
 					</div>
 
@@ -80,13 +81,14 @@
 		</div>
 
 
-		<div class="dashboard-cards">
+		{# <div class="dashboard-cards"> #}
+		<div class="container d-flex justify-content-center align-items-center flex-wrap">
 
 			{% if pagination.items != null %}
 				{% for character in pagination.items %}
 
 
-					<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card">
+					<a href="{{ path('app_build', {'characterId': character.id}) }}" class="card col-4">
 						<div class="card">
 
 							<img src="{{ asset('img/' ~ character.idSubClasses.icon) }}" alt="">

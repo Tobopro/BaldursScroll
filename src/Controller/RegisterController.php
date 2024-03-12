@@ -17,15 +17,18 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class RegisterController extends AbstractController
 {
-    // private EmailVerifier $emailVerifier;
-
-    // public function __construct(EmailVerifier $emailVerifier)
-    // {
-    //     $this->emailVerifier = $emailVerifier;
-    // }
-
     #[Route('/register', name: 'app_register')]
-    public function index(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    /**
+     * This function is used to register a new user.
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
+    public function index(Request $request, 
+    EntityManagerInterface $entityManager, 
+    UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $profilePictureRand=rand(1, 1000);
@@ -33,11 +36,20 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+
+            if ($existingUser) {
+                // Add flash message for email already exists
+                $this->addFlash('error', 'This email address is already registered.');
+
+                return $this->redirectToRoute('app_register');
+            }
             $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
             $user->setSignInDate(new \DateTime());
             $user->setRoles(['ROLE_USER']);
             $user->setProfilePicture('https://picsum.photos/seed/'.$profilePictureRand.'/200/300');
+            $user->setIsPublic(true);
             $entityManager->persist($user);
             $entityManager->flush();
 

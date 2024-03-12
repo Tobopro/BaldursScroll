@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,8 +15,19 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class EditProfileType extends AbstractType
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+        $user = $this->security->getUser();
+         
         $builder
             ->add('username', TextType::class, [
                 'label' => "Your username",
@@ -36,6 +48,11 @@ class EditProfileType extends AbstractType
                 'second_options' => ['label' => 'Repeat New Password'],
                 'mapped' => false,
                 'required' => false
+            ])
+            ->add('isPublic', null, [
+                'label' => 'Public profile',
+                'required' => false,
+                'data' => $user->isIsPublic()
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Submit'

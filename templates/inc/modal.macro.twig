@@ -39,19 +39,19 @@
 			<div class="modal-content">
 				{{ form_start(form) }}
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Créer un nouvel utilisateur</h1>
+					<h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Create a new user</h1>
+
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					{{ form_row(form.username) }}
+				<div class="modal-body text-dark">
+
 					{{ form_row(form.username) }}
 					{{ form_row(form.email) }}
 					{{ form_row(form.password) }}
-
 				</div>
 				<div class="modal-footer">
 					{{ form_row(form.save ) }}
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+					{# <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button> #}
 				</div>
 				{{ form_end(form) }}
 			</div>

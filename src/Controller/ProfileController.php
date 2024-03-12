@@ -10,17 +10,30 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class ProfileController extends AbstractController
 {
     #[Route('/profile/{idUser}', name: 'app_profile')]
-    public function show(int $idUser, UserRepository $userRepository, CharactersRepository $charactersRepository): Response
-    {
+    #[IsGranted('view_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+    /**
+     * This function is used to display the profile of a user.
+     *
+     * @param integer $idUser
+     * @param UserRepository $userRepository
+     * @param CharactersRepository $charactersRepository
+     * @return Response
+     */
+    public function show(
+        int $idUser,
+        UserRepository $userRepository,
+        CharactersRepository $charactersRepository
+    ): Response {
 
         $user = $userRepository->find($idUser);
         $user = $userRepository->find($idUser);
@@ -42,14 +55,21 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    // delete profile
     #[Route('profile/{id<\d*>}/delete', name: 'app_profile_delete')]
+    #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete this profile.')]
+    /**
+     * This function is used to delete a user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param User $user
+     * @return Response
+     */
     public function delete(EntityManagerInterface $entityManager, User $user): Response
     {
         $userPublic = $entityManager->getRepository(User::class)->find(1);
 
         if (!$userPublic) {
-            throw $this->createNotFoundException("Utilisateur de remplacement non trouvé avec l\'id 1");
+            throw $this->createNotFoundException("User not found");
         }
 
         $characters = $user->getCharacters();
@@ -71,6 +91,17 @@ class ProfileController extends AbstractController
 
 
     #[Route('/profile/{idUser}/edit', name: 'app_profile_edit')]
+    #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot edit this profile.')]
+    /**
+     * This function is used to edit an user.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @param integer $idUser
+     * @param UserRepository $userRepository
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     public function edit(EntityManagerInterface $entityManager, Request $request, int $idUser, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $userRepository->find($idUser);
@@ -111,6 +142,15 @@ class ProfileController extends AbstractController
 
 
     #[Route('/profile/{idUser}/upload-profile-picture', name: 'upload_profile_picture')]
+    #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot change the picture for this profile.')]
+    /**
+     * This function is used to upload a profile picture for a user.
+     *
+     * @param Request $request
+     * @param integer $idUser
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function uploadProfilePicture(Request $request, int $idUser, EntityManagerInterface $entityManager): Response
     {
         // Find the user by id
@@ -148,6 +188,14 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/{idUser}/delete-profile-picture', name: 'delete_profile_picture')]
+    #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete the profile picture of this profile.')]
+    /**
+     * This function is used to delete the profile picture of a user.
+     *
+     * @param integer $idUser
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function deleteProfilePicture(int $idUser, EntityManagerInterface $entityManager): Response
     {
         // Find the user by id
@@ -170,5 +218,28 @@ class ProfileController extends AbstractController
 
         // Redirect to the profile page
         return $this->redirectToRoute('app_profile', ['idUser' => $idUser]);
+    }
+
+    #[Route('profile/{userId}/report', name: 'app_user_report')]
+    /**
+     * This function is used to report a user.
+     *
+     * @param User $userId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function reportUser(User $userId, EntityManagerInterface $entityManager): Response
+    {
+        $user = $entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('The User is not found');
+        }
+
+        $user->setIsFlaged(true);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
     }
 }

@@ -21,6 +21,16 @@ class BuildController extends AbstractController
 {
     #[Route('/build/{characterId}', name: 'app_build')]
     #[IsGranted('view', subject: 'characterId')]
+    /**
+     * This function is used to display a build
+     *
+     * @param integer $characterId
+     * @param CharactersRepository $charactersRepository
+     * @param RacesSpellsRepository $racesSpellsRepository
+     * @param ClassesSpellsRepository $classesSpellsRepository
+     * @param CommentariesRepository $commentariesRepository
+     * @return Response
+     */
     public function index(
         int $characterId,
         CharactersRepository $charactersRepository,
@@ -56,7 +66,6 @@ class BuildController extends AbstractController
         $raceSpells = $racesSpellsRepository->getAllSpells($character->getIdSubRace()->getId(), $character->getIdLevel()->getLevel());
         $classSpells = $classesSpellsRepository->getAllSpells($character->getIdSubClasses()->getId(), $character->getIdLevel()->getLevel());
 
-        // dd($character);
 
         return $this->render('build/index.html.twig', [
             'character' => $character,
@@ -69,6 +78,13 @@ class BuildController extends AbstractController
     }
 
     #[Route('/build/{characterId}/liked', name: 'app_build_liked')]
+    /**
+     * This function is used to like a build by the user connected.
+     *
+     * @param integer $characterId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function liked(int $characterId, EntityManagerInterface $entityManager): Response
     {
         $character = $entityManager->getRepository(Characters::class)->find($characterId);
@@ -86,6 +102,14 @@ class BuildController extends AbstractController
     }
 
     #[Route('/build/{characterId}/commentary', name: 'app_build_commentary')]
+    /**
+     * This function is used to create a commentary
+     *
+     * @param integer $characterId
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function createCommentary(int $characterId, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -104,28 +128,24 @@ class BuildController extends AbstractController
             return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
         }
 
-        // $response = new Commentaries();
-        // $formResponse= $this->createForm(ResponseType::class, $commentary);
-        // $formResponse->handleRequest($request);
-
-        // if ($formResponse->isSubmitted() && $formResponse->isValid()) {
-        //     $response->setAuthor($this->getUser());
-        //     $response->setCreatedAt(new \DateTimeImmutable());
-        //     $response->setBuild($characters);
-        //     $response->setResponse($commentary);
-        //     $entityManager->persist($response);
-        //     $entityManager->flush();
-
-        //     return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
-        // }
-
-
         $this->addFlash('error', 'There was an error with your form');
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
     #[Route('/build/{characterId}/commentary/{commentaryId}/delete', name: 'app_build_commentary_delete')]
-    public function deleteCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager, Request $request): Response
+    /**
+     * This function is used to delete a commentary
+     *
+     * @param integer $characterId
+     * @param integer $commentaryId
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     */
+    public function deleteCommentary(int $characterId,
+    int $commentaryId,
+    EntityManagerInterface $entityManager,
+    Request $request): Response
     {
 
         $responseId = $request->query->get('responseId');
@@ -148,7 +168,19 @@ class BuildController extends AbstractController
     }
 
     #[Route('/build/{characterId}/commentary/{commentaryId}/report', name: 'app_build_commentary_report')]
-    public function reportCommentary(int $characterId, int $commentaryId, EntityManagerInterface $entityManager, Request $request): Response
+    /**
+     * This function is used to report a commentary
+     *
+     * @param integer $characterId
+     * @param integer $commentaryId
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return Response
+     */
+    public function reportCommentary(int $characterId,
+    int $commentaryId,
+    EntityManagerInterface $entityManager,
+    Request $request): Response
     {
 
         $responseId = $request->query->get('responseId');
@@ -166,7 +198,19 @@ class BuildController extends AbstractController
     }
 
     #[Route('/build/{characterId}/commentary/{commentaryId}/response', name: 'app_build_commentary_response')]
-    public function handleResponse(int $characterId, int $commentaryId, Request $request, EntityManagerInterface $entityManager): Response
+    /**
+     * This function is used to respond to a commentary
+     *
+     * @param integer $characterId
+     * @param integer $commentaryId
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function handleResponse(int $characterId,
+    int $commentaryId,
+    Request $request, 
+    EntityManagerInterface $entityManager): Response
     {
         $characters = $entityManager->getRepository(Characters::class)->find($characterId);
         $commentary = $entityManager->getRepository(Commentaries::class)->find($commentaryId);
@@ -190,9 +234,17 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
-    // Report a build
+
     #[Route('/build/{characterId}/report', name: 'app_build_report')]
-    public function flagBuild(int $characterId, EntityManagerInterface $entityManager): Response
+    /**
+     * This function is used to report a build
+     *
+     * @param integer $characterId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function flagBuild(int $characterId,
+    EntityManagerInterface $entityManager): Response
     {
         $character = $entityManager->getRepository(Characters::class)->find($characterId);
 
@@ -206,8 +258,14 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build', ['characterId' => $characterId]);
     }
 
-    // list of all reported build
+
     #[Route('/reported_builds', name: 'app_build_flaged')]
+    /**
+     * This function is used to display all the builds that are flaged
+     *
+     * @param CharactersRepository $charRepository
+     * @return Response
+     */
     public function indexFlaged(CharactersRepository $charRepository): Response
     {
         $character = $charRepository->findBy(['isFlaged' => true]);
@@ -216,8 +274,15 @@ class BuildController extends AbstractController
         ]);
     }
 
-    // Undo the Report of a build
+
     #[Route('/reported_builds/unflag/{characterId}', name: 'undo_report')]
+    /**
+     * This function is used to unflag a build
+     *
+     * @param integer $characterId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
     public function unFlagBuild(int $characterId, EntityManagerInterface $entityManager): Response
     {
 
@@ -228,8 +293,16 @@ class BuildController extends AbstractController
         return $this->redirectToRoute('app_build_flaged');
     }
 
-    // Delete a build after report
     #[Route('/build/delete/{characterId}', name: 'app_character_delete')]
+    #[IsGranted('edit', subject: 'characterId')]
+    /**
+     * This function is used to delete a build
+     *
+     * @param integer $characterId
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+
     public function deleteBuild(int $characterId, EntityManagerInterface $entityManager): Response
     {
         $character = $entityManager->getRepository(Characters::class)->find($characterId);

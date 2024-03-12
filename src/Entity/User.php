@@ -53,8 +53,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: characters::class, inversedBy: 'liked')]
     private Collection $liked;
 
+
     #[ORM\Column(options: ["default" => 0])]
     private ?bool $isFlaged = false;
+
+    #[ORM\Column]
+    private ?bool $isPublic = null;
+
 
     public function __construct()
     {
@@ -300,14 +305,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     public function isIsFlaged(): ?bool
     {
         return $this->isFlaged;
     }
 
-    public function setIsFlaged(bool $isFlaged): static
+    public function setIsFlaged(bool $isFlaged): void
     {
         $this->isFlaged = $isFlaged;
+    }
+    
+    public function isIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
+
 
         return $this;
     }

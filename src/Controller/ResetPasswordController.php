@@ -25,16 +25,28 @@ class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
 
+    /**
+     * This function is used to reset the password of a user.
+     *
+     * @param ResetPasswordHelperInterface $resetPasswordHelper
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private EntityManagerInterface $entityManager
     ) {
     }
 
-    /**
-     * Display & process form to request a password reset.
-     */
+
     #[Route('', name: 'app_forgot_password_request')]
+    /**
+     * This function is used to request a password reset.
+     *
+     * @param Request $request
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
+     * @return Response
+     */
     public function request(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -53,10 +65,13 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * Confirmation page after a user has requested a password reset.
-     */
+
     #[Route('/check-email', name: 'app_check_email')]
+    /**
+     * This function is used to check the email of a user.
+     *
+     * @return Response
+     */
     public function checkEmail(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -70,10 +85,17 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    /**
-     * Validates and process the reset URL that the user clicked in their email.
-     */
+
     #[Route('/reset/{token}', name: 'app_reset_password')]
+    /**
+     * This function is used to reset the password of a user.
+     *
+     * @param Request $request
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param TranslatorInterface $translator
+     * @param string|null $token
+     * @return Response
+     */
     public function reset(Request $request, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator, string $token = null): Response
     {
         if ($token) {
@@ -129,6 +151,14 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
+    /**
+     * This function is used to process the sending of a password reset email.
+     *
+     * @param string $emailFormData
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse
+     */
     private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
