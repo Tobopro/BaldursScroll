@@ -224,12 +224,13 @@ class UserController extends AbstractController
      */
     public function resetPassword(User $user,  MailerInterface $mailer, TranslatorInterface $translator, ResetPasswordHelperInterface $resetPasswordHelper): Response
     {
+        // dd( $resetPasswordHelper->generateResetToken($user));
         try {
-            $resetToken = $resetPasswordHelper->generateResetToken($user, 60 * 60 * 48);
+            // dd('lulu');
+            $resetToken = $resetPasswordHelper->generateResetToken($user);
+            // dd($resetToken);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('error', $e->getReason());
-
-
             return $this->redirectToRoute('app_user');
         }
 
