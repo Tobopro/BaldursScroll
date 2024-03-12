@@ -25,8 +25,8 @@ class SpellsController extends AbstractController
     public function index(Spells $spell, Request $request): Response
     {
         $transformedName = strtolower(str_replace(" ", "-", $spell->getName()));
-        $path = str_replace("src\Controller", "others\get_spell.py" ,__DIR__);
-        $command = escapeshellcmd("python ".$path." ".$transformedName);
+        $path = str_replace("src/Controller", "others/get_spell.py" ,__DIR__);
+        $command = escapeshellcmd("python3 ".$path." ".$transformedName);
         $output = shell_exec($command);
         $output = json_decode($output);
         $fallback = false;
