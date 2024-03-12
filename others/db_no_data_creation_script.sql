@@ -143,6 +143,11 @@ IDENTIFIED BY "/baldurs.scroll69(pAsSwOrD)/";
 
 GRANT ALL PRIVILEGES ON BaldursScroll.* TO "baldursscroll"@"localhost";
 
+CREATE USER IF NOT EXISTS "baldursscrolldb"
+IDENTIFIED BY "tesT_123_Test";
+
+GRANT ALL PRIVILEGES ON BaldursScroll.* TO "baldursscrolldb";
+
 
 COMMIT;
 SET AUTOCOMMIT = 1;
