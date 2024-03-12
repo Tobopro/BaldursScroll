@@ -142,13 +142,13 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<a href="{{ path('app_profile_delete', { id: app.user.id }) }}" class="btn btn-danger">Delete</a>
+						<a href="{{ path('app_profile_delete', { idUser: app.user.id }) }}" class="btn btn-danger">Delete</a>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	{% endmacro %}
+
 
 	{# Modal for edit the profile #}
 	{% macro editProfileModal(editProfileForm) %}

@@ -15,12 +15,15 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+
 
 
 class ProfileController extends AbstractController
 {
     #[Route('/profile/{idUser}', name: 'app_profile')]
-    // #[IsGranted('view_profile', subject: 'idUser', message: 'You cannot view this profile.')]
+    #[IsGranted('view_profile', subject: 'idUser', message: 'You cannot view this profile.')]
     /**
      * This function is used to display the profile of a user.
      *
@@ -55,26 +58,28 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('profile/{id<\d*>}/delete', name: 'app_profile_delete')]
+    #[Route('/profile/{idUser}/delete', name: 'app_profile_delete')]
     #[IsGranted('edit_profile', subject: 'idUser', message: 'You cannot delete this profile.')]
-    /**
-     * This function is used to delete a user.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param User $user
-     * @return Response
-     */
-    public function delete(EntityManagerInterface $entityManager, User $user): Response
+    public function delete(EntityManagerInterface $entityManager, int $idUser, TokenStorageInterface $tokenStorage): Response
     {
+        // Find the user by ID
+        $user = $entityManager->getRepository(User::class)->find($idUser);
+
+        if (!$user) {
+            throw $this->createNotFoundException("User not found");
+        }
+
+        // Find a public user or create a default one if not found
         $userPublic = $entityManager->getRepository(User::class)->find(1);
 
         if (!$userPublic) {
-            throw $this->createNotFoundException("User not found");
+            throw $this->createNotFoundException("Public user not found");
         }
 
         $characters = $user->getCharacters();
         $commentaries = $user->getCommentaries();
 
+        // Transfer characters and commentaries to the public user
         foreach ($characters as $character) {
             $character->setIdUsers($userPublic);
         }
@@ -83,9 +88,14 @@ class ProfileController extends AbstractController
             $commentary->setAuthor($userPublic);
         }
 
+        // Remove the user
         $entityManager->remove($user);
         $entityManager->flush();
 
+        // Invalidate user's session
+        $tokenStorage->setToken(null);
+
+        // Redirect to the dashboard or any other route
         return $this->redirectToRoute('app_dashboard');
     }
 

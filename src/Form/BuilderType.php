@@ -131,11 +131,11 @@ class BuilderType extends AbstractType
             ])
             ->add('idLevel', EntityType::class, [
                 'class' => Levels::class,
-                'label' => 'Character\'s level',
+                'label' => "Character's level",
                 'choice_label' => 'id',
             ])
             ->add('name', TextType::class, [
-                'label' => 'Character\s name',
+                'label' => "Character's name",
                 "constraints" => new NotBlank(["message" => "Enter the character's name"]),
             ])
             ->add('isPublic', CheckboxType::class, [
